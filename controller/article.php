@@ -1,6 +1,6 @@
 <?php 
 
-	$id = (int)$_GET['page'];	
+	$id = (int)$_GET['id'];	
 
 	$managerArticle = new managerArticle;
 

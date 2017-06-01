@@ -8,7 +8,7 @@
 	<link rel="stylesheet" href="web/css/style.css">
 </head>
 <ul>
-	<li><a href="index.php">Accueil</a></li>
+	<li><a href="index.php?action=index">Accueil</a></li>
 	<?php 
 
 		foreach ($articles as $key => $value) {
@@ -16,7 +16,7 @@
 				'id' => $articles[$key]->getId(),
 				'title' => $articles[$key]->getTitle(),
 			];
-			echo '<li><a href="index.php?page=' . $value['id'] . '">' . $value['title'] . '</a></li>';
+			echo '<li><a href="index.php?action=show&amp;id=' . $value['id'] . '">' . $value['title'] . '</a></li>';
 
 		}
 	?>

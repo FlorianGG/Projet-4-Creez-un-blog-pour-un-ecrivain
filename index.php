@@ -5,12 +5,11 @@
 
 
 
-    if (!empty($_GET['page'])) {
-    	include('controller/article.php');
-    }else{
+    if ($_GET['action'] === 'index' || $_GET['action'] !== 'index' || empty($_GET['action'])) {
     	include('controller/listArticles.php');
+    }elseif ($_GET['action'] === 'show') {
+    	include('controller/article.php');
     }
-
 
 
 
