@@ -1,6 +1,10 @@
 <?php
 
-
+/**
+ * Class ArticleController
+ *
+ * @todo : implement showAction & add delete behavior
+ */
 class ArticleController extends FrontController {
 
     // http://localhost?controller=article&action=index
@@ -21,8 +25,11 @@ class ArticleController extends FrontController {
     }
 
     // http://localhost?controller=article&action=show&id=3
+    /**
+     * @todo : implement this method
+     */
     public function showAction(){
-        // display one article
+        throw new Exception('TODO !');
     }
 
 }
