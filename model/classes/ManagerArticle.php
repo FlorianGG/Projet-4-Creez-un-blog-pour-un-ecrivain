@@ -1,4 +1,5 @@
 <?php 
+
 	class ManagerArticle{
 		private $_bdd;
 		private $_req;

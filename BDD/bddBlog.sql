@@ -24,6 +24,9 @@ CREATE TABLE IF NOT EXISTS admin (
 	pass VARCHAR(255) NOT NULL)
 ENGINE=INNODB;
 
+INSERT INTO admin (name, email, pass) VALUES
+('admin', 'admin@gmail.com', 'admin');
+
 -- -----------------------------------------------------
 -- Table `Blog`.`article`
 -- -----------------------------------------------------
@@ -38,6 +41,29 @@ CREATE TABLE IF NOT EXISTS  article (
 		FOREIGN KEY (adminId)
 		REFERENCES admin(id))
 ENGINE=INNODB;
+
+
+INSERT INTO article (title, content, dateArticle, adminId) VALUES
+('Article 1', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente 
+	inventore! Repellendus neque cum, eius cumque voluptas in dicta libero 
+	quae voluptate.', '2017-06-05 13:50:00', 1),
+('Article 2', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio opti
+	oad, maxime rem animi in impedit consectetur quae omnis illum ea.'
+	 , '2017-06-05 13:51:00', 1),
+('Article 3', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiand
+	ae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neq
+	ue aliquid ratione.', '2017-06-05 13:52:00', 1),
+('Article 4', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias ex
+	cepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas offi
+	cia quod possimus eos?', '2017-06-05 13:53:00', 1),
+('Article 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Eveniet ipsam modi soluta facere consequuntur, sequi eos quasi velit dol
+	orem, minus sunt! Iste ullam rerum vitae repellendus numquam, sed paria
+	tur dignissimos.', '2017-06-05 13:54:00', 1);
 
 -- -----------------------------------------------------
 -- Table `Blog`.`commentaire`

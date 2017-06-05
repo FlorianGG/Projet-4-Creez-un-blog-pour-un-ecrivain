@@ -14,12 +14,14 @@
     		echo $controller->$action();
     		break;  	
     	default:
+    		$controller = new ArticleController();
+    		echo $controller->indexAction();
     		break;
     }
 
 
-    if ($_GET['action'] === 'index' || ($_GET['action'] !== 'index' && $_GET['action'] !== 'show') || empty($_GET['action'])) {
-    	include('controller/indexController.php');
-    }elseif ($_GET['action'] === 'show') {
-    	include('controller/article.php');
-    }
+    // if ($_GET['action'] === 'index' || ($_GET['action'] !== 'index' && $_GET['action'] !== 'show') || empty($_GET['action'])) {
+    // 	include('controller/indexController.php');
+    // }elseif ($_GET['action'] === 'show') {
+    // 	include('controller/article.php');
+    // }

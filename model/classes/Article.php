@@ -1,4 +1,5 @@
 <?php 
+
 	class Article{
 		protected $_id;
 		protected $_title;
