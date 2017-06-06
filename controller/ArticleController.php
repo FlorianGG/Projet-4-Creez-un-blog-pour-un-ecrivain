@@ -25,22 +25,29 @@
 		//display one article 
 
 		public function showAction(){
-			$id =(int) $_GET['id'];
-			$ManagerArticle = new ManagerArticle;
-			$article = $mMnagerArticle->read($id);
+			// on verifie que la variable GET id existe bien et on la convertie en entier 
+			if (isset($_GET['id'])) {
+				$id =(int) $_GET['id'];
+				$ManagerArticle = new ManagerArticle;
+				$article = $ManagerArticle->read($id);
+				//si aucune erreur on affiche l'article selectionné
+				if (!is_null($article)){
+					$html = "";
 
-			if (!is_null($article)){
-				$html = "";
+					$html .= '<h2>' . $article->getTitle() . '</h2>';
+					$html .= '<p>' . $article->getContent() . '</p>';
+					$html .= '<p><em> Crée le : ' . $article->getDateArticle() . '</em></p>';
 
-				$html .= '<h2>' . $article->getTitle() . '</h2>';
-				$html .= '<p>' . $article->getContent() . '</p>';
-				$html .= '<p><em> Crée le : ' . $article->getDateArticle() . '</em></p>';
-
-				return $html;
-
+					return $html;
+				//dans tous les cas d'erreur on affiche que l'article est introuvable
+				}else{
+					return "<h2>Article introuvable</h2>";
+				}
 			}else{
 				return "<h2>Article introuvable</h2>";
 			}
+
+			
 		}
 
 
