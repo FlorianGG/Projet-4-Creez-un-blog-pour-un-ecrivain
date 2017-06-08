@@ -46,16 +46,31 @@
 			}else{
 				return "<h2>Article introuvable</h2>";
 			}
-
-			
 		}
 
+		// http://localhost?controller=article&action=delete&id=3
 
+		//effacer un article
 
+		public function deleteAction(){
+			// on verifie que la variable GET id existe bien et on la convertie en entier 
+			if (isset($_GET['id'])) {
+				$id =(int) $_GET['id'];
+				$ManagerArticle = new ManagerArticle;
+				$article = $ManagerArticle->delete($id);
+				//si aucune erreur on doit recevoir true
+				if ($article) {
+					$html = "<h2>L'article n°" . $id . " a bien été supprimé</h2";
+					return $html;
+				}else{
+					$html = "Il y a eu une erreur d'éxécution, veuillez vérifier vos paramètres.";
+					return $html;
+				}
+			}else{
+				$html = "Il y a eu une erreur d'éxécution, veuillez vérifier vos paramètres.";
+				return $html;
+			}
 
+		}
 	}
-
-
-	
-
 ?>

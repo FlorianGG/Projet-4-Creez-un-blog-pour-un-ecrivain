@@ -100,10 +100,10 @@
 			$id = (int)$id;
 
 			//on prepare la requete qui va supprimer un article en fonction de l'id
-			$this->_req = $this->_bdd->prepare('DELETE * FROM article WHERE id=:id LIMIT 1');
+			$this->_req = $this->_bdd->prepare('DELETE FROM article WHERE id=:id LIMIT 1');
 
 			//on bind la variable avec l'id en paramètre
-			$this->_req->bindValue(':id', $id);
+			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
 
 			//on execute a requête avec un test
 			$executeIsOk = $this->_req->execute();

@@ -61,9 +61,41 @@ INSERT INTO article (title, content, dateArticle, adminId) VALUES
 	cepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas offi
 	cia quod possimus eos?', '2017-06-05 13:53:00', 1),
 ('Article 5', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente 
+	inventore! Repellendus neque cum, eius cumque voluptas in dicta libero 
+	quae voluptate.', '2017-06-05 13:54:00', 1),
+('Article 6', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio opti
+	oad, maxime rem animi in impedit consectetur quae omnis illum ea.'
+	 , '2017-06-05 13:54:30', 1),
+('Article 7', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiand
+	ae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neq
+	ue aliquid ratione.', '2017-06-05 13:55:00', 1),
+('Article 8', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias ex
+	cepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas offi
+	cia quod possimus eos?', '2017-06-05 13:56:00', 1),
+('Article 9', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente 
+	inventore! Repellendus neque cum, eius cumque voluptas in dicta libero 
+	quae voluptate.', '2017-06-05 13:57:00', 1),
+('Article 10', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio opti
+	oad, maxime rem animi in impedit consectetur quae omnis illum ea.'
+	 , '2017-06-05 13:58:00', 1),
+('Article11', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiand
+	ae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neq
+	ue aliquid ratione.', '2017-06-05 14:00:00', 1),
+('Article 12', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+	Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias ex
+	cepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas offi
+	cia quod possimus eos?', '2017-06-05 14:01:00', 1),
+('Article 13', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
 	Eveniet ipsam modi soluta facere consequuntur, sequi eos quasi velit dol
 	orem, minus sunt! Iste ullam rerum vitae repellendus numquam, sed paria
-	tur dignissimos.', '2017-06-05 13:54:00', 1);
+	tur dignissimos.', '2017-06-05 14:02:00', 1);
 
 -- -----------------------------------------------------
 -- Table `Blog`.`commentaire`
