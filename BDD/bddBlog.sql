@@ -7,7 +7,7 @@ USE Blog;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS user (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(70) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	pass VARCHAR(255) NOT NULL)
@@ -18,7 +18,7 @@ ENGINE=INNODB;
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS admin (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	name VARCHAR(70) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	pass VARCHAR(255) NOT NULL)
@@ -32,7 +32,7 @@ INSERT INTO admin (name, email, pass) VALUES
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS  article (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(70) NOT NULL,
 	content LONGTEXT NOT NULL,
 	dateArticle DATETIME NOT NULL,
@@ -101,11 +101,11 @@ INSERT INTO article (title, content, dateArticle, adminId) VALUES
 -- Table `Blog`.`commentaire`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS  commentaire (
-	id INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE IF NOT EXISTS  comment (
+	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(70) NOT NULL,
 	content LONGTEXT NOT NULL,
-	dateArticle DATETIME NOT NULL,
+	dateComment DATETIME NOT NULL,
 	idParent INT NOT NULL DEFAULT 0,
 	userId INT NOT NULL,
 	articleId INT NOT NULL,

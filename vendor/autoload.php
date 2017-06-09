@@ -8,7 +8,9 @@
             //sinon on le recherche dans dans le dossier model/classes
     	}elseif (file_exists(__DIR__ . '/../model/classes/' . $class . '.php')) {
     		require_once(__DIR__ . '/../model/classes/' . $class . '.php');
-    	}
+    	}elseif (file_exists(__DIR__ . '/../model/classes/manager/' . $class . '.php')) {
+            require_once(__DIR__ . '/../model/classes/manager/' . $class . '.php');
+        }
 
     	
     }

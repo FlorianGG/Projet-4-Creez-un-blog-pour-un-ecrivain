@@ -3,14 +3,11 @@
 	class ManagerArticle{
 		private $_bdd;
 		private $_req;
-
 		//function constructeur
 		public function __construct(){
 			$this->_bdd = new PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 		}
-
 		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll
-
 		//fonction read qui permet de lire un article en fonction de son id
 		public function read($id){
 			$id = (int)$id;
@@ -57,7 +54,7 @@
 		//fonction qui compte le nombre d'article dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les articles
-			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberArticle FROM article ORDER BY id');
+			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberArticle FROM article');
 
 			//on affiche la requête
 			
@@ -81,7 +78,6 @@
 
 			if (!$executeIsOk) {
 				return false;
-
 			}else{
 				//on met à jour l'objet passé en paramètre de la fonction create
 				$data->hydrate([
