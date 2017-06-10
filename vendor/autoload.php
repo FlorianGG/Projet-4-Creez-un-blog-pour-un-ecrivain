@@ -10,6 +10,10 @@
     		require_once(__DIR__ . '/../model/classes/' . $class . '.php');
     	}elseif (file_exists(__DIR__ . '/../model/classes/manager/' . $class . '.php')) {
             require_once(__DIR__ . '/../model/classes/manager/' . $class . '.php');
+        }elseif (file_exists(__DIR__ . '/../model/http/' . $class . '.php')) {
+            require_once(__DIR__ . '/../model/http/' . $class . '.php');
+        }elseif (file_exists(__DIR__ . '/../model/' . $class . '.php')) {
+            require_once(__DIR__ . '/../model/' . $class . '.php');
         }
 
     	

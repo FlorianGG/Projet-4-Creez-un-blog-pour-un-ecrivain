@@ -1,8 +1,12 @@
 <?php 
 	
 	class ArticleController extends FrontController{
-
+		protected $request;
 		// http://localhost?controller=article&action=index
+
+		public function __construct(Request $request){
+			$this->request = $request->getParams();
+		}
 
 		//list all articles
 		public function indexAction(){
@@ -16,7 +20,6 @@
 				$html .= '<p><em> Crée le : ' . $value->getDateArticle() . '</em></p>';
 
 			}
-
 			return $html;
 		}
 
@@ -24,10 +27,7 @@
 
 		//display one article 
 
-		public function showAction(){
-			// on verifie que la variable GET id existe bien et on la convertie en entier 
-			if (isset($_GET['id'])) {
-				$id =(int) $_GET['id'];
+		public function showAction($id){
 				$ManagerArticle = new ManagerArticle;
 				$article = $ManagerArticle->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -43,9 +43,6 @@
 				}else{
 					return "<h2>Article introuvable</h2>";
 				}
-			}else{
-				return "<h2>Article introuvable</h2>";
-			}
 		}
 
 		// http://localhost?controller=article&action=delete&id=3
