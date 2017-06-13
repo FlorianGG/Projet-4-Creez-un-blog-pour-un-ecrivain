@@ -22,34 +22,36 @@
 				if ($executeIsOk) {
 					$row = $this->_req->fetch(PDO::FETCH_ASSOC);
 					if (is_array($row)) {
+						//on ferme la requête
+						$this->_req->closeCursor();
 						return $admin = new Admin($row);
 					}
 				}else{
+					//on ferme la requête
+					$this->_req->closeCursor();
 					return null;
 				}
-				
-				//on ferme la requête
-				$this->_req->closeCursor();
-			}
-		}
-		if (is_string($data)) { //data représente le name
-			//on prepare la requete filtré par le name	
-			$this->_req = $this->_bdd->prepare('SELECT * FROM admin WHERE name =:name');
-			//on bind le filtre avec la valeur de $data
-			$this->_req->bindValue(":name", $data, PDO::PARAM_STR);
-			//on execute la requête
-			$executeIsOk = $this->_req->execute();
-			//on retourne un nouvel objet Admin
-			if ($executeIsOk) {
-				$row = $this->_req->fetch(PDO::FETCH_ASSOC);
-				if (is_array($row)) {
-					return $admin = new Admin($row);
+			}elseif (is_string($data)) { //data représente le name
+				//on prepare la requete filtré par le name	
+				$this->_req = $this->_bdd->prepare('SELECT * FROM admin WHERE name =:name');
+				//on bind le filtre avec la valeur de $data
+				$this->_req->bindValue(":name", $data, PDO::PARAM_STR);
+				//on execute la requête
+				$executeIsOk = $this->_req->execute();
+				//on retourne un nouvel objet Admin
+				if ($executeIsOk) {
+					$row = $this->_req->fetch(PDO::FETCH_ASSOC);
+					if (is_array($row)) {
+						//on ferme la requête
+						$this->_req->closeCursor();
+						return $admin = new Admin($row);
+					}
+				}else{
+					//on ferme la requête
+					$this->_req->closeCursor();
+					return null;
 				}
-			}else{
-				return null;
 			}
-			//on ferme la requête
-			$this->_req->closeCursor();
 		}
 		//fonction Real All
 		public function readAll(){
@@ -67,7 +69,7 @@
 		//fonction qui compte le nombre de admins dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les admins
-			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberAdmins FROM admin')
+			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberAdmins FROM admin');
 			// on affiche la requête
 			$data = $this->_req->fetch();
 			//on ferme la requête
@@ -85,33 +87,56 @@
 			//on exectue la requête
 			$executeIsOk = $this->_req->execute();
 			if (!$executeIsOk) {
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return false;
 			}else{
 				//on met à jour l'objet passé en paramètre de la fonction create
 				$data->hydrate([
 					'id' => $this->_bdd->lastInsertId(),
 					]);
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return true;
 			}
-			//on ferme la requête
-			$this->_req->closeCursor();
 		}
 		//fonction delete qui supprimer un admin de la bbd
 		public function delete($id){
-			$id = (int)$id;
-			//on prepare la requete qui va supprimer un admin en fonction de l'id
-			$this->_req = $this->_bdd->prepare('DELETE FROM admin WHERE id=:id LIMIT 1');
-			//on bind la variable avec l'id en paramètre
-			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
-			//on execute a requête avec un test
-			$executeIsOk = $this->_req->execute();
+					$id = (int)$id;
+					//on verifie que l'élément existe dans la bdd
+					$this->_req = $this->_bdd->prepare('SELECT id FROM admin WHERE id=:id LIMIT 1');
 
-			if ($executeIsOk) {
-				return true;
-			}else{
-				return false;
-			}
-		}
+					//on bind la variable avec l'id en paramètre
+					$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+
+					$result = $this->_req->fetch();
+
+					if ($result) {
+						//on ferme la requête précédente
+						$this->_req->closeCursor();
+
+						//on prepare la requete qui va supprimer un admin en fonction de l'id
+						$this->_req = $this->_bdd->prepare('DELETE FROM admin WHERE id=:id LIMIT 1');
+
+						//on bind la variable avec l'id en paramètre
+						$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+
+						//on execute la requête avec un test
+						$executeIsOk = $this->_req->execute();
+
+						//on ferme la requête précédente
+						$this->_req->closeCursor();
+
+						if ($executeIsOk) {
+							return true;
+						}else{
+							return false;
+						}
+					}else{
+						return null;
+					}
+
+				}
 		//fonction update qui modifie les attributs du admin en paramètre
 		private function update(Admin $data){
 			//on prepare la requête qui modififie dans la bdd le admin en paramètre

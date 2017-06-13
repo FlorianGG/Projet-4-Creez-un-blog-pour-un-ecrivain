@@ -4,7 +4,7 @@
 		protected $_id;
 		protected $_title;
 		protected $_content;
-		protected $_userId;
+		protected $_adminId;
 		protected $_dateArticle;
 
 		public function __construct(array $data){
@@ -39,8 +39,8 @@
 			return $this->_content;
 		}
 
-		public function getUserId(){
-			return $this->_userId;
+		public function getAdminId(){
+			return $this->_adminId;
 		}
 
 		public function getDateArticle(){
@@ -70,10 +70,10 @@
 			
 		}
 
-		public function setUserId($userId){
-			$userId = (int)$userId;
-			if ($userId > 0) {
-				$this->_userId = $userId;
+		public function setAdminId($adminId){
+			$adminId = (int)$adminId;
+			if ($adminId > 0) {
+				$this->_adminId = $adminId;
 			}
 		}
 

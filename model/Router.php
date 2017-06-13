@@ -1,9 +1,13 @@
 <?php 
 	class Router{
-		protected $request;
+		protected $requestGet;
+		protected $requestPost;
 
 		public function __construct(Request $request){
-			$this->request = $request->getParams();
+			$this->requestGet = $request->getParams();
+			$this->requestPost = $request->getPost();
+
+
 		}
 
 		//fonction qui renvoie une véritable erreur 404
@@ -14,8 +18,8 @@
 
 
 		public function dispatch(Request $request){
-			if (isset($this->request['controller']) && $this->request['controller'] !== null) {
-				switch ($this->request['controller']) {
+			if (isset($this->requestGet['controller']) && $this->requestGet['controller'] !== null) {
+				switch ($this->requestGet['controller']) {
 					//on ajoute un case article et on lance la fonction dispatch adaptée
 					//on gardera cette logique pour les autres controllers
 					case 'article':
@@ -38,23 +42,32 @@
 		}
 
 		public function dispatchArticle(Request $request){
-			if (isset($this->request['action']) && $this->request['action'] !== null) {
-				switch ($this->request['action']) {
+			if (isset($this->requestGet['action']) && $this->requestGet['action'] !== null) {
+				switch ($this->requestGet['action']) {
 					//affiche tous les articles
 					case 'index':
 						$articleControlleur = new ArticleController($request);
-						$action = $this->request['action'] . 'Action';
+						$action = $this->requestGet['action'] . 'Action';
 						//on verifie que la méthode existe
 						if (method_exists($articleControlleur, $action)) {
 							echo $articleControlleur->$action();
 						}
 						break;
+					//ajouter un article à partir d'un formulaire
+					case 'addArticle':
+						$articleControlleur = new ArticleController($request);
+						$action = $this->requestGet['action'] . 'Action';
+						//on verifie que la méthode existe
+						if (method_exists($articleControlleur, $action)) {
+							echo $articleControlleur->$action($this->requestPost);
+						}
+						break;
 					//on execute une fonction de l'articleCOntroller qui nécessite l'utilisation d'un ID : delete ou show
 					default:
-						if (isset($this->request['id']) && $this->request['id'] !== null){
-							$id = (int)$this->request['id'];
+						if (isset($this->requestGet['id']) && $this->requestGet['id'] !== null){
+							$id = (int)$this->requestGet['id'];
 							$articleControlleur = new ArticleController($request);
-							$action = $this->request['action'] . 'Action';
+							$action = $this->requestGet['action'] . 'Action';
 							//on verifie que la méthode existe
 							if (method_exists($articleControlleur, $action)) {
 								echo $articleControlleur->$action($id);

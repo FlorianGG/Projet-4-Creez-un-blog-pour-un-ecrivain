@@ -20,14 +20,16 @@
 				if ($executeIsOk) {
 					$row = $this->_req->fetch(PDO::FETCH_ASSOC);
 					if (is_array($row)) {
+						//on ferme la requête
+						$this->_req->closeCursor();
 						return $user = new User($row);
 					}
 				}else{
+					//on ferme la requête
+					$this->_req->closeCursor();
 					return null;
 				}
 				
-				//on ferme la requête
-				$this->_req->closeCursor();
 			}
 			if (is_string($data)) { //data représente le name
 				//on prepare la requete filtré par le name	
@@ -40,13 +42,15 @@
 				if ($executeIsOk) {
 					$row = $this->_req->fetch(PDO::FETCH_ASSOC);
 					if (is_array($row)) {
+						//on ferme la requête
+						$this->_req->closeCursor();
 						return $user = new User($row);
 					}
 				}else{
+					//on ferme la requête
+					$this->_req->closeCursor();
 					return null;
 				}
-				//on ferme la requête
-				$this->_req->closeCursor();
 			}
 		}
 		//fonction Real All
@@ -65,7 +69,7 @@
 		//fonction qui compte le nombre de users dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les users
-			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberUsers FROM user')
+			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberUsers FROM user');
 			// on affiche la requête
 			$data = $this->_req->fetch();
 			//on ferme la requête
@@ -83,32 +87,56 @@
 			//on exectue la requête
 			$executeIsOk = $this->_req->execute();
 			if (!$executeIsOk) {
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return false;
 			}else{
 				//on met à jour l'objet passé en paramètre de la fonction create
 				$data->hydrate([
 					'id' => $this->_bdd->lastInsertId(),
 					]);
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return true;
 			}
-			//on ferme la requête
-			$this->_req->closeCursor();
+
 		}
 		//fonction delete qui supprimer un user de la bbd
 		public function delete($id){
 			$id = (int)$id;
-			//on prepare la requete qui va supprimer un user en fonction de l'id
-			$this->_req = $this->_bdd->prepare('DELETE FROM user WHERE id=:id LIMIT 1');
+			//on verifie que l'élément existe dans la bdd
+			$this->_req = $this->_bdd->prepare('SELECT id FROM user WHERE id=:id LIMIT 1');
+
 			//on bind la variable avec l'id en paramètre
 			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
-			//on execute a requête avec un test
-			$executeIsOk = $this->_req->execute();
 
-			if ($executeIsOk) {
-				return true;
+			$result = $this->_req->fetch();
+
+			if ($result) {
+				//on ferme la requête précédente
+				$this->_req->closeCursor();
+
+				//on prepare la requete qui va supprimer un user en fonction de l'id
+				$this->_req = $this->_bdd->prepare('DELETE FROM user WHERE id=:id LIMIT 1');
+
+				//on bind la variable avec l'id en paramètre
+				$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+
+				//on execute la requête avec un test
+				$executeIsOk = $this->_req->execute();
+
+				//on ferme la requête précédente
+				$this->_req->closeCursor();
+
+				if ($executeIsOk) {
+					return true;
+				}else{
+					return false;
+				}
 			}else{
-				return false;
+				return null;
 			}
+
 		}
 		//fonction update qui modifie les attributs du user en paramètre
 		private function update(User $data){

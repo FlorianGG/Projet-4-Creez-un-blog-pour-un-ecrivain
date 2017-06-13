@@ -8,6 +8,7 @@
 			$this->post = $_POST;
 		}
 
+		//fonction qui vérifie si la variable GET existe et la retourne nettoyée
 		public function getParam($param){
 			if (isset($this->get[$param]) && $this->get[$param] != "") {
 				$param = htmlspecialchars($param);
@@ -17,6 +18,7 @@
 			}
 		}
 
+		//fonction qui execute pour chaque variable GET la fonction getParam et push les variables dans un array
 		public function getParams(){
 			$request = [];
 			foreach ($this->get as $key => $value) {
@@ -25,6 +27,21 @@
 			}
 			return $request;
 		}
+
+		//fonction qui récupère les variables POST les nettoie et les push dans un array
+		public function getPost(){
+			$request = [];
+			foreach ($this->post as $key => $value) {
+				if (isset($this->post[$key]) && $this->post[$key] != "") {
+					$value = htmlspecialchars($this->post[$key]);
+					$request[$key] = $value;
+				}else{
+					return null;
+				}
+			}
+			return $request;
+		}
+
 
 
 

@@ -24,14 +24,15 @@
 			if (executeIsOk) {
 				$row = $this->_req->fetch(PDO::FETCH_ASSOC);
 				if (is_array($row)) {
+					//on ferme la requête
+					$this->_req->closeCursor();
 					return $comment = new Comment($row);
 				}
 			}else{
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return null;
 			}
-
-			//on ferme la requête
-			$this->_req->closeCursor();
 		}
 
 		//fonction readAllWithParent qui permet d'avoir la liste de tous les commentaires en fonction de l'id du parent
@@ -93,40 +94,56 @@
 			//on execute la requête avec un test
 			$executeIsOk = $this->_req->execute();
 			if (!executeIsOk) {
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return false;
 			}else{
 				$data->hydrate([
 					//on met à jour l'objet passé en paramètre de la fonction create
 					'id' => $this->_req->lastInsertId(),
 					]);
+				//on ferme la requête
+				$this->_req->closeCursor();
 				return true;
 			}
-
-			//on cloture la requête
-			$this->_req->closeCursor();
 		}
 
-		//fonction qui permet de supprimer un article de la bdd
+		//fonction qui permet de supprimer un comment de la bdd
 		public function delete($id){
 			$id = (int)$id;
+			//on verifie que l'élément existe dans la bdd
+			$this->_req = $this->_bdd->prepare('SELECT id FROM comment WHERE id=:id LIMIT 1');
 
-			//on prepare la requete qui va supprimer un article en fonction de l'id en paramètre
-			$this->_req = $this->_bdd->prepare('DELETE FROM comment WHERE id=:id LIMIT 1');
-
-			//on bind la valeur id
+			//on bind la variable avec l'id en paramètre
 			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
 
-			//on execute a requête avec un test
-			$executeIsOk = $this->_req->execute();
+			$result = $this->_req->fetch();
 
-			if ($executeIsOk) {
-				return true;
+			if ($result) {
+				//on ferme la requête précédente
+				$this->_req->closeCursor();
+
+				//on prepare la requete qui va supprimer un comment en fonction de l'id
+				$this->_req = $this->_bdd->prepare('DELETE FROM comment WHERE id=:id LIMIT 1');
+
+				//on bind la variable avec l'id en paramètre
+				$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+
+				//on execute la requête avec un test
+				$executeIsOk = $this->_req->execute();
+
+				//on ferme la requête précédente
+				$this->_req->closeCursor();
+
+				if ($executeIsOk) {
+					return true;
+				}else{
+					return false;
+				}
 			}else{
-				return false;
+				return null;
 			}
 
-			//on ferme la requête
-			$this->_req->closeCursor();
 		}
 
 		//fonction modify qui permet la modification d'un commentaire en fonction de l'objet en paramètre
@@ -145,14 +162,14 @@
 			//on execute la requête avec un test
 			$executeIsOk = $this->_req->execute();
 
+			//on ferme la requête
+			$this->_req->closeCursor();
+
 			if (executeIsOk) {
 				return true;
 			}else{
 				return false;
 			}
-
-			//on ferme la requête
-			$this->_req->closeCursor();
 		}
 
 		//fonction save qui mix update et create en une seule fonction
