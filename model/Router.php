@@ -16,6 +16,8 @@
 		public function dispatch(Request $request){
 			if (isset($this->request['controller']) && $this->request['controller'] !== null) {
 				switch ($this->request['controller']) {
+					//on ajoute un case article et on lance la fonction dispatch adaptée
+					//on gardera cette logique pour les autres controllers
 					case 'article':
 						$this->dispatchArticle($request);
 						break;
@@ -25,7 +27,13 @@
 						break;
 				}
 			}else{
-				$this->redirectionErreur404();
+				//on affiche la liste des articles sr l'index.php
+				$articleControlleur = new ArticleController($request);
+				$action = 'indexAction';
+				//on verifie que la méthode existe
+				if (method_exists($articleControlleur, $action)) {
+					echo $articleControlleur->$action();
+				}
 			}
 		}
 
@@ -34,7 +42,6 @@
 				switch ($this->request['action']) {
 					//affiche tous les articles
 					case 'index':
-						// $newRequest = new Request;
 						$articleControlleur = new ArticleController($request);
 						$action = $this->request['action'] . 'Action';
 						//on verifie que la méthode existe
@@ -42,8 +49,8 @@
 							echo $articleControlleur->$action();
 						}
 						break;
-					//affiche un article
-					case 'show':
+					//on execute une fonction de l'articleCOntroller qui nécessite l'utilisation d'un ID : delete ou show
+					default:
 						if (isset($this->request['id']) && $this->request['id'] !== null){
 							$id = (int)$this->request['id'];
 							$articleControlleur = new ArticleController($request);
@@ -51,14 +58,12 @@
 							//on verifie que la méthode existe
 							if (method_exists($articleControlleur, $action)) {
 								echo $articleControlleur->$action($id);
+							}else{
+								$this->redirectionErreur404();
 							}
+						}else{
+								$this->redirectionErreur404();
 						}
-						break;
-					case 'delete':
-						//à terminer
-						break;
-					default:
-						$this->redirectionErreur404();
 						break;
 				}
 			}else{
