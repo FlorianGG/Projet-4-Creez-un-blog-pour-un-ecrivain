@@ -102,7 +102,7 @@
 			//on bind la variable avec l'id en paramètre
 			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
 
-			$result = $this->_req->fetch();
+			$result = $this->_req->execute();
 
 			if ($result) {
 				//on ferme la requête précédente

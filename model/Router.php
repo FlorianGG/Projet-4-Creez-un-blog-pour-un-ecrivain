@@ -3,7 +3,7 @@
 		protected $requestGet;
 		protected $requestPost;
 
-		public function __construct(Request $request){
+		public function __construct(Request $request, Response $response){
 			$this->requestGet = $request->getParams();
 			$this->requestPost = $request->getPost();
 
@@ -17,13 +17,13 @@
 		}
 
 
-		public function dispatch(Request $request){
+		public function dispatch(Request $request, Response $response){
 			if (isset($this->requestGet['controller']) && $this->requestGet['controller'] !== null) {
 				switch ($this->requestGet['controller']) {
 					//on ajoute un case article et on lance la fonction dispatch adaptée
 					//on gardera cette logique pour les autres controllers
 					case 'article':
-						$this->dispatchArticle($request);
+						$this->dispatchArticle($request, $response);
 						break;
 					
 					default:
@@ -32,7 +32,7 @@
 				}
 			}else{
 				//on affiche la liste des articles sr l'index.php
-				$articleControlleur = new ArticleController($request);
+				$articleControlleur = new ArticleController($request, $response);
 				$action = 'indexAction';
 				//on verifie que la méthode existe
 				if (method_exists($articleControlleur, $action)) {
@@ -41,12 +41,12 @@
 			}
 		}
 
-		public function dispatchArticle(Request $request){
+		public function dispatchArticle(Request $request, Response $response){
 			if (isset($this->requestGet['action']) && $this->requestGet['action'] !== null) {
 				switch ($this->requestGet['action']) {
 					//affiche tous les articles
 					case 'index':
-						$articleControlleur = new ArticleController($request);
+						$articleControlleur = new ArticleController($request, $response);
 						$action = $this->requestGet['action'] . 'Action';
 						//on verifie que la méthode existe
 						if (method_exists($articleControlleur, $action)) {
@@ -55,7 +55,7 @@
 						break;
 					//ajouter un article à partir d'un formulaire
 					case 'addArticle':
-						$articleControlleur = new ArticleController($request);
+						$articleControlleur = new ArticleController($request, $response);
 						$action = $this->requestGet['action'] . 'Action';
 						//on verifie que la méthode existe
 						if (method_exists($articleControlleur, $action)) {
@@ -66,7 +66,7 @@
 					default:
 						if (isset($this->requestGet['id']) && $this->requestGet['id'] !== null){
 							$id = (int)$this->requestGet['id'];
-							$articleControlleur = new ArticleController($request);
+							$articleControlleur = new ArticleController($request, $response);
 							$action = $this->requestGet['action'] . 'Action';
 							//on verifie que la méthode existe
 							if (method_exists($articleControlleur, $action)) {
