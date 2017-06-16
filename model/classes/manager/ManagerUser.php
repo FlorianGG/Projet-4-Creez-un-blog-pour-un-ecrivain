@@ -1,80 +1,12 @@
 <?php 
-	class ManagerUser{
-		private $_bdd;
+	class ManagerUser extends ManagerAbstract{
 
-		//function constructeur
+		//on execute le constructeur en récupérant celui du parent
 		public function __construct(){
-			$this->_bdd = new PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
-		}
-		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll + functions verification email et pseudo
-		
-		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet User
-		protected function loadByQuery($req){
-			//on execute la requête
-			$executeIsOk = $req->execute();
-			//on retourne un nouvel objet User
-			if ($executeIsOk) {
-				$row = $req->fetch(PDO::FETCH_ASSOC);
-				if (is_array($row)) {
-					//on ferme la requête
-					$req->closeCursor();
-					return $user = new User($row);
-				}
-			}else{
-				//on ferme la requête
-				$req->closeCursor();
-				return null;
-			}
-		}
-		//fonction Read(int $data)
-		public function read(int $id){
-			//on prepare la requete filtré par l'id
-			$req = $this->_bdd->prepare('SELECT * FROM user WHERE id =:id');
-
-			//on bind le filtre avec la valeur de $data
-			$req->bindValue(":id", $id, PDO::PARAM_INT);
-
-			//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
-			$this->loadByQuery($req);
+			parent::__construct();
+			$this->_tableName = 'User';
 		}
 
-		//function ReadByEmail qui récupère un User par son email
-		public function readByEmail(string $email){
-				//on prepare la requete filtré par l'email	
-				$req = $this->_bdd->prepare('SELECT * FROM user WHERE email =:email');
-
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":email", $email, PDO::PARAM_STR);
-
-				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
-				$this->loadByQuery($req);
-		}
-
-		//function ReadByPseudo qui récupère un User par son pseudo
-		public function readByPseudo(string $pseudo){
-				//on prepare la requete filtré par le pseudo	
-				$req = $this->_bdd->prepare('SELECT * FROM user WHERE pseudo =:pseudo');
-
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
-
-				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
-				$this->loadByQuery($req);
-		}
-
-		//fonction Real All
-		public function readAll(){
-			$users = [];
-			//on prepare la requête pour avoir l'ensemble des users
-			$req = $this->_bdd->query('SELECT * FROM user ORDER BY pseudo');
-			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-				$users[] = new User($data);
-			}
-			//on ferme la requête
-			$req->closeCursor();
-
-			return $users;
-		}
 		//fonction qui compte le nombre de users dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les users

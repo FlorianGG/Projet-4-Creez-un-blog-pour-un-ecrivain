@@ -1,80 +1,12 @@
 <?php 
-	class ManagerAdmin{
-		private $_bdd;
-		//function constructeur
+	class ManagerAdmin extends ManagerAbstract{
+
+		//on execute le constructeur en récupérant celui du parent
 		public function __construct(){
-			$this->_bdd = new PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+			parent::__construct();
+			$this->_tableName = 'Admin';
 		}
 
-		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll + functions verification email et pseudo
-
-		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet Admin
-		protected function loadByQuery($req){
-			//on execute la requête
-			$executeIsOk = $req->execute();
-			//on retourne un nouvel objet Admin
-			if ($executeIsOk) {
-				$row = $req->fetch(PDO::FETCH_ASSOC);
-				if (is_array($row)) {
-					//on ferme la requête
-					$req->closeCursor();
-					return $admin = new Admin($row);
-				}
-			}else{
-				//on ferme la requête
-				$req->closeCursor();
-				return null;
-			}
-		}
-		//fonction Read(int $data)
-		public function read(int $id){
-			//on prepare la requete filtré par l'id
-			$req = $this->_bdd->prepare('SELECT * FROM admin WHERE id =:id');
-
-			//on bind le filtre avec la valeur de $data
-			$req->bindValue(":id", $id, PDO::PARAM_INT);
-
-			//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet Admin
-			$this->loadByQuery($req);
-		}
-
-		//function ReadByEmail qui récupère un Admin par son email
-		public function readByEmail(string $email){
-				//on prepare la requete filtré par l'email	
-				$req = $this->_bdd->prepare('SELECT * FROM admin WHERE email =:email');
-
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":email", $email, PDO::PARAM_STR);
-
-				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet Admin
-				$this->loadByQuery($req);
-		}
-
-		//function ReadByPseudo qui récupère un Admin par son pseudo
-		public function readByPseudo(string $pseudo){
-				//on prepare la requete filtré par le pseudo	
-				$req = $this->_bdd->prepare('SELECT * FROM admin WHERE pseudo =:pseudo');
-
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
-
-				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet Admin
-				$this->loadByQuery($req);
-		}
-
-		//fonction Real All
-		public function readAll(){
-			$admins = [];
-			//on prepare la requête pour avoir l'ensemble des admins
-			$req = $this->_bdd->query('SELECT * FROM admin ORDER BY pseudo');
-			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-				$admins[] = new Admin($data);
-			}
-			//on ferme la requête
-			$req->closeCursor();
-
-			return $admins;
-		}
 		//fonction qui compte le nombre de admins dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les admins

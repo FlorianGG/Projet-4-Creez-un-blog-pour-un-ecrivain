@@ -1,39 +1,12 @@
 <?php 
-	class ManagerComment{
-		private $_bdd;
-		private $_req;
-		//function constructeur
+	class ManagerComment extends ManagerAbstract{
+
+		//on execute le constructeur en récupérant celui du parent
 		public function __construct(){
-			$this->_bdd = new PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+			parent::__construct();
+			$this->_tableName = 'Comment';
 		}
-		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll + fonction ReadAllWithParent
 
-		//fonction read qui permet de lire un commentaire en fonction de son id
-		public function read($id){
-			$id = (int)$id;
-
-			//on prepare la requête en fonction l'id
-			$req = $this->_bdd->prepare('SELECT * FROM comment WHERE id=:id');
-
-			//on bind la valeur de l'id
-			$req->bindValue(':id', $id, PDO::PARAM_INT);
-
-			//on execute la requête avec un test
-			$executeIsOk = $req->execute();
-
-			if (executeIsOk) {
-				$row = $req->fetch(PDO::FETCH_ASSOC);
-				if (is_array($row)) {
-					//on ferme la requête
-					$req->closeCursor();
-					return $comment = new Comment($row);
-				}
-			}else{
-				//on ferme la requête
-				$req->closeCursor();
-				return null;
-			}
-		}
 
 		//fonction readAllWithParent qui permet d'avoir la liste de tous les commentaires en fonction de l'id du parent
 		public function readAllWithParent ($idParent){
@@ -61,23 +34,6 @@
 			return $comments;
 		}
 
-		//fonction readAll qui permet d'avoir la liste de tous les commentaires
-		public function readAll(){
-			$comments = [];
-
-			//on execute la requête
-			$req = $this->_bdd->query('SELECT * FROM comment ORDER BY id');
-
-			//pour chaque comment de la BDD on crée un objet comment qu'on ajoute dans le tableau $comments
-			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-				$comments [] = new Comment($data);
-			}
-
-			//on ferme la requête
-			$req->closeCursor();
-
-			return $comments;
-		}
 
 		//fonction qui permet d'enregistrer un article en bdd
 		private function create(Comment $data){
