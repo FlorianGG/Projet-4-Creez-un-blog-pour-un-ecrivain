@@ -8,10 +8,13 @@ USE Blog;
 
 CREATE TABLE IF NOT EXISTS user (
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(70) NOT NULL,
+	pseudo VARCHAR(70) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	pass VARCHAR(255) NOT NULL)
 ENGINE=INNODB;
+
+CREATE INDEX `UX_user_email` ON `user` (`email`);
+
 
 -- -----------------------------------------------------
 -- Table `Blog`.`admin`
@@ -19,28 +22,33 @@ ENGINE=INNODB;
 
 CREATE TABLE IF NOT EXISTS admin (
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	name VARCHAR(70) NOT NULL,
+	pseudo VARCHAR(70) NOT NULL,
 	email VARCHAR(255) NOT NULL,
 	pass VARCHAR(255) NOT NULL)
 ENGINE=INNODB;
 
-INSERT INTO admin (name, email, pass) VALUES
+INSERT INTO admin (pseudo, email, pass) VALUES
 ('admin', 'admin@gmail.com', 'admin');
+
+CREATE INDEX `UX_admin_email` ON `admin` (`email`);
+
 
 -- -----------------------------------------------------
 -- Table `Blog`.`article`
 -- -----------------------------------------------------
 
-CREATE TABLE IF NOT EXISTS  article (
+CREATE TABLE IF NOT EXISTS article (
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
 	title VARCHAR(70) NOT NULL,
 	content LONGTEXT NOT NULL,
 	dateArticle DATETIME NOT NULL,
-	adminId INT NOT NULL,
+	adminId INT UNSIGNED NOT NULL,
 	CONSTRAINT fk_adminId_id
 		FOREIGN KEY (adminId)
 		REFERENCES admin(id))
 ENGINE=INNODB;
+
+CREATE INDEX `UX_article_title` ON `article` (`title`);
 
 
 INSERT INTO article (title, content, dateArticle, adminId) VALUES
@@ -103,15 +111,14 @@ INSERT INTO article (title, content, dateArticle, adminId) VALUES
 
 CREATE TABLE IF NOT EXISTS  comment (
 	id INT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
-	title VARCHAR(70) NOT NULL,
 	content LONGTEXT NOT NULL,
 	dateComment DATETIME NOT NULL,
 	idParent INT NOT NULL DEFAULT 0,
-	userId INT NOT NULL,
-	articleId INT NOT NULL,
+	userId INT UNSIGNED NOT NULL,
+	articleId INT UNSIGNED NOT NULL,
 	CONSTRAINT fk_userId_id
 		FOREIGN KEY (userId)
-		REFERENCES Blog.user (id),
+		REFERENCES user(id),
 	CONSTRAINT fk_articleId_id
 		FOREIGN KEY (articleId)
 		REFERENCES article(id))

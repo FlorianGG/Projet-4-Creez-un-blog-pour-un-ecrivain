@@ -1,7 +1,7 @@
 <?php 
 	class Admin{
 		protected $_id;
-		protected $_name;
+		protected $_pseudo;
 		protected $_email;
 		protected $_pass;
 
@@ -27,8 +27,8 @@
 		public function getId(){
 			return $this->_id;
 		}
-		public function getName(){
-			return $this->_name;
+		public function getPseudo(){
+			return $this->_pseudo;
 		}
 		public function getEmail(){
 			return $this->_email;
@@ -44,9 +44,9 @@
 				$this->_id = $id;
 			}
 		}
-		public function setName($name){
-			if (is_string($name) && (strlen($name) <= 70)) {
-				$this->_name = $name;
+		public function setPseudo($pseudo){
+			if (is_string($pseudo) && (strlen($pseudo) <= 70)) {
+				$this->_pseudo = $pseudo;
 			}
 		}
 

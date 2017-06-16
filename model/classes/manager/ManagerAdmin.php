@@ -7,7 +7,7 @@
 			$this->_bdd = new PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
 		}
 
-		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll + functions verification email et name
+		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll + functions verification email et pseudo
 
 		//fonction Read qui permet de sélectionner un admin
 		public function read($data){
@@ -31,11 +31,11 @@
 					$this->_req->closeCursor();
 					return null;
 				}
-			}elseif (is_string($data)) { //data représente le name
-				//on prepare la requete filtré par le name	
-				$this->_req = $this->_bdd->prepare('SELECT * FROM admin WHERE name =:name');
+			}elseif (is_string($data)) { //data représente le pseudo
+				//on prepare la requete filtré par le pseudo	
+				$this->_req = $this->_bdd->prepare('SELECT * FROM admin WHERE pseudo =:pseudo');
 				//on bind le filtre avec la valeur de $data
-				$this->_req->bindValue(":name", $data, PDO::PARAM_STR);
+				$this->_req->bindValue(":pseudo", $data, PDO::PARAM_STR);
 				//on execute la requête
 				$executeIsOk = $this->_req->execute();
 				//on retourne un nouvel objet Admin
@@ -57,7 +57,7 @@
 		public function readAll(){
 			$admins = [];
 			//on prepare la requête pour avoir l'ensemble des admins
-			$this->_req = $this->_bdd->query('SELECT * FROM admin ORDER BY name');
+			$this->_req = $this->_bdd->query('SELECT * FROM admin ORDER BY pseudo');
 			while ($data = $this->_req->fetch(PDO::FETCH_ASSOC)) {
 				$admins[] = new Admin($data);
 			}
@@ -79,9 +79,9 @@
 		//fonction create qui ajoute un admin à la bdd
 		private function create(Admin $data){
 			//on prepare la requête d'ajout d'un nouveau admin dans la BDD
-			$this->_req = $this->_bdd->prepare('INSERT INTO admin(name, pass, email) VALUES (:name, :pass, :email)');
+			$this->_req = $this->_bdd->prepare('INSERT INTO admin(pseudo, pass, email) VALUES (:pseudo, :pass, :email)');
 			//on bind les variables
-			$this->_req->bindValue(":name", $data->getName());
+			$this->_req->bindValue(":pseudo", $data->getPseudo());
 			$this->_req->bindValue(":pass", $dara->getPass());
 			$this->_req->bindValue(":email", $dara->getEmail());
 			//on exectue la requête
@@ -140,10 +140,10 @@
 		//fonction update qui modifie les attributs du admin en paramètre
 		private function update(Admin $data){
 			//on prepare la requête qui modififie dans la bdd le admin en paramètre
-			$this->_req = $this->_bdd->prepare('UPDATE admin SET name=:name, pass=:pass, email=:email WHERE id=:id LIMIT 1 ');
+			$this->_req = $this->_bdd->prepare('UPDATE admin SET pseudo=:pseudo, pass=:pass, email=:email WHERE id=:id LIMIT 1 ');
 			//on bind les variables
 			$this->_req->bindValue(':id', $data->getId(), PDO::PARAM_INT);
-			$this->_req->bindValue(":name", $data->getName(), PDO::PARAM_STR);
+			$this->_req->bindValue(":pseudo", $data->getPseudo(), PDO::PARAM_STR);
 			$this->_req->bindValue(":pass", $data->getPass(), PDO::PARAM_STR);
 			$this->_req->bindValue(":email", $data->getEmail(), PDO::PARAM_STR);
 			//on exectue la requête
@@ -166,12 +166,12 @@
 				return $this->update($data);
 			}
 		}
-		//fonction check qui vérifie s'il n'y a pas déjà un admin avec le même name ou la même adresse mail
-		public function checkName(Admin $data){
-			//on prepare la requete filtré par le name
-			$this->_req = $this->_bdd->prepare('SELECT * FROM admin WHERE name =:name');
+		//fonction check qui vérifie s'il n'y a pas déjà un admin avec le même pseudo ou la même adresse mail
+		public function checkPseudo(Admin $data){
+			//on prepare la requete filtré par le pseudo
+			$this->_req = $this->_bdd->prepare('SELECT * FROM admin WHERE pseudo =:pseudo');
 			//on bind les filtres
-			$this->_req->bindValue(":name", $data->getName(), PDO::PARAM_STR);
+			$this->_req->bindValue(":pseudo", $data->getPseudo(), PDO::PARAM_STR);
 			//on execute la requête
 			$this->_req->execute();
 			//on retourne un bouléen
