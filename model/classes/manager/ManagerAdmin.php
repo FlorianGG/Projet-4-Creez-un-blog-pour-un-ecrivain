@@ -8,50 +8,60 @@
 
 		//Architecture du manager en CRUD + function SAVE =  mix entre Create et Update + fonction ReadAll + functions verification email et pseudo
 
-		//fonction Read qui permet de sélectionner un admin
-		public function read($data){
-			if (is_int($data)) { //data représente l'ID
-				//on prepare la requete filtré par l'id
-				$req = $this->_bdd->prepare('SELECT * FROM admin WHERE id =:id');
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":id", $data, PDO::PARAM_INT);
-				//on execute la requête
-				$executeIsOk = $req->execute();
-				//on retourne un nouvel objet Admin
-				if ($executeIsOk) {
-					$row = $req->fetch(PDO::FETCH_ASSOC);
-					if (is_array($row)) {
-						//on ferme la requête
-						$req->closeCursor();
-						return $admin = new Admin($row);
-					}
-				}else{
+		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet Admin
+		protected function loadByQuery($req){
+			//on execute la requête
+			$executeIsOk = $req->execute();
+			//on retourne un nouvel objet Admin
+			if ($executeIsOk) {
+				$row = $req->fetch(PDO::FETCH_ASSOC);
+				if (is_array($row)) {
 					//on ferme la requête
 					$req->closeCursor();
-					return null;
+					return $admin = new Admin($row);
 				}
-			}elseif (is_string($data)) { //data représente le pseudo
-				//on prepare la requete filtré par le pseudo	
-				$req = $this->_bdd->prepare('SELECT * FROM admin WHERE pseudo =:pseudo');
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":pseudo", $data, PDO::PARAM_STR);
-				//on execute la requête
-				$executeIsOk = $req->execute();
-				//on retourne un nouvel objet Admin
-				if ($executeIsOk) {
-					$row = $req->fetch(PDO::FETCH_ASSOC);
-					if (is_array($row)) {
-						//on ferme la requête
-						$req->closeCursor();
-						return $admin = new Admin($row);
-					}
-				}else{
-					//on ferme la requête
-					$req->closeCursor();
-					return null;
-				}
+			}else{
+				//on ferme la requête
+				$req->closeCursor();
+				return null;
 			}
 		}
+		//fonction Read(int $data)
+		public function read(int $id){
+			//on prepare la requete filtré par l'id
+			$req = $this->_bdd->prepare('SELECT * FROM admin WHERE id =:id');
+
+			//on bind le filtre avec la valeur de $data
+			$req->bindValue(":id", $id, PDO::PARAM_INT);
+
+			//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet Admin
+			$this->loadByQuery($req);
+		}
+
+		//function ReadByEmail qui récupère un Admin par son email
+		public function readByEmail(string $email){
+				//on prepare la requete filtré par l'email	
+				$req = $this->_bdd->prepare('SELECT * FROM admin WHERE email =:email');
+
+				//on bind le filtre avec la valeur de $data
+				$req->bindValue(":email", $email, PDO::PARAM_STR);
+
+				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet Admin
+				$this->loadByQuery($req);
+		}
+
+		//function ReadByPseudo qui récupère un Admin par son pseudo
+		public function readByPseudo(string $pseudo){
+				//on prepare la requete filtré par le pseudo	
+				$req = $this->_bdd->prepare('SELECT * FROM admin WHERE pseudo =:pseudo');
+
+				//on bind le filtre avec la valeur de $data
+				$req->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
+
+				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet Admin
+				$this->loadByQuery($req);
+		}
+
 		//fonction Real All
 		public function readAll(){
 			$admins = [];
@@ -165,30 +175,5 @@
 				return $this->update($data);
 			}
 		}
-		//fonction check qui vérifie s'il n'y a pas déjà un admin avec le même pseudo ou la même adresse mail
-		public function checkPseudo(Admin $data){
-			//on prepare la requete filtré par le pseudo
-			$req = $this->_bdd->prepare('SELECT * FROM admin WHERE pseudo =:pseudo');
-			//on bind les filtres
-			$req->bindValue(":pseudo", $data->getPseudo(), PDO::PARAM_STR);
-			//on execute la requête
-			$req->execute();
-			//on retourne un bouléen
-			return $req->fetch();
-		}
-		public function checkEmail(Admin $data){
-			//on prepare la requete filtré par l'email
-			$req = $this->_bdd->prepare('SELECT * FROM admin WHERE email =:email');
-			//on bind les filtres
-			$req->bindValue(":email", $data->getEmail(), PDO::PARAM_STR);
-			//on execute la requête
-			$req->execute();
-			//on retourne un bouléen
-			return $req->fetch();
-		}
 	}
-
-
-
-
 ?>
