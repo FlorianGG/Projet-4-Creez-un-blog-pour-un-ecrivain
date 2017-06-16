@@ -13,24 +13,24 @@
 			$id = (int)$id;
 
 			//on prepare la requête en fonction l'id
-			$this->_req = $this->_bdd->prepare('SELECT * FROM comment WHERE id=:id');
+			$req = $this->_bdd->prepare('SELECT * FROM comment WHERE id=:id');
 
 			//on bind la valeur de l'id
-			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+			$req->bindValue(':id', $id, PDO::PARAM_INT);
 
 			//on execute la requête avec un test
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 
 			if (executeIsOk) {
-				$row = $this->_req->fetch(PDO::FETCH_ASSOC);
+				$row = $req->fetch(PDO::FETCH_ASSOC);
 				if (is_array($row)) {
 					//on ferme la requête
-					$this->_req->closeCursor();
+					$req->closeCursor();
 					return $comment = new Comment($row);
 				}
 			}else{
 				//on ferme la requête
-				$this->_req->closeCursor();
+				$req->closeCursor();
 				return null;
 			}
 		}
@@ -41,22 +41,22 @@
 			$comments = [];
 
 			//on prepare la requête en fonction l'idPrent
-			$this->_req = $this->_bdd->prepare('SELECT * FROM comment WHERE idParent=:idParent ORDER BY id');
+			$req = $this->_bdd->prepare('SELECT * FROM comment WHERE idParent=:idParent ORDER BY id');
 
 			//on bind la valeur de l'id
-			$this->_req->bindValue(':idParent', $idParent, PDO::PARAM_INT);
+			$req->bindValue(':idParent', $idParent, PDO::PARAM_INT);
 
 			//on execute la requête avec un test
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 
 			//pour chaque comment de la BDD on crée un objet comment qu'on ajoute dans le tableau $comments
 
-			while ($data = $this->_req->fetch(PDO::FETCH_ASSOC)) {
+			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 				$comments [] = new Comment($data);
 			}
 
 			//on ferme la requête
-			$this->_req->closeCursor();
+			$req->closeCursor();
 
 			return $comments;
 		}
@@ -66,15 +66,15 @@
 			$comments = [];
 
 			//on execute la requête
-			$this->_req = $this->_bdd->query('SELECT * FROM comment ORDER BY id');
+			$req = $this->_bdd->query('SELECT * FROM comment ORDER BY id');
 
 			//pour chaque comment de la BDD on crée un objet comment qu'on ajoute dans le tableau $comments
-			while ($data = $this->_req->fetch(PDO::FETCH_ASSOC)) {
+			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 				$comments [] = new Comment($data);
 			}
 
 			//on ferme la requête
-			$this->_req->closeCursor();
+			$req->closeCursor();
 
 			return $comments;
 		}
@@ -82,28 +82,28 @@
 		//fonction qui permet d'enregistrer un article en bdd
 		private function create(Comment $data){
 			//on prepare la requête d'insertion
-			$this->_req = $this->_bdd->prepare('INSERT INTO comment(title, content, userId, dateComment, articleId, idParent) VALUES(:title, :content, :userId, NOW(), :articleId, :idParent)');
+			$req = $this->_bdd->prepare('INSERT INTO comment(title, content, userId, dateComment, articleId, idParent) VALUES(:title, :content, :userId, NOW(), :articleId, :idParent)');
 
 			//on bind les valeurs avec le contenu de l'objet en paramètre
-			$this->_req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);		
-			$this->_req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
-			$this->_req->bindValue(':userId', $data->getUserId(), PDO::PARAM_INT);
-			$this->_req->bindValue(':articleId', $data->getArticleId(), PDO::PARAM_INT);
-			$this->_req->bindValue(':idParent', $data->getIdParent(), PDO::PARAM_INT);
+			$req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);		
+			$req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
+			$req->bindValue(':userId', $data->getUserId(), PDO::PARAM_INT);
+			$req->bindValue(':articleId', $data->getArticleId(), PDO::PARAM_INT);
+			$req->bindValue(':idParent', $data->getIdParent(), PDO::PARAM_INT);
 
 			//on execute la requête avec un test
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 			if (!executeIsOk) {
 				//on ferme la requête
-				$this->_req->closeCursor();
+				$req->closeCursor();
 				return false;
 			}else{
 				$data->hydrate([
 					//on met à jour l'objet passé en paramètre de la fonction create
-					'id' => $this->_req->lastInsertId(),
+					'id' => $req->lastInsertId(),
 					]);
 				//on ferme la requête
-				$this->_req->closeCursor();
+				$req->closeCursor();
 				return true;
 			}
 		}
@@ -112,28 +112,28 @@
 		public function delete($id){
 			$id = (int)$id;
 			//on verifie que l'élément existe dans la bdd
-			$this->_req = $this->_bdd->prepare('SELECT id FROM comment WHERE id=:id LIMIT 1');
+			$req = $this->_bdd->prepare('SELECT id FROM comment WHERE id=:id LIMIT 1');
 
 			//on bind la variable avec l'id en paramètre
-			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+			$req->bindValue(':id', $id, PDO::PARAM_INT);
 
-			$result = $this->_req->execute();
+			$result = $req->execute();
 
 			if ($result) {
 				//on ferme la requête précédente
-				$this->_req->closeCursor();
+				$req->closeCursor();
 
 				//on prepare la requete qui va supprimer un comment en fonction de l'id
-				$this->_req = $this->_bdd->prepare('DELETE FROM comment WHERE id=:id LIMIT 1');
+				$req = $this->_bdd->prepare('DELETE FROM comment WHERE id=:id LIMIT 1');
 
 				//on bind la variable avec l'id en paramètre
-				$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+				$req->bindValue(':id', $id, PDO::PARAM_INT);
 
 				//on execute la requête avec un test
-				$executeIsOk = $this->_req->execute();
+				$executeIsOk = $req->execute();
 
 				//on ferme la requête précédente
-				$this->_req->closeCursor();
+				$req->closeCursor();
 
 				if ($executeIsOk) {
 					return true;
@@ -150,20 +150,20 @@
 		private function modify(Comment $data){
 
 			//on prepare la requête permettant de modifiant un comment
-			$this->_req = $this->_bdd->prepare('UPDATE comment SET title=:titre, content=:content, userId=:userId, dateComment=NOW(), articleId=:articleId, idParent=:idParent WHERE id=:id LIMIT 1');
+			$req = $this->_bdd->prepare('UPDATE comment SET title=:titre, content=:content, userId=:userId, dateComment=NOW(), articleId=:articleId, idParent=:idParent WHERE id=:id LIMIT 1');
 
 			//on bind les valeurs
-			$this->_req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);		
-			$this->_req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
-			$this->_req->bindValue(':userId', $data->getUserId(), PDO::PARAM_INT);
-			$this->_req->bindValue(':articleId', $data->getArticleId(), PDO::PARAM_INT);
-			$this->_req->bindValue(':idParent', $data->getIdParent(), PDO::PARAM_INT);
+			$req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);		
+			$req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
+			$req->bindValue(':userId', $data->getUserId(), PDO::PARAM_INT);
+			$req->bindValue(':articleId', $data->getArticleId(), PDO::PARAM_INT);
+			$req->bindValue(':idParent', $data->getIdParent(), PDO::PARAM_INT);
 
 			//on execute la requête avec un test
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 
 			//on ferme la requête
-			$this->_req->closeCursor();
+			$req->closeCursor();
 
 			if (executeIsOk) {
 				return true;

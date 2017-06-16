@@ -13,25 +13,25 @@
 			$id = (int)$id;
 
 			//on prepare la requete filtré par l'id
-			$this->_req = $this->_bdd->prepare('SELECT * from article WHERE id=:id');
+			$req = $this->_bdd->prepare('SELECT * from article WHERE id=:id');
 
 			//on bind le filtre avec la valeur de $id
-			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+			$req->bindValue(':id', $id, PDO::PARAM_INT);
 
 			//on execute la requête
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 
 
 			if ($executeIsOk) {
-				$row = $this->_req->fetch(PDO::FETCH_ASSOC);
+				$row = $req->fetch(PDO::FETCH_ASSOC);
 				if (is_array($row)){
 					//on ferme la requête
-					$this->_req->closeCursor();
+					$req->closeCursor();
 					return $article = new Article($row);
 				}
 			}else{
 				//on ferme la requête
-				$this->_req->closeCursor();
+				$req->closeCursor();
 				return null;
 			}
 		}
@@ -40,15 +40,15 @@
 		public function readAll(){
 			$articles = [];
 			//on execute une requête pour afficher tous les articles
-			$this->_req = $this->_bdd->query('SELECT * FROM article ORDER BY id');
+			$req = $this->_bdd->query('SELECT * FROM article ORDER BY id');
 
 			//pour chaque article de la BDD on crée un objet article qu'on ajoute dans le tableau $articles
-			while ($data = $this->_req->fetch(PDO::FETCH_ASSOC)) {
+			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 				$articles [] = new Article($data);
 			}
 
 			//on ferme la requête
-			$this->_req->closeCursor();
+			$req->closeCursor();
 
 			return $articles;
 		}
@@ -56,13 +56,13 @@
 		//fonction qui compte le nombre d'article dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les articles
-			$this->_req = $this->_bdd->query('SELECT COUNT(*) AS numberArticle FROM article');
+			$req = $this->_bdd->query('SELECT COUNT(*) AS numberArticle FROM article');
 
 			//on affiche la requête
 			
-			$data = $this->_req->fetch();
+			$data = $req->fetch();
 			//on ferme la requête
-			$this->_req->closeCursor();
+			$req->closeCursor();
 
 			return $data['numberArticle'];
 		}
@@ -70,17 +70,17 @@
 		//fonction create qui permet d'enregistrer un article dans la bdd
 		private function create(Article $data){
 			//on prépare la requête pour insérer dans la bdd
-			$this->_req = $this->_bdd->prepare('INSERT INTO article(title, content, adminId, dateArticle) VALUES(:title, :content, :adminId, NOW())');
+			$req = $this->_bdd->prepare('INSERT INTO article(title, content, adminId, dateArticle) VALUES(:title, :content, :adminId, NOW())');
 			//on bind les valeurs avec le contenu de l'objet en paramètre
-			$this->_req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);
-			$this->_req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
-			$this->_req->bindValue(':adminId', $data->getAdminId(), PDO::PARAM_INT);
+			$req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);
+			$req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
+			$req->bindValue(':adminId', $data->getAdminId(), PDO::PARAM_INT);
 
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 
 			if (!$executeIsOk) {
 				//on ferme la requête
-				$this->_req->closeCursor();
+				$req->closeCursor();
 				return false;
 			}else{
 				//on met à jour l'objet passé en paramètre de la fonction create
@@ -88,7 +88,7 @@
 					'id' => $this->_bdd->lastInsertId(),
 					]);
 				//on ferme la requête
-				$this->_req->closeCursor();
+				$req->closeCursor();
 				return true;
 			}
 		}
@@ -97,28 +97,28 @@
 		public function delete($id){
 			$id = (int)$id;
 			//on verifie que l'élément existe dans la bdd
-			$this->_req = $this->_bdd->prepare('SELECT id FROM article WHERE id=:id LIMIT 1');
+			$req = $this->_bdd->prepare('SELECT id FROM article WHERE id=:id LIMIT 1');
 
 			//on bind la variable avec l'id en paramètre
-			$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+			$req->bindValue(':id', $id, PDO::PARAM_INT);
 
-			$result = $this->_req->execute();
+			$result = $req->execute();
 
 			if ($result) {
 				//on ferme la requête précédente
-				$this->_req->closeCursor();
+				$req->closeCursor();
 
 				//on prepare la requete qui va supprimer un article en fonction de l'id
-				$this->_req = $this->_bdd->prepare('DELETE FROM article WHERE id=:id LIMIT 1');
+				$req = $this->_bdd->prepare('DELETE FROM article WHERE id=:id LIMIT 1');
 
 				//on bind la variable avec l'id en paramètre
-				$this->_req->bindValue(':id', $id, PDO::PARAM_INT);
+				$req->bindValue(':id', $id, PDO::PARAM_INT);
 
 				//on execute la requête avec un test
-				$executeIsOk = $this->_req->execute();
+				$executeIsOk = $req->execute();
 
 				//on ferme la requête précédente
-				$this->_req->closeCursor();
+				$req->closeCursor();
 
 				if ($executeIsOk) {
 					return true;
@@ -135,15 +135,15 @@
 		private function modify(Article $data){
 
 			//on prepare la requête qui va modifier l'article en fonction de l'id en paramètre
-			$this->_req = $this->_bdd->prepare('UPDATE article SET titre=:title, content=:content, dateArticle=NOW() WHERE id=:id');
+			$req = $this->_bdd->prepare('UPDATE article SET titre=:title, content=:content, dateArticle=NOW() WHERE id=:id');
 
 			//on bind les valeurs avec le contenu de l'objet en paramètre
-			$this->_req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);
-			$this->_req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
-			$this->_req->bindValue(':id', $data->getId(), PDO::PARAM_INT);
+			$req->bindValue(':title', $data->getTitle(), PDO::PARAM_STR);
+			$req->bindValue(':content', $data->getContent(), PDO::PARAM_STR);
+			$req->bindValue(':id', $data->getId(), PDO::PARAM_INT);
 
 			//on execute la requete avec un test
-			$executeIsOk = $this->_req->execute();
+			$executeIsOk = $req->execute();
 
 			if ($executeIsOk) {
 				return true;
