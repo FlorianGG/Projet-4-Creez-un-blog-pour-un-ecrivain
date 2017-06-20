@@ -30,7 +30,11 @@
 
 		//display one article 
 
-		public function showAction($id){
+		public function showAction($id = null){
+			if (is_null($id)) {
+				$html = "<h2>Article introuvalbe </h2>";
+				return $this->response->setBody($html);
+			}else{
 				$ManagerArticle = new ManagerArticle;
 				$article = $ManagerArticle->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -47,25 +51,31 @@
 					$html = "<h2>Article introuvalbe </h2>";
 					return $this->response->setBody($html);
 				}
+			}
 		}
 
 		// http://localhost?controller=article&action=delete&id=3
 
 		//effacer un article
 
-		public function deleteAction($id){
-			$ManagerArticle = new ManagerArticle;
-			$article = $ManagerArticle->delete($id);
-			if ($article) {
-				$html = "<h2>L'article n°" . $id . " a bien été supprimé</h2";
+		public function deleteAction($id = null){
+			if (is_null($id)) {
+				$html = "<h2>Article introuvalbe </h2>";
 				return $this->response->setBody($html);
-			}elseif (is_null($article)) {
-				$html = "<h2>Article introuvable</h2>";
-				return $this->response->setBody($html);
-			}
-			else{
-				$html = "Il y a eu une erreur d'éxécution, veuillez vérifier vos paramètres.";
-				return $this->response->setBody($html);
+			}else{
+				$ManagerArticle = new ManagerArticle;
+				$article = $ManagerArticle->delete($id);
+				if ($article) {
+					$html = "<h2>L'article n°" . $id . " a bien été supprimé</h2";
+					return $this->response->setBody($html);
+				}elseif (is_null($article)) {
+					$html = "<h2>Article introuvable</h2>";
+					return $this->response->setBody($html);
+				}
+				else{
+					$html = "Il y a eu une erreur d'éxécution, veuillez vérifier vos paramètres.";
+					return $this->response->setBody($html);
+				}
 			}
 		}
 

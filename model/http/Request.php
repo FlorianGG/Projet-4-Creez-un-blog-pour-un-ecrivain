@@ -10,7 +10,7 @@
 
 		//fonction qui vérifie si la variable GET existe et la retourne nettoyée
 		public function getParam($param){
-			if (isset($this->get[$param]) && $this->get[$param] != "") {
+			if (isset($this->get[$param]) && !is_null($this->get[$param])) {
 				$param = htmlspecialchars($param);
 				return $this->get[$param];
 			}else{
@@ -32,7 +32,7 @@
 		public function getPost(){
 			$request = [];
 			foreach ($this->post as $key => $value) {
-				if (isset($this->post[$key]) && $this->post[$key] != "") {
+				if (isset($this->post[$key]) && !is_null($this->post[$key])) {
 					$value = htmlspecialchars($this->post[$key]);
 					$request[$key] = $value;
 				}else{

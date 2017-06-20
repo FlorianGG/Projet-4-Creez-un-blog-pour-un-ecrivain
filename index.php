@@ -1,12 +1,3 @@
-<!-- <!DOCTYPE html>
-<html>
-<head>
-	<title>Test</title>
-	<meta charset="utf-8">
-</head>
-<body>
- -->
-
 <?php
     require_once('vendor/autoload.php');
 
@@ -49,7 +40,14 @@
     ?>
 
 <!-- 
-
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <title>Test</title>
+            <meta charset="utf-8">
+        </head>
+        <body>
+        
         <form action="index.php?controller=article&action=addArticle" method="post">
            <fieldset>
              <legend>Nouvel Article:</legend>
