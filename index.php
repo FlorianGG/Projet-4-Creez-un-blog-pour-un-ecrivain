@@ -11,37 +11,52 @@
     require_once('vendor/autoload.php');
 
     //on instance une nouvelle requête
-    // $newRequest = new Request();
+    $newRequest = new Request();
 
-    // //on instance une nouvelle reponse
-    // $response = new Response;
+    //on instance une nouvelle reponse
+    $response = new Response;
 
-    // $newRouter = new Router($newRequest, $response);
+    $newRouter = new Router($newRequest, $response);
 
-    // $newRouter->dispatch($newRequest, $response);
+    $newRouter->dispatch($newRequest, $response);
+    echo $response;
 
-    // echo $response;
+    //TEST ADMIN
+    $testAdmin = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
+    $newAdmin = new Admin($testAdmin);
+    $newAdmin->save($newAdmin);
 
-    // $ManagerAdmin = new ManagerAdmin;
-    // $admin = $ManagerAdmin->readByEmail('admin@gmail.com');
-    // var_dump($admin);
+    //TEST USER
+    $testUser = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
+    $newUser = new User($testUser);
+    $newUser->save($newUser);
+    
+    //TEST COMMENT
+    
+    $testComment = ['content'=>'testComment', 'dateComment'=>date("Y-m-d H:i:s"), 'idParent'=> 0, 'userId'=> 1, 'articleId'=> 1];
+    $newComment = new Comment($testComment);
+    $newComment->save($newComment);
+
+    
+    ?>
+
+<!-- 
+
+        <form action="index.php?controller=article&action=addArticle" method="post">
+           <fieldset>
+             <legend>Nouvel Article:</legend>
+             <p><label for="title">Titre de l'article : <input type="text" name="title"  id="title" placeholder="Titre de l'article"></label></p>
+             <p><label for="content"></label>Contenu de votre article : </p>
+          <p><textarea name="content" id="content" placeholder="Contenu de votre article" rows="15" cols="100"></textarea></p>
+             <input type="hidden" name="adminId" value="1">
+             <input type="hidden" name="dateArticle" value="< echo date("Y-m-d H:i:s");?>">
+             <input type="submit" value="Submit">
+           </fieldset>
+         </form>
+     </body>
+     </html> -->
 
 
-
-// </body>
-// </html> -->
-
-$test = ['title'=>'qsdfnijkslf,vodkl', 'content'=>'qdnfsdopêkfogibnjkl,fr', 'adminId'=>1];
-
-$art = new Article($test);
-
-$newArt = new ManagerArticle;
-
-$newArticle = $newArt->create($art);
-
-
-
-?>
 
 
 

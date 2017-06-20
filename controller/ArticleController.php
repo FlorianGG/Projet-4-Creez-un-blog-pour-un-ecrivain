@@ -75,9 +75,17 @@
 
 		public function addArticleAction(array $requestPost){
 			$article = new Article($requestPost);
-			$ManagerArticle = new ManagerArticle;
 
-			$newArticle = $ManagerArticle->save($article);
+			$newRecord = $article->save($article);
+
+			if ($newRecord) {
+				$html = 'L\'article a bien été ajouté';
+			}else{
+				$html = 'Une erreur est survenue';
+			}
+
+			
+			return $this->response->setBody($html);
 
 		}
 	}

@@ -1,7 +1,6 @@
 <?php 
-	class Comment{
+	class Comment extends ModelAbstract{
 		protected $_id;
-		protected $_title;
 		protected $_content;
 		protected $_userId;
 		protected $_dateComment;
@@ -11,6 +10,7 @@
 		//fonction constructeur avec un tableau en paramètre
 		public function __construct(array $data){
 			$this->hydrate($data);
+			$this->manager = new ManagerComment;
 		}
 		//function hydrate qui hydrate les attributs grâce au tableau en paramètre
 		public function hydrate(array $data){
@@ -23,12 +23,20 @@
 				}
 			}
 		}
+		
+		//fonction chargée de récupérer tous les attributs et de les retourner dans un tableau. Le but étant de ne pas passer les attributs en public
+		public function returnData(){
+			$data = [];
+			foreach ($this as $key => $value) {
+				$data[$key] = $value;
+			}
+			return $data;
+		}
+
+		
 		//fonction getters
 		public function getId(){
 			return $this->_id;
-		}
-		public function getTitle(){
-			return $this->_title;
 		}
 		public function getContent(){
 			return $this->_content;
@@ -53,11 +61,6 @@
 			}
 			
 		}
-		public function setTitle($title){
-			if (is_string($title) && strlen($title) <= 70) {
-				$this->_title = $title;
-			}
-		}
 		public function setContent($content){
 			if (is_string($content)) {
 				$this->_content = $content;
@@ -69,7 +72,7 @@
 				$this->_userId = $userId;
 			}
 		}
-		public function setDateCommentaire($dateComment){
+		public function setDateComment($dateComment){
 			$this->_dateComment = $dateComment;
 		}
 		public function setArticleId($articleId){
@@ -80,7 +83,7 @@
 		}
 		public function setIdParent($idParent){
 			$idParent = (int)$idParent;
-			if ($idParent > 0) {
+			if ($idParent >= 0) {
 				$this->_idParent = $idParent;
 			}
 			

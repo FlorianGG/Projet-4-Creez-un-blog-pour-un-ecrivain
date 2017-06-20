@@ -1,5 +1,5 @@
 <?php 
-	class Admin{
+	class Admin extends ModelAbstract{
 		protected $_id;
 		protected $_pseudo;
 		protected $_email;
@@ -8,6 +8,7 @@
 		//fonction constructeur avec un tableau en paramètre
 		public function __construct(array $data){
 			$this->hydrate($data);
+			$this->manager = new ManagerAdmin;
 		}
 
 		//function hydrate qui hydrate les attributs grâce au tableau en paramètre
@@ -21,6 +22,15 @@
 					$this->$method($value);
 				}
 			}
+		}
+
+		//fonction chargée de récupérer tous les attributs et de les retourner dans un tableau. Le but étant de ne pas passer les attributs en public
+		public function returnData(){
+			$data = [];
+			foreach ($this as $key => $value) {
+				$data[$key] = $value;
+			}
+			return $data;
 		}
 
 		//fonctions getters

@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS user (
 	pass VARCHAR(255) NOT NULL)
 ENGINE=INNODB;
 
-CREATE INDEX `UX_user_email` ON `user` (`email`);
+CREATE UNIQUE INDEX `UX_user_email` ON `user` (`email`);
 
 
 -- -----------------------------------------------------
@@ -30,7 +30,7 @@ ENGINE=INNODB;
 INSERT INTO admin (pseudo, email, pass) VALUES
 ('admin', 'admin@gmail.com', 'admin');
 
-CREATE INDEX `UX_admin_email` ON `admin` (`email`);
+CREATE UNIQUE INDEX `UX_admin_email` ON `admin` (`email`);
 
 
 -- -----------------------------------------------------
@@ -48,7 +48,7 @@ CREATE TABLE IF NOT EXISTS article (
 		REFERENCES admin(id))
 ENGINE=INNODB;
 
-CREATE INDEX `UX_article_title` ON `article` (`title`);
+CREATE UNIQUE INDEX `UX_article_title` ON `article` (`title`);
 
 
 INSERT INTO article (title, content, dateArticle, adminId) VALUES
