@@ -21,21 +21,29 @@
     $newRouter->dispatch($newRequest, $response);
     echo $response;
 
-    //TEST ADMIN
-    $testAdmin = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
-    $newAdmin = new Admin($testAdmin);
-    $newAdmin->save($newAdmin);
+    // //TEST ADMIN
+    // $testAdmin = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
+    // $newAdmin = new Admin($testAdmin);
+    // $newAdmin->save($newAdmin);
 
-    //TEST USER
-    $testUser = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
-    $newUser = new User($testUser);
-    $newUser->save($newUser);
+
+    // var_dump(Admin::loadByEmail('test@gmail.fr'));
+
+    // //TEST USER
+    // $testUser = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
+    // $newUser = new User($testUser);
+    // $newUser->save($newUser);
     
-    //TEST COMMENT
+    // var_dump(User::loadByEmail('test@gmail.fr'));
+
+
+
     
-    $testComment = ['content'=>'testComment', 'dateComment'=>date("Y-m-d H:i:s"), 'idParent'=> 0, 'userId'=> 1, 'articleId'=> 1];
-    $newComment = new Comment($testComment);
-    $newComment->save($newComment);
+    // //TEST COMMENT
+    
+    // $testComment = ['content'=>'testComment', 'dateComment'=>date("Y-m-d H:i:s"), 'idParent'=> 0, 'userId'=> 1, 'articleId'=> 1];
+    // $newComment = new Comment($testComment);
+    // $newComment->save($newComment);
 
     
     ?>

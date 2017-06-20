@@ -33,6 +33,12 @@
 			return $data;
 		}
 
+		//fonction static qui instancie un managerUser et retourn un objet Adminr correspondant à l'email recherché
+		static function loadByEmail($email){
+			$manager = new ManagerAdmin;
+			return $manager->loadByEmail($email);
+		}
+
 		//fonctions getters
 		public function getId(){
 			return $this->_id;
