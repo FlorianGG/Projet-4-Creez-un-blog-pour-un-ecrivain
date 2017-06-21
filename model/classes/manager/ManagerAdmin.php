@@ -1,4 +1,7 @@
-<?php 
+<?php
+	namespace model\classes\manager; 
+	
+
 	class ManagerAdmin extends ManagerAbstract{
 
 		//on execute le constructeur en récupérant celui du parent

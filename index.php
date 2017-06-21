@@ -1,15 +1,22 @@
 <?php
-    require_once('vendor/autoload.php');
+    use vendor\Autoloader;
+    use model\http\Request;
+    use model\http\Response;
+    use model\Router;
+
+    require_once('vendor/Autoloader.php');
+    Autoloader::register();
 
     //on instance une nouvelle requête
-    $newRequest = new Request();
+    $request = new Request();
 
     //on instance une nouvelle reponse
     $response = new Response;
 
-    $newRouter = new Router($newRequest, $response);
 
-    $newRouter->dispatch($newRequest, $response);
+    $router = new Router($request, $response);
+
+    $router->dispatch($request, $response);
     echo $response;
 
     // //TEST ADMIN

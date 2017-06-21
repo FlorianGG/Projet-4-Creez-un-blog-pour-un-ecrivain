@@ -1,4 +1,7 @@
-<?php 
+<?php
+	namespace model\classes;
+
+	
 	abstract class ModelAbstract{
 		protected $manager;
 

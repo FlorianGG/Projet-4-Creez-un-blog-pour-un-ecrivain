@@ -1,4 +1,7 @@
 <?php 
+	namespace model\classes;
+
+	
 	class Comment extends ModelAbstract{
 		protected $_id;
 		protected $_content;

@@ -1,4 +1,11 @@
 <?php 
+	namespace controller;
+
+	use model\http\Request;
+	use model\http\Response;
+	use model\classes\manager\ManagerArticle;
+	use model\classes\Article;
+	
 	
 	class ArticleController extends FrontController{
 		protected $request;

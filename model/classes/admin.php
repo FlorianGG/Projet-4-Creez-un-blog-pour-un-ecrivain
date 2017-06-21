@@ -1,4 +1,7 @@
-<?php 
+<?php
+	namespace model\classes;
+
+	 
 	class Admin extends ModelAbstract{
 		protected $_id;
 		protected $_pseudo;

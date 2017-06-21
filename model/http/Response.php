@@ -1,4 +1,7 @@
 <?php 
+ 	namespace model\http;
+
+	 
 	class Response{
 		protected $_html;
 
@@ -7,11 +10,10 @@
 			$this->_html = $html;
 		}
 
-		//function qui permet de faireu un echo de l'objet
+		//function qui permet de faire un echo de l'objet
 		public function __toString(){
 			return $this->_html;
 		}
 	}
-
 
 ?>

@@ -1,4 +1,7 @@
 <?php 
+	namespace model\http;
+	
+
 	class Request{
 		private $get;
 		private $post;

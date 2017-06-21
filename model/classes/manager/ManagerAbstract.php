@@ -1,11 +1,18 @@
-<?php 
+<?php
+	namespace model\classes\manager; 
+	
+	use model\classes\Article;
+
+	
 	abstract class ManagerAbstract{
 		protected $_bdd;
 		protected $_tableName;
+		protected $_ref;
 
 		//function constructeur
 		protected function __construct(){
-			$this->_bdd = new PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(PDO::ATTR_ERRMODE=>PDO::ERRMODE_EXCEPTION));
+			$this->_bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
+			$this->_ref = 'model\\classes\\' . $this->_tableName;
 		}
 
 		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet User
@@ -14,11 +21,11 @@
 			$executeIsOk = $req->execute();
 
 			if ($executeIsOk) {
-				$row = $req->fetch(PDO::FETCH_ASSOC);
+				$row = $req->fetch(\PDO::FETCH_ASSOC);
 				if (is_array($row)){
 					//on ferme la requête
 					$req->closeCursor();
-					return new $this->_tableName($row);
+					return new $this->_ref($row);
 				}
 			}else{
 				//on ferme la requête
@@ -117,7 +124,7 @@
 			$req = $this->_bdd->prepare('SELECT * from ' . $this->_tableName . ' WHERE id=:id');
 
 			//on bind le filtre avec la valeur de $id
-			$req->bindValue(':id', $id, PDO::PARAM_INT);
+			$req->bindValue(':id', $id, \PDO::PARAM_INT);
 
 			return $this->loadByQuery($req);
 		}
@@ -129,7 +136,7 @@
 				$req = $this->_bdd->prepare('SELECT * FROM ' . $this->_tableName . ' WHERE email =:email');
 
 				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":email", $email, PDO::PARAM_STR);
+				$req->bindValue(":email", $email, \PDO::PARAM_STR);
 
 				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
 				return $this->loadByQuery($req);
@@ -141,7 +148,7 @@
 				$req = $this->_bdd->prepare('SELECT * FROM ' . $this->_tableName . ' WHERE pseudo =:pseudo');
 
 				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":pseudo", $pseudo, PDO::PARAM_STR);
+				$req->bindValue(":pseudo", $pseudo, \PDO::PARAM_STR);
 
 				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
 				return $this->loadByQuery($req);
@@ -152,8 +159,8 @@
 			$array = [];
 			//on prepare la requête pour avoir l'ensemble des users
 			$req = $this->_bdd->query('SELECT * FROM ' . $this->_tableName . ' ORDER BY id');
-			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-				$array[] = new $this->_tableName($data);
+			while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
+				$array[] = new $this->_ref($data);
 			}
 			//on ferme la requête
 			$req->closeCursor();
@@ -216,7 +223,7 @@
 			$req = $this->_bdd->prepare('DELETE FROM ' . $this->_tableName . ' WHERE id=:id LIMIT 1');
 
 			//on bind la variable avec l'id en paramètre
-			$req->bindValue(':id', $id, PDO::PARAM_INT);
+			$req->bindValue(':id', $id, \PDO::PARAM_INT);
 
 			//on execute la requête avec un test
 			$executeIsOk = $req->execute();
@@ -235,8 +242,3 @@
 
 	}
 
-
-
-
-
-?>

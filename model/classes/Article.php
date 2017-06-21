@@ -1,5 +1,10 @@
-<?php 
+<?php
+	namespace model\classes;
 
+
+	use model\classes\manager\ManagerArticle;
+
+	 
 	class Article extends ModelAbstract{
 		protected $_id;
 		protected $_title;
