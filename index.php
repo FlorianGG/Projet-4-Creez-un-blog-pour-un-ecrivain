@@ -1,5 +1,5 @@
 <?php
-    use vendor\Autoloader;
+    use Vendor\Autoloader;
     use Model\Http\Request;
     use Model\Http\Response;
     use Model\Router;
