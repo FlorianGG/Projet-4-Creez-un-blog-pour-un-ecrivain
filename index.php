@@ -1,10 +1,10 @@
 <?php
     use vendor\Autoloader;
-    use model\http\Request;
-    use model\http\Response;
-    use model\Router;
+    use Model\Http\Request;
+    use Model\Http\Response;
+    use Model\Router;
 
-    require_once('vendor/Autoloader.php');
+    require_once('Vendor/Autoloader.php');
     Autoloader::register();
 
     //on instance une nouvelle requête

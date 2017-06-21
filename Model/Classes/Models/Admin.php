@@ -1,24 +1,26 @@
 <?php
-	namespace model\classes;
-	
+	namespace Model\Classes\Models;
 
-	class User extends ModelAbstract{
+	 
+	class Admin extends ModelAbstract{
 		protected $_id;
 		protected $_pseudo;
 		protected $_email;
 		protected $_pass;
 
-		//fonction constructeur
+		//fonction constructeur avec un tableau en paramètre
 		public function __construct(array $data){
 			$this->hydrate($data);
-			$this->manager = new ManagerUser;
+			$this->manager = new AdminManager;
 		}
 
-		//fonction d'hydration
-		
+		//function hydrate qui hydrate les attributs grâce au tableau en paramètre
+
 		public function hydrate(array $data){
+			//on parcourt le tableau pour créer nos fonctions setters
 			foreach ($data as $key => $value) {
 				$method = 'set' . ucfirst($key);
+				//si elles existent on les execute
 				if (method_exists($this, $method)) {
 					$this->$method($value);
 				}
@@ -34,10 +36,9 @@
 			return $data;
 		}
 
-
-		//fonction static qui instancie un managerUser et retourn un objet User correspondant à l'email recherché
+		//fonction static qui instancie un managerUser et retourn un objet Adminr correspondant à l'email recherché
 		static function loadByEmail($email){
-			$manager = new ManagerUser;
+			$manager = new AdminManager;
 			return $manager->loadByEmail($email);
 		}
 
@@ -54,6 +55,7 @@
 		public function getPass(){
 			return $this->_pass;
 		}
+
 		//fonctions setters
 		public function setId($id){
 			$id = (int)$id;
@@ -66,6 +68,7 @@
 				$this->_pseudo = $pseudo;
 			}
 		}
+
 		//ajout d'une regex pour vérifier la conformité de l'adresse mail
 		public function setEmail($email){
 			if (preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {

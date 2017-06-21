@@ -1,9 +1,7 @@
 <?php
-	namespace model\classes;
+	namespace Model\Classes\Models;
 
-
-	use model\classes\manager\ManagerArticle;
-
+	use Model\Classes\Manager\ArticleManager;
 	 
 	class Article extends ModelAbstract{
 		protected $_id;
@@ -15,7 +13,7 @@
 		public function __construct(array $data){
 			//la fonction constructeur lance la fct hydrate qui assigne les valeurs de datas à chaque attribut de l'objet
 			$this->hydrate($data);
-			$this->manager = new ManagerArticle;
+			$this->manager = new ArticleManager;
 		}
 
 		public function hydrate(array $data){

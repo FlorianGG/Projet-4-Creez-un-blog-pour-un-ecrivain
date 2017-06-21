@@ -1,5 +1,5 @@
 <?php 
-	namespace model\classes;
+	namespace Model\Classes\Models;
 
 	
 	class Comment extends ModelAbstract{
@@ -13,7 +13,7 @@
 		//fonction constructeur avec un tableau en paramètre
 		public function __construct(array $data){
 			$this->hydrate($data);
-			$this->manager = new ManagerComment;
+			$this->manager = new CommentManager;
 		}
 		//function hydrate qui hydrate les attributs grâce au tableau en paramètre
 		public function hydrate(array $data){

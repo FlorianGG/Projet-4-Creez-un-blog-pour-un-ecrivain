@@ -1,5 +1,5 @@
 <?php
-    namespace vendor;
+    namespace Vendor;
 
 
     class Autoloader{
@@ -9,13 +9,21 @@
 
         static function autoload($class){
             $class = str_replace('\\', '/', $class);
-
-            //on verifie que le fichier est bien dans le dossier controller
-            if (file_exists(__DIR__ . '/../' . $class . '.php')) {
-                require_once(__DIR__ . '/../' . $class . '.php');
-            }elseif (file_exists(__DIR__ . '/../../' . $class . '.php')) {
-               require_once(__DIR__ . '/../../' . $class . '.php');
+            // echo "<pre>";
+            // echo print_r($class);
+            // echo "</pre>";
+            if (file_exists($class . '.php')) {
+                require_once($class . '.php');
             }
+
+
+
+            // //on verifie que le fichier est bien dans le dossier controller
+            // if (file_exists(__DIR__ . '/../' . $class . '.php')) {
+            //     require_once(__DIR__ . '/../' . $class . '.php');
+            // }elseif (file_exists(__DIR__ . '/../../' . $class . '.php')) {
+            //    require_once(__DIR__ . '/../../' . $class . '.php');
+            // }
 
                 
 

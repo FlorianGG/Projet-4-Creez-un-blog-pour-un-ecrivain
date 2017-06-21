@@ -1,5 +1,5 @@
 <?php 
-	namespace controller;
+	namespace Controller;
 
 	
 	class FrontController extends BaseController{

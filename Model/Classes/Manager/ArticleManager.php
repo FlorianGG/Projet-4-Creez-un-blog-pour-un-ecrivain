@@ -1,9 +1,8 @@
 <?php
-	namespace model\classes\manager;  
+	namespace Model\Classes\Manager; 
 
-	use model\classes\Article;
 
-	class ManagerArticle extends ManagerAbstract{
+	class ArticleManager extends ManagerAbstract{
 
 		//on execute le constructeur en récupérant celui du parent
 		public function __construct(){

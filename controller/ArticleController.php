@@ -1,10 +1,10 @@
 <?php 
-	namespace controller;
+	namespace Controller;
 
-	use model\http\Request;
-	use model\http\Response;
-	use model\classes\manager\ManagerArticle;
-	use model\classes\Article;
+	use Model\Http\Request;
+	use Model\Http\Response;
+	use Model\Classes\Manager\ArticleManager;
+	use Model\Classes\Article;
 	
 	
 	class ArticleController extends FrontController{
@@ -21,8 +21,8 @@
 		//list all articles
 		public function indexAction(){
 			$html = "";
-			$ManagerArticle = new ManagerArticle;
-			$articles = $ManagerArticle->readAll();
+			$ArticleManager = new ArticleManager;
+			$articles = $ArticleManager->readAll();
 
 			foreach ($articles as $key => $value) {
 				$html .= '<h2>' . $value->getTitle() . '</h2>';
@@ -42,8 +42,8 @@
 				$html = "<h2>Article introuvalbe </h2>";
 				return $this->response->setBody($html);
 			}else{
-				$ManagerArticle = new ManagerArticle;
-				$article = $ManagerArticle->read($id);
+				$ArticleManager = new ArticleManager;
+				$article = $ArticleManager->read($id);
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					$html = "";
@@ -70,8 +70,8 @@
 				$html = "<h2>Article introuvalbe </h2>";
 				return $this->response->setBody($html);
 			}else{
-				$ManagerArticle = new ManagerArticle;
-				$article = $ManagerArticle->delete($id);
+				$ArticleManager = new ArticleManager;
+				$article = $ArticleManager->delete($id);
 				if ($article) {
 					$html = "<h2>L'article n°" . $id . " a bien été supprimé</h2";
 					return $this->response->setBody($html);

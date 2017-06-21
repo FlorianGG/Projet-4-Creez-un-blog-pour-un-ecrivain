@@ -1,9 +1,8 @@
 <?php
-	namespace model\classes\manager; 
-	
-	use model\classes\Article;
+	namespace Model\Classes\Manager;
 
-	
+	use Model\Classes\Models\Article;
+
 	abstract class ManagerAbstract{
 		protected $_bdd;
 		protected $_tableName;
@@ -12,7 +11,7 @@
 		//function constructeur
 		protected function __construct(){
 			$this->_bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
-			$this->_ref = 'model\\classes\\' . $this->_tableName;
+			$this->_ref = 'Model\\Classes\\Models\\' . $this->_tableName;
 		}
 
 		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet User
