@@ -43,33 +43,39 @@
 			if ($id > 0) {
 				$this->_id = $id;
 			}
+			return $this;
 			
 		}
 		public function setContent($content){
 			if (is_string($content)) {
 				$this->_content = $content;
 			}
+			return $this;
 		}
 		public function setUserId($userId){
 			$userId = (int)$userId;
 			if ($userId > 0) {
 				$this->_userId = $userId;
 			}
+			return $this;
 		}
 		public function setDateComment($dateComment){
 			$this->_dateComment = $dateComment;
+			return $this;
 		}
 		public function setArticleId($articleId){
 			$articleId=(int)$articleId;
 			if ($articleId > 0) {
 				$this->_articleId=$articleId;
 			}
+			return $this;
 		}
 		public function setIdParent($idParent){
 			$idParent = (int)$idParent;
 			if ($idParent >= 0) {
 				$this->_idParent = $idParent;
 			}
+			return $this;
 			
 		}
 	}

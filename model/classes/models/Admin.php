@@ -41,11 +41,13 @@
 			if ($id > 0) {
 				$this->_id = $id;
 			}
+			return $this;
 		}
 		public function setPseudo($pseudo){
 			if (is_string($pseudo) && (strlen($pseudo) <= 70)) {
 				$this->_pseudo = $pseudo;
 			}
+			return $this;
 		}
 
 		//ajout d'une regex pour vérifier la conformité de l'adresse mail
@@ -53,9 +55,11 @@
 			if (preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {
 				$this->_email = $email;
 			}
+			return $this;
 		}
 		public function setPass($pass){
 			$this->_pass = $pass;
+			return $this;
 		}
 	}
 ?>

@@ -43,6 +43,7 @@
 			if ($id > 0) {
 				$this->_id = $id;
 			}
+			return $this;
 			
 		}
 
@@ -50,6 +51,7 @@
 			if (is_string($title) && strlen($title) <= 70) {
 				$this->_title = $title;
 			}
+			return $this;
 			
 		}
 
@@ -57,6 +59,7 @@
 			if (is_string($content)) {
 				$this->_content = $content;
 			}
+			return $this;
 			
 		}
 
@@ -65,10 +68,12 @@
 			if ($adminId > 0) {
 				$this->_adminId = $adminId;
 			}
+			return $this;
 		}
 
 		public function setDateArticle($dateArticle){
 			$this->_dateArticle = $dateArticle;
+			return $this;
 		}
 
 
