@@ -1,7 +1,7 @@
 <?php
-	namespace Model\Classes\Manager;
+	namespace model\classes\manager;
 
-	use Model\Classes\Models\ModelAbstract;
+	use model\classes\models\ModelAbstract;
 
 	abstract class ManagerAbstract{
 		protected $_bdd;
@@ -22,7 +22,7 @@
 				if (is_array($row)){
 					//on ferme la requête
 					$req->closeCursor();
-					$ref = 'Model\\Classes\\Models\\' . $this->_tableName;
+					$ref = 'model\\classes\\models\\' . $this->_tableName;
 					return new $ref($row);
 				}
 			}else{
@@ -158,7 +158,7 @@
 			//on prepare la requête pour avoir l'ensemble des users
 			$req = $this->_bdd->query('SELECT * FROM ' . $this->_tableName . ' ORDER BY id');
 			while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-				$ref = 'Model\\Classes\\Models\\' . $this->_tableName;
+				$ref = 'model\\classes\\models\\' . $this->_tableName;
 				$array[] = new $ref($data);
 			}
 			//on ferme la requête

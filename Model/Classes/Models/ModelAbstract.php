@@ -1,5 +1,5 @@
 <?php
-	namespace Model\Classes\Models;
+	namespace model\classes\models;
 
 
 	

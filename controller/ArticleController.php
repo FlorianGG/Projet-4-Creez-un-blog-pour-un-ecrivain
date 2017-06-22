@@ -1,10 +1,10 @@
 <?php 
-	namespace Controller;
+	namespace controller;
 
-	use Model\Http\Request;
-	use Model\Http\Response;
-	use Model\Classes\Manager\ArticleManager;
-	use Model\Classes\Article;
+	use model\http\Request;
+	use model\http\Response;
+	use model\classes\manager\ArticleManager;
+	use model\classes\Article;
 	
 	
 	class ArticleController extends FrontController{

@@ -1,18 +1,18 @@
 <?php
-    use Vendor\Autoloader;
-    use Model\Http\Request;
-    use Model\Http\Response;
-    use Model\Router;
+    use vendor\Autoloader;
+    use model\http\Request;
+    use model\http\Response;
+    use model\Router;
 
     // //Test
-    // use Model\Classes\Models\Admin;
-    // use Model\Classes\Manager\AdminManager;
-    // use Model\Classes\Models\User;
-    // use Model\Classes\Manager\UserManager;
-    // use Model\Classes\Models\Comment;
-    // use Model\Classes\Manager\CommentManager;
+    // use model\classes\models\Admin;
+    // use model\classes\manager\AdminManager;
+    // use model\classes\models\User;
+    // use model\classes\manager\UserManager;
+    // use model\classes\models\Comment;
+    // use model\classes\manager\CommentManager;
 
-    require_once('Vendor/Autoloader.php');
+    require_once('vendor/Autoloader.php');
     Autoloader::register();
 
     //on instance une nouvelle requête

@@ -1,7 +1,7 @@
 <?php
-	namespace Model\Classes\Manager; 
+	namespace model\classes\manager; 
 
-	use Model\Classes\Models\Comment;
+	use model\classes\models\Comment;
 
 	 
 	class CommentManager extends ManagerAbstract{

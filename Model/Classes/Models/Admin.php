@@ -1,7 +1,7 @@
 <?php
-	namespace Model\Classes\Models;
+	namespace model\classes\models;
 
-	use Model\Classes\Manager\AdminManager;
+	use model\classes\manager\AdminManager;
 	 
 	class Admin extends ModelAbstract{
 		protected $_id;

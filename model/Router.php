@@ -1,8 +1,8 @@
 <?php
 	namespace Model; 
 
-	use Model\Http\Request;
-	use Model\Http\Response;
+	use model\http\Request;
+	use model\http\Response;
 
 
 	class Router{

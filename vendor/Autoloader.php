@@ -1,5 +1,5 @@
-au<?php
-    namespace Vendor;
+<?php
+    namespace vendor;
 
 
     class Autoloader{

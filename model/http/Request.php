@@ -1,5 +1,5 @@
 <?php 
-	namespace Model\Http;
+	namespace model\http;
 	
 
 	class Request{

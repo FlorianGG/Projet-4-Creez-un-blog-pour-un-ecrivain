@@ -1,7 +1,7 @@
 <?php
-	namespace Model\Classes\Models;
+	namespace model\classes\models;
 
-	use Model\Classes\Manager\UserManager;
+	use model\classes\manager\UserManager;
 	
 
 	class User extends ModelAbstract{
