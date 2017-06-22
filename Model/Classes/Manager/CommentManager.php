@@ -1,6 +1,8 @@
 <?php
 	namespace Model\Classes\Manager; 
 
+	use Model\Classes\Models\Comment;
+
 	 
 	class CommentManager extends ManagerAbstract{
 
@@ -20,14 +22,14 @@
 			$req = $this->_bdd->prepare('SELECT * FROM comment WHERE idParent=:idParent ORDER BY id');
 
 			//on bind la valeur de l'id
-			$req->bindValue(':idParent', $idParent, PDO::PARAM_INT);
+			$req->bindValue(':idParent', $idParent, \PDO::PARAM_INT);
 
 			//on execute la requête avec un test
 			$executeIsOk = $req->execute();
 
 			//pour chaque comment de la BDD on crée un objet comment qu'on ajoute dans le tableau $comments
 
-			while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+			while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
 				$comments [] = new Comment($data);
 			}
 

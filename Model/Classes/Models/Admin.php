@@ -1,6 +1,7 @@
 <?php
 	namespace Model\Classes\Models;
 
+	use Model\Classes\Manager\AdminManager;
 	 
 	class Admin extends ModelAbstract{
 		protected $_id;
@@ -36,7 +37,7 @@
 			return $data;
 		}
 
-		//fonction static qui instancie un managerUser et retourn un objet Adminr correspondant à l'email recherché
+		//fonction static qui instancie un managerUser et retourn un objet Admin correspondant à l'email recherché
 		static function loadByEmail($email){
 			$manager = new AdminManager;
 			return $manager->loadByEmail($email);

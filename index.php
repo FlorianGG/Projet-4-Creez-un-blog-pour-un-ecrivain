@@ -4,6 +4,14 @@
     use Model\Http\Response;
     use Model\Router;
 
+    // //Test
+    // use Model\Classes\Models\Admin;
+    // use Model\Classes\Manager\AdminManager;
+    // use Model\Classes\Models\User;
+    // use Model\Classes\Manager\UserManager;
+    // use Model\Classes\Models\Comment;
+    // use Model\Classes\Manager\CommentManager;
+
     require_once('Vendor/Autoloader.php');
     Autoloader::register();
 
@@ -20,28 +28,36 @@
     echo $response;
 
     // //TEST ADMIN
-    // $testAdmin = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
+    // $testAdmin = ['pseudo'=>'test1', 'email'=>'test2@gmail.fr', 'pass'=>'test'];
     // $newAdmin = new Admin($testAdmin);
     // $newAdmin->save($newAdmin);
 
 
-    // var_dump(Admin::loadByEmail('test@gmail.fr'));
+    // var_dump(Admin::loadByEmail('test2@gmail.fr'));
+    // $deleteAdmin = new AdminManager;
+    // $deleteAdmin->delete(14);
+
+
 
     // //TEST USER
-    // $testUser = ['pseudo'=>'test1', 'email'=>'test1@gmail.fr', 'pass'=>'test'];
+    // $testUser = ['pseudo'=>'test1', 'email'=>'test4@gmail.fr', 'pass'=>'test'];
     // $newUser = new User($testUser);
     // $newUser->save($newUser);
     
-    // var_dump(User::loadByEmail('test@gmail.fr'));
-
+    // var_dump(User::loadByEmail('test1@gmail.fr'));
+    // $deleteUser = new UserManager;
+    // $deleteUser->delete(3);
 
 
     
-    // //TEST COMMENT
+    //TEST COMMENT
     
-    // $testComment = ['content'=>'testComment', 'dateComment'=>date("Y-m-d H:i:s"), 'idParent'=> 0, 'userId'=> 1, 'articleId'=> 1];
+    // $testComment = ['content'=>'testComment', 'dateComment'=>date("Y-m-d H:i:s"), 'idParent'=> 0, 'userId'=> 1, 'articleId'=> 2];
     // $newComment = new Comment($testComment);
     // $newComment->save($newComment);
+    
+    // $deleteComment = new CommentManager;
+    // $deleteComment->delete(2);
 
     
     ?>

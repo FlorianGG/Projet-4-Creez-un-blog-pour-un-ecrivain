@@ -9,9 +9,6 @@
 
         static function autoload($class){
             $class = str_replace('\\', '/', $class);
-            // echo "<pre>";
-            // echo print_r($class);
-            // echo "</pre>";
             if (file_exists($class . '.php')) {
                 require_once($class . '.php');
             }

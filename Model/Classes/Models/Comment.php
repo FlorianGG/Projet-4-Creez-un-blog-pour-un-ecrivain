@@ -1,6 +1,8 @@
 <?php 
 	namespace Model\Classes\Models;
 
+	use Model\Classes\Manager\CommentManager;
+
 	
 	class Comment extends ModelAbstract{
 		protected $_id;

@@ -17,8 +17,8 @@
 
 		//fonction qui renvoie une véritable erreur 404
 		public function redirectionErreur404(){
-		  header('HTTP/1.0 404 Not Found');
-		  exit;		 
+					  header('HTTP/1.0 404 Not Found');
+					  exit;		 
 		}
 
 		public function dispatch(Request $request, Response $response){

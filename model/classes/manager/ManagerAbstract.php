@@ -1,17 +1,15 @@
 <?php
 	namespace Model\Classes\Manager;
 
-	use Model\Classes\Models\Article;
+	use Model\Classes\Models\ModelAbstract;
 
 	abstract class ManagerAbstract{
 		protected $_bdd;
 		protected $_tableName;
-		protected $_ref;
 
 		//function constructeur
 		protected function __construct(){
 			$this->_bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
-			$this->_ref = 'Model\\Classes\\Models\\' . $this->_tableName;
 		}
 
 		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet User
@@ -24,7 +22,8 @@
 				if (is_array($row)){
 					//on ferme la requête
 					$req->closeCursor();
-					return new $this->_ref($row);
+					$ref = 'Model\\Classes\\Models\\' . $this->_tableName;
+					return new $ref($row);
 				}
 			}else{
 				//on ferme la requête
@@ -159,7 +158,8 @@
 			//on prepare la requête pour avoir l'ensemble des users
 			$req = $this->_bdd->query('SELECT * FROM ' . $this->_tableName . ' ORDER BY id');
 			while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-				$array[] = new $this->_ref($data);
+				$ref = 'Model\\Classes\\Models\\' . $this->_tableName;
+				$array[] = new $ref($data);
 			}
 			//on ferme la requête
 			$req->closeCursor();
@@ -172,7 +172,7 @@
 		 */
 
 		//fonction qui permet de modifier un article dans la bdd
-		public function modify(Article $data){
+		public function modify(ManagerAbstract $data){
 			//on récupère les data nettoyées
 			$array = $this->convertData($data);
 

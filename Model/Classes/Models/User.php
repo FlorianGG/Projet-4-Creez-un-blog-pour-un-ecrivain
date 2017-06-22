@@ -1,5 +1,7 @@
 <?php
 	namespace Model\Classes\Models;
+
+	use Model\Classes\Manager\UserManager;
 	
 
 	class User extends ModelAbstract{
