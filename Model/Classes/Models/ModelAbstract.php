@@ -18,6 +18,26 @@
 		public function delete(int $id){
 			return $this->manager->delete($id);
 		}
+
+		//fonction d'hydration
+		
+		public function hydrate(array $data){
+			foreach ($data as $key => $value) {
+				$method = 'set' . ucfirst($key);
+				if (method_exists($this, $method)) {
+					$this->$method($value);
+				}
+			}
+		}
+
+		//fonction chargée de récupérer tous les attributs et de les retourner dans un tableau. Le but étant de ne pas passer les attributs en public
+		public function returnData(){
+			$data = [];
+			foreach ($this as $key => $value) {
+				$data[$key] = $value;
+			}
+			return $data;
+		}
 	}
 
 

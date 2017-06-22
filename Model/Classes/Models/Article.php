@@ -16,28 +16,6 @@
 			$this->manager = new ArticleManager;
 		}
 
-		public function hydrate(array $data){
-
-			//pour chaque ligne du tableau
-			foreach ($data as $key => $value) {
-				//on crée la fonction set'$Key', function setter de la classe Article
-				$method = 'set' . ucfirst($key);
-				//si cette méthode existe on l'utilise avec la valeur contenu dans le tableau
-				if (method_exists($this, $method)) {
-					$this->$method($value);
-				}
-			}
-		}
-
-		//fonction chargée de récupérer tous les attributs et de les retourner dans un tableau. Le but étant de ne pas passer les attributs en public
-		public function returnData(){
-			$data = [];
-			foreach ($this as $key => $value) {
-				$data[$key] = $value;
-			}
-			return $data;
-		}
-
 		//fonction getters
 		public function getId(){
 			return $this->_id;

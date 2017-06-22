@@ -17,28 +17,7 @@
 			$this->hydrate($data);
 			$this->manager = new CommentManager;
 		}
-		//function hydrate qui hydrate les attributs grâce au tableau en paramètre
-		public function hydrate(array $data){
-			//on parcourt le tableau pour créer nos fonctions setters
-			foreach ($data as $key => $value) {
-				$method = 'set' . ucfirst($key);
-				//si elles existent on les execute
-				if (method_exists($this, $method)){
-					$this->$method($value);
-				}
-			}
-		}
-		
-		//fonction chargée de récupérer tous les attributs et de les retourner dans un tableau. Le but étant de ne pas passer les attributs en public
-		public function returnData(){
-			$data = [];
-			foreach ($this as $key => $value) {
-				$data[$key] = $value;
-			}
-			return $data;
-		}
 
-		
 		//fonction getters
 		public function getId(){
 			return $this->_id;

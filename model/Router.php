@@ -27,9 +27,8 @@
 			
 			//on verifier que le controller est bien renseigné dans l'url
 
-
-			
 			if (isset($this->requestGet['controller']) && $this->requestGet['controller'] != null) {
+				//on crée une variable qui rajoute le namespace devant le fichier du controller
 				$refController= 'controller\\' . ucfirst($this->requestGet['controller'] . 'Controller');
 				$refAction = $this->requestGet['action'] . 'Action';
 				//on verifie que la class issue du controller dans l'url existe bien
