@@ -6,13 +6,13 @@
 
 
 	class Router{
-		protected $requestGet;
-		protected $requestPost;
+		protected $request;
+		protected $response;
 
 
 		public function __construct(Request $request, Response $response){
-			$this->requestGet = $request->getParams();
-			$this->requestPost = $request->getPost();
+			$this->request = $request;
+			$this->response = $response;
 		}
 
 		//fonction qui renvoie une véritable erreur 404
@@ -21,42 +21,31 @@
 					  exit;		 
 		}
 
-		public function dispatch(Request $request, Response $response){
-			$controller = $request->getParam('controller');
-			$action = $request->getParam('action');
+		public function dispatch(){
+			$controller = $this->request->getParam('controller');
+			$action = $this->request->getParam('action');
+			$id = $this->request->getParam('id');
+
 			
 			//on verifier que le controller est bien renseigné dans l'url
 
-			if (isset($this->requestGet['controller']) && $this->requestGet['controller'] != null) {
+			if (isset($controller) && $controller != null) {
 				//on crée une variable qui rajoute le namespace devant le fichier du controller
-				$refController= 'controller\\' . ucfirst($this->requestGet['controller'] . 'Controller');
-				$refAction = $this->requestGet['action'] . 'Action';
+				$refController= 'controller\\' . ucfirst($controller . 'Controller');
+				$refAction = $action . 'Action';
 				//on verifie que la class issue du controller dans l'url existe bien
 				if (class_exists($refController)) {
 					//on verifie que l'action existe bien dans l'url
-					if (isset($this->requestGet['action']) && $this->requestGet['action'] != null) {
+					if (isset($action) && $action != null) {
 						if(method_exists($refController, $refAction)){
-
-							if (isset($this->requestGet['id']) && $this->requestGet['id'] != null) {
-								$id =(int)$this->requestGet['id'];
-								return (new $refController($request, $response))->$refAction($id);
-							}else{
-								return (new $refController($request, $response))->$refAction();
-							}
-						}else{
-							$this->redirectionErreur404();
+							return (new $refController($this->request, $this->response))->$refAction();
 						}
-					}else{
-						$this->redirectionErreur404();
 					}
-				}else{
-					$this->redirectionErreur404();
 				}
-				$this->redirectionErreur404();
-			}else{
-				$this->redirectionErreur404();
 			}
-		}
+			//si une erreur dans l'url on renvoi une erreur 404
+			$this->redirectionErreur404();
+		}	
 	}
 
 

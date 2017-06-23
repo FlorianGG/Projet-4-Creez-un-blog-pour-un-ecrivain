@@ -24,7 +24,7 @@
 
     $router = new Router($request, $response);
 
-    $router->dispatch($request, $response);
+    $router->dispatch();
     echo $response;
 
     // //TEST ADMIN

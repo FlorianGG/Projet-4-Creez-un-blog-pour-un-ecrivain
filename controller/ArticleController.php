@@ -13,8 +13,7 @@
 		// http://localhost?controller=article&action=index
 
 		public function __construct(Request $request, Response $response){
-			$this->requestGet = $request->getParams();
-			$this->requestPost = $request->getPost();
+			$this->request = $request;
 			$this->response = $response;
 		}
 
@@ -37,11 +36,13 @@
 
 		//display one article 
 
-		public function showAction($id = null){
-			if (is_null($id)) {
+		public function showAction(){
+			$id = (int)$this->request->getParam('id');
+			if (is_null($id) OR !isset($id)) {
 				$html = "<h2>Article introuvalbe </h2>";
 				return $this->response->setBody($html);
 			}else{
+				// $article = (new Article)->load($id); à mettre en place
 				$ArticleManager = new ArticleManager;
 				$article = $ArticleManager->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -65,8 +66,9 @@
 
 		//effacer un article
 
-		public function deleteAction($id = null){
-			if (is_null($id)) {
+		public function deleteAction(){
+			$id = (int) $this->request->getParam('id');
+			if (is_null($id) OR !isset($id) OR $id === 0) {
 				$html = "<h2>Article introuvalbe </h2>";
 				return $this->response->setBody($html);
 			}else{
@@ -90,8 +92,9 @@
 
 		//ajouter un article
 
-		public function addArticleAction(array $requestPost){
-			$article = new Article($requestPost);
+		public function addArticleAction(){
+			$post = $this->request->getPost();
+			$article = new Article($post);
 
 			$newRecord = $article->save($article);
 
