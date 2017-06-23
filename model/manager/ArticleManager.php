@@ -1,5 +1,5 @@
 <?php
-	namespace model\classes\manager; 
+	namespace model\manager; 
 
 
 	class ArticleManager extends ManagerAbstract{

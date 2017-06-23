@@ -3,7 +3,7 @@
 
 	use model\http\Request;
 	use model\http\Response;
-	use model\classes\models\Article;
+	use model\Article;
 	
 	
 	class ArticleController extends FrontController{
@@ -37,7 +37,7 @@
 		public function showAction(){
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
-				$html = "<h2>Article introuvalbe </h2>";
+				$html = "<h2>Article introuvable </h2>";
 			}else{
 				$article = (new Article)->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -49,7 +49,7 @@
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
-					$html = "<h2>Article introuvalbe </h2>";
+					$html = "<h2>Article introuvable </h2>";
 				}
 			}
 			//on return le $html
@@ -63,7 +63,7 @@
 		public function deleteAction(){
 			$id = (int) $this->request->getParam('id');
 			if (is_null($id) OR !isset($id) OR $id === 0) {
-				$html = "<h2>Article introuvalbe </h2>";
+				$html = "<h2>Article introuvable </h2>";
 			}else{
 				$article = (new Article)->delete($id);
 				if ($article) {

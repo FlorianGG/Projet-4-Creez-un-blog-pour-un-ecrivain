@@ -1,22 +1,21 @@
 <?php
-	namespace model\classes\models;
+	namespace model;
 
-	use model\classes\manager\UserManager;
-	
-
-	class User extends ModelAbstract{
+	use model\manager\AdminManager;
+	 
+	class Admin extends ModelAbstract{
 		protected $_id;
 		protected $_pseudo;
 		protected $_email;
 		protected $_pass;
 
-		//fonction constructeur
+		//fonction constructeur avec un tableau en paramètre
 		public function __construct(array $data = null){
 			$this->hydrate($data);
-			$this->manager = new UserManager;
+			$this->manager = new AdminManager;
 		}
 
-		//fonction static qui instancie un managerUser et retourn un objet User correspondant à l'email recherché
+		//fonction static qui instancie un managerUser et retourn un objet Admin correspondant à l'email recherché
 		public function loadByEmail($email){
 			return $this->manager->loadByEmail($email);
 		}
@@ -34,6 +33,7 @@
 		public function getPass(){
 			return $this->_pass;
 		}
+
 		//fonctions setters
 		public function setId($id){
 			$id = (int)$id;
@@ -48,6 +48,7 @@
 			}
 			return $this;
 		}
+
 		//ajout d'une regex pour vérifier la conformité de l'adresse mail
 		public function setEmail($email){
 			if (preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {

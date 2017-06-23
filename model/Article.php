@@ -1,7 +1,7 @@
 <?php
-	namespace model\classes\models;
+	namespace model;
 
-	use model\classes\manager\ArticleManager;
+	use model\manager\ArticleManager;
 	 
 	class Article extends ModelAbstract{
 		protected $_id;
