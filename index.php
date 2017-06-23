@@ -4,7 +4,9 @@
     use model\http\Response;
     use model\Router;
 
-    // //Test
+    //Test
+    // use model\classes\models\Article;
+    // use model\classes\manager\ArticleManager;
     // use model\classes\models\Admin;
     // use model\classes\manager\AdminManager;
     // use model\classes\models\User;
@@ -28,12 +30,12 @@
     echo $response;
 
     // //TEST ADMIN
-    // $testAdmin = ['pseudo'=>'test1', 'email'=>'test2@gmail.fr', 'pass'=>'test'];
+    // $testAdmin = ['pseudo'=>'test1', 'email'=>'test3@gmail.fr', 'pass'=>'test'];
     // $newAdmin = new Admin($testAdmin);
     // $newAdmin->save($newAdmin);
 
 
-    // var_dump(Admin::loadByEmail('test2@gmail.fr'));
+    // var_dump((new Admin)->loadByEmail('test2@gmail.fr'));
     // $deleteAdmin = new AdminManager;
     // $deleteAdmin->delete(14);
 
@@ -44,7 +46,7 @@
     // $newUser = new User($testUser);
     // $newUser->save($newUser);
     
-    // var_dump(User::loadByEmail('test1@gmail.fr'));
+    // var_dump((new User)->loadByEmail('test1@gmail.fr'));
     // $deleteUser = new UserManager;
     // $deleteUser->delete(3);
 

@@ -10,15 +10,14 @@
 		protected $_pass;
 
 		//fonction constructeur avec un tableau en paramètre
-		public function __construct(array $data){
+		public function __construct(array $data = null){
 			$this->hydrate($data);
 			$this->manager = new AdminManager;
 		}
 
 		//fonction static qui instancie un managerUser et retourn un objet Admin correspondant à l'email recherché
-		static function loadByEmail($email){
-			$manager = new AdminManager;
-			return $manager->loadByEmail($email);
+		public function loadByEmail($email){
+			return $this->manager->loadByEmail($email);
 		}
 
 		//fonctions getters

@@ -3,8 +3,7 @@
 
 	use model\http\Request;
 	use model\http\Response;
-	use model\classes\manager\ArticleManager;
-	use model\classes\Article;
+	use model\classes\models\Article;
 	
 	
 	class ArticleController extends FrontController{
@@ -20,8 +19,7 @@
 		//list all articles
 		public function indexAction(){
 			$html = "";
-			$ArticleManager = new ArticleManager;
-			$articles = $ArticleManager->readAll();
+			$articles = (new Article)->readAll();
 
 			foreach ($articles as $key => $value) {
 				$html .= '<h2>' . $value->getTitle() . '</h2>';
@@ -41,9 +39,7 @@
 			if (is_null($id) OR !isset($id)) {
 				$html = "<h2>Article introuvalbe </h2>";
 			}else{
-				// $article = (new Article)->load($id); à mettre en place
-				$ArticleManager = new ArticleManager;
-				$article = $ArticleManager->read($id);
+				$article = (new Article)->read($id);
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					$html = "";
@@ -69,8 +65,7 @@
 			if (is_null($id) OR !isset($id) OR $id === 0) {
 				$html = "<h2>Article introuvalbe </h2>";
 			}else{
-				$ArticleManager = new ArticleManager;
-				$article = $ArticleManager->delete($id);
+				$article = (new Article)->delete($id);
 				if ($article) {
 					$html = "<h2>L'article n°" . $id . " a bien été supprimé</h2";
 				}elseif (is_null($article)) {
@@ -100,7 +95,7 @@
 				$html = 'Une erreur est survenue';
 			}
 
-			//on return le $html			
+			//on return le $html 			
 			return $this->response->setBody($html);
 
 		}

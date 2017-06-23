@@ -11,15 +11,14 @@
 		protected $_pass;
 
 		//fonction constructeur
-		public function __construct(array $data){
+		public function __construct(array $data = null){
 			$this->hydrate($data);
 			$this->manager = new UserManager;
 		}
 
 		//fonction static qui instancie un managerUser et retourn un objet User correspondant à l'email recherché
-		static function loadByEmail($email){
-			$manager = new UserManager;
-			return $manager->loadByEmail($email);
+		public function loadByEmail($email){
+			return $this->manager->loadByEmail($email);
 		}
 
 		//fonctions getters

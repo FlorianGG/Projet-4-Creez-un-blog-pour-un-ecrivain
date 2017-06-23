@@ -10,7 +10,7 @@
 		protected $_adminId;
 		protected $_dateArticle;
 
-		public function __construct(array $data){
+		public function __construct(array $data = null){
 			//la fonction constructeur lance la fct hydrate qui assigne les valeurs de datas à chaque attribut de l'objet
 			$this->hydrate($data);
 			$this->manager = new ArticleManager;

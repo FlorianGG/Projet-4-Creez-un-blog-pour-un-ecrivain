@@ -13,7 +13,7 @@
 		protected $_idParent;
 		
 		//fonction constructeur avec un tableau en paramètre
-		public function __construct(array $data){
+		public function __construct(array $data = null){
 			$this->hydrate($data);
 			$this->manager = new CommentManager;
 		}
