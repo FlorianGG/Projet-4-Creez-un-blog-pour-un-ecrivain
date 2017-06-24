@@ -3,6 +3,7 @@
     use model\http\Request;
     use model\http\Response;
     use model\Router;
+    use view\listArticles;
 
     //Test
     // use model\classes\models\Article;
@@ -27,7 +28,10 @@
     $router = new Router($request, $response);
 
     $router->dispatch();
-    echo $response;
+    
+
+    require_once('view/layout.php');
+
 
     // //TEST ADMIN
     // $testAdmin = ['pseudo'=>'test1', 'email'=>'test3@gmail.fr', 'pass'=>'test'];
