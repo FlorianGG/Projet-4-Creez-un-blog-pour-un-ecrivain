@@ -9,20 +9,31 @@
 	class ArticleController extends FrontController{
 		protected $request;
 		protected $response;
+		protected $action;
 		// http://localhost?controller=article&action=index
 		public function __construct(Request $request, Response $response){
 			$this->request = $request;
 			$this->response = $response;
+			$this->action = $this->request->getParam('action');
 		}
 		//list all articles
 		public function indexAction(){
 			$html = "";
 			$articles = (new Article)->readAll();
+			$data = [];
+
 			foreach ($articles as $key => $value) {
-				$html .= '<h2>' . $value->getTitle() . '</h2>';
-				$html .= '<p>' . $value->getContent() . '</p>';
-				$html .= '<p><em> Crée le : ' . $value->getDateArticle() . '</em></p>';
+				//on insère les données dans un tableau pour les envoyer dans la vue
+				$array = [];
+				$array['id'] = $value->getId();
+				$array['title'] = $value->getTitle();
+				$array['content'] = $value->getContent();
+				$array['date'] = $value->getDateArticle();
+
+				$data[] = $array;
 			}
+
+			$html = (new View($this->action))->generate($data);
 			return $this->response->setBody($html);
 		}
 		// http://localhost?controller=article&action=show&id=3
@@ -35,11 +46,15 @@
 				$article = (new Article)->read($id);
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
-					// $html = "";
-					// $html .= '<h2>' . $article->getTitle() . '</h2>';
-					// $html .= '<p>' . $article->getContent() . '</p>';
-					// $html .= '<p><em> Crée le : ' . $article->getDateArticle() . '</em></p>';
-					$html = (new View($article))->listArticles();
+					//on insère les données dans un tableau pour les envoyer dans la vue
+					$data = [
+						'id' => $article->getId(),
+						'title' => $article->getTitle(),
+						'content' => $article->getContent(),
+						'date' => $article->getDateArticle()
+						];
+					//on définit l'action
+					$html = (new View($this->action))->generate($data);
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{

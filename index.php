@@ -29,9 +29,7 @@
 
     $router->dispatch();
     
-
-    require_once('view/layout.php');
-
+    echo $response;
 
     // //TEST ADMIN
     // $testAdmin = ['pseudo'=>'test1', 'email'=>'test3@gmail.fr', 'pass'=>'test'];
