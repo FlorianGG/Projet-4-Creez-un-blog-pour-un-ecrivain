@@ -14,7 +14,7 @@
 		}
 
 		//Générer et afficher la vue
-		public function generate($data){
+		public function generate($data = null){
 			//Générer la partie spécifique de la vue
 			$content = $this->generateFile($this->file, $data);
 			//Génération du fichier de base avec la partie spécifique
@@ -24,10 +24,14 @@
 		}
 
 		//Générer un fichier vueet renvoie le résultat produit
-		private function generateFile($file, $data){
+		private function generateFile($file, $data = null){
 			if (file_exists($file)) {
-				// Rend les éléments du tableau $donnees accessibles dans la vue
-				extract($data);
+				
+				if (isset($data)) {
+					// Rend les éléments du tableau $donnees accessibles dans la vue
+					extract($data);
+				}
+				
 				// Démarage de la temporisation
 				ob_start();
 				// Inclue le fichier vue

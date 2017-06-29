@@ -1,6 +1,7 @@
-<?php 
-	namespace view;
- ?>
+<?php
+	
+    
+?>
 
 <!doctype html>
 <html lang="fr">
