@@ -32,7 +32,6 @@
 
 				$data[] = $array;
 			}
-
 			$html = (new View($this->action))->generate($data);
 			return $this->response->setBody($html);
 		}
@@ -62,6 +61,7 @@
 				}
 			}
 			//on return le $html
+			
 			return $this->response->setBody($html);
 		}
 		// http://localhost?controller=article&action=delete&id=3

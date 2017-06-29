@@ -1,5 +1,5 @@
 <?php 
-namespace view;
+namespace view\content;
 
 
 $this->title = 'Mon Blog : ' . $data['title']; 

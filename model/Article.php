@@ -4,11 +4,11 @@
 	use model\manager\ArticleManager;
 	 
 	class Article extends ModelAbstract{
-		protected $_id;
-		protected $_title;
-		protected $_content;
-		protected $_adminId;
-		protected $_dateArticle;
+		protected $id;
+		protected $title;
+		protected $content;
+		protected $adminId;
+		protected $dateArticle;
 
 		public function __construct(array $data = null){
 			//la fonction constructeur lance la fct hydrate qui assigne les valeurs de datas à chaque attribut de l'objet
@@ -18,30 +18,30 @@
 
 		//fonction getters
 		public function getId(){
-			return $this->_id;
+			return $this->id;
 		}
 
 		public function getTitle(){
-			return $this->_title;
+			return $this->title;
 		}
 
 		public function getContent(){
-			return $this->_content;
+			return $this->content;
 		}
 
 		public function getAdminId(){
-			return $this->_adminId;
+			return $this->adminId;
 		}
 
 		public function getDateArticle(){
-			return $this->_dateArticle;
+			return $this->dateArticle;
 		}
 
 		//fonction setters
 		public function setId($id){
 			$id = (int)$id;
 			if ($id > 0) {
-				$this->_id = $id;
+				$this->id = $id;
 			}
 			return $this;
 			
@@ -49,7 +49,7 @@
 
 		public function setTitle($title){
 			if (is_string($title) && strlen($title) <= 70) {
-				$this->_title = $title;
+				$this->title = $title;
 			}
 			return $this;
 			
@@ -57,7 +57,7 @@
 
 		public function setContent($content){
 			if (is_string($content)) {
-				$this->_content = $content;
+				$this->content = $content;
 			}
 			return $this;
 			
@@ -66,13 +66,13 @@
 		public function setAdminId($adminId){
 			$adminId = (int)$adminId;
 			if ($adminId > 0) {
-				$this->_adminId = $adminId;
+				$this->adminId = $adminId;
 			}
 			return $this;
 		}
 
 		public function setDateArticle($dateArticle){
-			$this->_dateArticle = $dateArticle;
+			$this->dateArticle = $dateArticle;
 			return $this;
 		}
 

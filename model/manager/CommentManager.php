@@ -9,7 +9,7 @@
 		//on execute le constructeur en récupérant celui du parent
 		public function __construct(){
 			parent::__construct();
-			$this->_tableName = 'Comment';
+			$this->tableName = 'Comment';
 		}
 
 
@@ -19,7 +19,7 @@
 			$comments = [];
 
 			//on prepare la requête en fonction l'idPrent
-			$req = $this->_bdd->prepare('SELECT * FROM comment WHERE idParent=:idParent ORDER BY id');
+			$req = $this->bdd->prepare('SELECT * FROM comment WHERE idParent=:idParent ORDER BY id');
 
 			//on bind la valeur de l'id
 			$req->bindValue(':idParent', $idParent, \PDO::PARAM_INT);

@@ -10,7 +10,7 @@
 
 		public function __construct($action){
 			//Déterminer le nom du fichier vue à partir de l'action
-			$this->file = 'view/' . $action . 'Action.php';
+			$this->file = 'view/content/' . $action . 'Action.php';
 		}
 
 		//Générer et afficher la vue

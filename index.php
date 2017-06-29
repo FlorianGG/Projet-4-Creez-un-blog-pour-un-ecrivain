@@ -3,7 +3,6 @@
     use model\http\Request;
     use model\http\Response;
     use model\Router;
-    use view\listArticles;
 
     //Test
     // use model\classes\models\Article;
@@ -19,7 +18,7 @@
     Autoloader::register();
 
     //on instance une nouvelle requête
-    $request = new Request();
+    $request = new Request;
 
     //on instance une nouvelle reponse
     $response = new Response;

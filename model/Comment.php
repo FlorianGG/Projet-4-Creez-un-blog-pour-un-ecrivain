@@ -5,12 +5,12 @@
 
 	
 	class Comment extends ModelAbstract{
-		protected $_id;
-		protected $_content;
-		protected $_userId;
-		protected $_dateComment;
-		protected $_articleId;
-		protected $_idParent;
+		protected $id;
+		protected $content;
+		protected $userId;
+		protected $dateComment;
+		protected $articleId;
+		protected $idParent;
 		
 		//fonction constructeur avec un tableau en paramètre
 		public function __construct(array $data = null){
@@ -20,60 +20,60 @@
 
 		//fonction getters
 		public function getId(){
-			return $this->_id;
+			return $this->id;
 		}
 		public function getContent(){
-			return $this->_content;
+			return $this->content;
 		}
 		public function getUserId(){
-			return $this->_userId;
+			return $this->userId;
 		}
 		public function getDateComment(){
-			return $this->_dateComment;
+			return $this->dateComment;
 		}
 		public function getArticleId(){
-			return $this->_articleId;
+			return $this->articleId;
 		}
 		public function getIdParent(){
-			return $this->_idParent;
+			return $this->idParent;
 		}
 		//fonctions setters
 		public function setId($id){
 			$id = (int)$id;
 			if ($id > 0) {
-				$this->_id = $id;
+				$this->id = $id;
 			}
 			return $this;
 			
 		}
 		public function setContent($content){
 			if (is_string($content)) {
-				$this->_content = $content;
+				$this->content = $content;
 			}
 			return $this;
 		}
 		public function setUserId($userId){
 			$userId = (int)$userId;
 			if ($userId > 0) {
-				$this->_userId = $userId;
+				$this->userId = $userId;
 			}
 			return $this;
 		}
 		public function setDateComment($dateComment){
-			$this->_dateComment = $dateComment;
+			$this->dateComment = $dateComment;
 			return $this;
 		}
 		public function setArticleId($articleId){
 			$articleId=(int)$articleId;
 			if ($articleId > 0) {
-				$this->_articleId=$articleId;
+				$this->articleId=$articleId;
 			}
 			return $this;
 		}
 		public function setIdParent($idParent){
 			$idParent = (int)$idParent;
 			if ($idParent >= 0) {
-				$this->_idParent = $idParent;
+				$this->idParent = $idParent;
 			}
 			return $this;
 			

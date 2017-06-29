@@ -4,11 +4,11 @@
 	use model\manager\UserManager;
 	
 
-	class User extends ModelAbstract{
-		protected $_id;
-		protected $_pseudo;
-		protected $_email;
-		protected $_pass;
+	class User extends ModelPersonAbstract{
+		protected $id;
+		protected $pseudo;
+		protected $email;
+		protected $pass;
 
 		//fonction constructeur
 		public function __construct(array $data = null){
@@ -16,47 +16,42 @@
 			$this->manager = new UserManager;
 		}
 
-		//fonction static qui instancie un managerUser et retourn un objet User correspondant à l'email recherché
-		public function loadByEmail($email){
-			return $this->manager->loadByEmail($email);
-		}
-
 		//fonctions getters
 		public function getId(){
-			return $this->_id;
+			return $this->id;
 		}
 		public function getPseudo(){
-			return $this->_pseudo;
+			return $this->pseudo;
 		}
 		public function getEmail(){
-			return $this->_email;
+			return $this->email;
 		}		
 		public function getPass(){
-			return $this->_pass;
+			return $this->pass;
 		}
 		//fonctions setters
 		public function setId($id){
 			$id = (int)$id;
 			if ($id > 0) {
-				$this->_id = $id;
+				$this->id = $id;
 			}
 			return $this;
 		}
 		public function setPseudo($pseudo){
 			if (is_string($pseudo) && (strlen($pseudo) <= 70)) {
-				$this->_pseudo = $pseudo;
+				$this->pseudo = $pseudo;
 			}
 			return $this;
 		}
 		//ajout d'une regex pour vérifier la conformité de l'adresse mail
 		public function setEmail($email){
 			if (preg_match('#^[\w.-]+@[\w.-]+\.[a-z]{2,6}$#i', $email)) {
-				$this->_email = $email;
+				$this->email = $email;
 			}
 			return $this;
 		}
 		public function setPass($pass){
-			$this->_pass = $pass;
+			$this->pass = $pass;
 			return $this;
 		}
 	}

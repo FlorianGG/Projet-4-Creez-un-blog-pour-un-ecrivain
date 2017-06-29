@@ -4,12 +4,12 @@
 	use model\ModelAbstract;
 
 	abstract class ManagerAbstract{
-		protected $_bdd;
-		protected $_tableName;
+		protected $bdd;
+		protected $tableName;
 
 		//function constructeur
 		protected function __construct(){
-			$this->_bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
+			$this->bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
 		}
 
 		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet User
@@ -22,7 +22,7 @@
 				if (is_array($row)){
 					//on ferme la requête
 					$req->closeCursor();
-					$ref = 'model\\' . $this->_tableName;
+					$ref = 'model\\' . $this->tableName;
 					return new $ref($row);
 				}
 			}else{
@@ -48,7 +48,7 @@
 		//fonction qui compte le nombre d'élément dans la bdd
 		public function count(){
 			//on execute une requête pour afficher tous les articles
-			$req = $this->_bdd->query('SELECT COUNT(*) AS numberElement FROM ' . $this->_tableName);
+			$req = $this->bdd->query('SELECT COUNT(*) AS numberElement FROM ' . $this->tableName);
 
 			//on affiche la requête
 			
@@ -84,7 +84,7 @@
 			}
 			
 			//on prepare notre requête avec les variables adaptées en string
-			$req = $this->_bdd->prepare('INSERT INTO ' . $this->_tableName . '(' . $param . ') VALUES(' . $param2 . ')');
+			$req = $this->bdd->prepare('INSERT INTO ' . $this->tableName . '(' . $param . ') VALUES(' . $param2 . ')');
 
 			//on bind les valeurs avec le contenu du tableau retourné par la fonction returnData de l'objet en paramètre
 			foreach ($array as $key => $value) {
@@ -101,7 +101,7 @@
 			}else{
 				//on met à jour l'objet passé en paramètre de la fonction create
 				$data->hydrate([
-					'id' => $this->_bdd->lastInsertId(),
+					'id' => $this->bdd->lastInsertId(),
 					]);
 				//on ferme la requête
 				$req->closeCursor();
@@ -119,7 +119,7 @@
 			$id = (int)$id;
 
 			//on prepare la requete filtré par l'id
-			$req = $this->_bdd->prepare('SELECT * from ' . $this->_tableName . ' WHERE id=:id');
+			$req = $this->bdd->prepare('SELECT * from ' . $this->tableName . ' WHERE id=:id');
 
 			//on bind le filtre avec la valeur de $id
 			$req->bindValue(':id', $id, \PDO::PARAM_INT);
@@ -127,38 +127,13 @@
 			return $this->loadByQuery($req);
 		}
 
-
-		//function ReadByEmail qui permet de lire une ligne de la bdd en fonction de son email
-		public function readByEmail(string $email){
-				//on prepare la requete filtré par l'email	
-				$req = $this->_bdd->prepare('SELECT * FROM ' . $this->_tableName . ' WHERE email =:email');
-
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":email", $email, \PDO::PARAM_STR);
-
-				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
-				return $this->loadByQuery($req);
-		}
-
-		//function ReadByEmail qui permet de lire une ligne de la bdd en fonction de son pseudo
-		public function readByPseudo(string $pseudo){
-				//on prepare la requete filtré par le pseudo	
-				$req = $this->_bdd->prepare('SELECT * FROM ' . $this->_tableName . ' WHERE pseudo =:pseudo');
-
-				//on bind le filtre avec la valeur de $data
-				$req->bindValue(":pseudo", $pseudo, \PDO::PARAM_STR);
-
-				//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
-				return $this->loadByQuery($req);
-		}
-
 		//fonction readAll qui permet de lire l'ensemble des lignes de la bdd
 		public function readAll(){
 			$array = [];
 			//on prepare la requête pour avoir l'ensemble des users
-			$req = $this->_bdd->query('SELECT * FROM ' . $this->_tableName . ' ORDER BY id');
+			$req = $this->bdd->query('SELECT * FROM ' . $this->tableName . ' ORDER BY id');
 			while ($data = $req->fetch(\PDO::FETCH_ASSOC)) {
-				$ref = 'model\\' . $this->_tableName;
+				$ref = 'model\\' . $this->tableName;
 				$array[] = new $ref($data);
 			}
 			//on ferme la requête
@@ -192,7 +167,7 @@
 			$array['_id'] = $arrayId;
 
 			//on prepare la requête qui va modifier l'article en fonction de l'id en paramètre
-			$req = $this->_bdd->prepare('UPDATE ' . $this->_tableName .' SET ' . $param . ' WHERE id=:id');
+			$req = $this->bdd->prepare('UPDATE ' . $this->tableName .' SET ' . $param . ' WHERE id=:id');
 
 			//on bind les valeurs avec le contenu du tableau retourné par la fonction returnData de l'objet en paramètre
 			foreach ($array as $key => $value) {
@@ -219,7 +194,7 @@
 			$id = (int)$id;
 			
 			//on prepare la requete qui va supprimer un article en fonction de l'id
-			$req = $this->_bdd->prepare('DELETE FROM ' . $this->_tableName . ' WHERE id=:id LIMIT 1');
+			$req = $this->bdd->prepare('DELETE FROM ' . $this->tableName . ' WHERE id=:id LIMIT 1');
 
 			//on bind la variable avec l'id en paramètre
 			$req->bindValue(':id', $id, \PDO::PARAM_INT);
