@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS user (
 ENGINE=INNODB;
 
 CREATE UNIQUE INDEX `UX_user_email` ON `user` (`email`);
+CREATE UNIQUE INDEX `UX_user_pseudo` ON `user` (`pseudo`);
 
 
 -- -----------------------------------------------------
@@ -28,9 +29,10 @@ CREATE TABLE IF NOT EXISTS admin (
 ENGINE=INNODB;
 
 INSERT INTO admin (pseudo, email, pass) VALUES
-('admin', 'admin@gmail.com', 'admin');
+('admin', 'admin@gmail.com', '7b278d400c914d6b3613a693c45b99f2fbf713ec');
 
 CREATE UNIQUE INDEX `UX_admin_email` ON `admin` (`email`);
+CREATE UNIQUE INDEX `UX_admin_pseudo` ON `admin` (`pseudo`);
 
 
 -- -----------------------------------------------------

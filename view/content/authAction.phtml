@@ -1,13 +1,4 @@
 <?php 
-namespace view\content;
-
-use model\AuthAdmin;
-use controller\BackEndController;
-
-$auth = new AuthAdmin;
-
-
-if (!$auth->logged()) {
 	$this->title = 'Administration : Identification'; 
 ?>
 
@@ -23,18 +14,7 @@ if (!$auth->logged()) {
 		</form>
 
 	</div>
-<?php }
-	$_SESSION['pseudo'] = $_POST['pseudo'];
-	$_SESSION['pass'] = $_POST['pass'];
 
-	echo($_SESSION['pseudo']);
-	echo($_SESSION['pass']);
-
-
-
-
-
-	?>
 
 
 

@@ -6,25 +6,26 @@
     use model\http\Response;
     use model\Router;
 
-    //Test
-    // use model\classes\models\Article;
-    // use model\classes\manager\ArticleManager;
-    // use model\classes\models\Admin;
-    // use model\classes\manager\AdminManager;
-    // use model\classes\models\User;
-    // use model\classes\manager\UserManager;
-    // use model\classes\models\Comment;
-    // use model\classes\manager\CommentManager;
+    // //Test
+    // use model\Article;
+    // use model\manager\ArticleManager;
+    // use model\Admin;
+    // use model\manager\AdminManager;
+    // use model\User;
+    // use model\manager\UserManager;
+    // use model\Comment;
+    // use model\manager\CommentManager;
+    // use model\ModelPersonAbstract;
 
     require_once('vendor/Autoloader.php');
     Autoloader::register();
+
 
     //on instance une nouvelle requête
     $request = new Request;
 
     //on instance une nouvelle reponse
     $response = new Response;
-
 
     $router = new Router($request, $response);
 
@@ -33,8 +34,8 @@
     echo $response;
 
 
-    // //TEST ADMIN
-    // $testAdmin = ['pseudo'=>'test1', 'email'=>'test3@gmail.fr', 'pass'=>'test'];
+    // // //TEST ADMIN
+    // $testAdmin = ['pseudo'=>'admin', 'email'=>'test@gmail.fr', 'pass'=>'test'];
     // $newAdmin = new Admin($testAdmin);
     // $newAdmin->save($newAdmin);
 
@@ -46,7 +47,7 @@
 
 
     // //TEST USER
-    // $testUser = ['pseudo'=>'test1', 'email'=>'test4@gmail.fr', 'pass'=>'test'];
+    // $testUser = ['pseudo'=>'test1', 'email'=>'test5@gmail.fr', 'pass'=>'test'];
     // $newUser = new User($testUser);
     // $newUser->save($newUser);
     

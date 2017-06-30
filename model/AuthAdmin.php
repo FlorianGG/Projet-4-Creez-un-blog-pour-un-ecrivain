@@ -13,11 +13,13 @@
 		}
 
 		public function login($pseudo, $pass){
+			$prefixeSha1 = ModelPersonAbstract::PREFIXE_SHA1;
+			$pass = sha1($prefixeSha1.$pass);
 			$admin = $this->admin->readByPseudo($pseudo);
-			if(!is_null($admin) && $pass = $admin->getPass()){
+			if(!is_null($admin) && $pass === $admin->getPass()){
 				return true;
 			}else{
-				return 'Le nom d\'utilisateur et/ou le mot de passe ne sont pas valides';
+				return (new Response)->redirect('403', 'Forbidden');
 			}
 		}
 
