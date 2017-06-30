@@ -15,12 +15,6 @@
 			$this->response = $response;
 		}
 
-		//fonction qui renvoie une véritable erreur 404
-		public function redirectionErreur404(){
-					  header('HTTP/1.0 404 Not Found');
-					  exit;		 
-		}
-
 		public function dispatch(){
 			$controller = $this->request->getParam('controller');
 			$action = $this->request->getParam('action');
@@ -45,7 +39,7 @@
 				}
 			}
 			//si une erreur dans l'url on renvoi une erreur 404
-			$this->redirectionErreur404();
+			$this->response->redirect('404', 'not found');
 		}	
 	}
 

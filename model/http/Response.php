@@ -14,6 +14,12 @@
 		public function __toString(){
 			return $this->html;
 		}
+
+		//fonction qui renvoie une erreur avec en paramètre le code erreur et le message
+		public function redirect($code, $message){
+					  header('HTTP/1.0 ' . $code . ' ' . $message);
+					  exit;		 
+		}
 	}
 
 ?>
