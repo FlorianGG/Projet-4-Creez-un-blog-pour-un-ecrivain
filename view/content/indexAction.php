@@ -1,7 +1,4 @@
 <?php 
-namespace view\content;
-
-
 $this->title = 'Mon Blog : Liste des artiles'; 
 ?>
 

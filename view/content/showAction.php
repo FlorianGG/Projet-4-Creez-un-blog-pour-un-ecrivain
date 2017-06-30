@@ -1,5 +1,4 @@
 <?php 
-
 $this->title = 'Mon Blog : ' . $data['title']; 
 ?>
 
