@@ -24,7 +24,7 @@
 
 				$data[] = $array;
 			}
-			$html = (new View($this->action))->generate($data);
+			$html = (new View($this->action, $this->controller))->generate($data);
 			return $this->response->setBody($html);
 		}
 
@@ -46,7 +46,7 @@
 						'date' => $article->getDateArticle()
 						];
 					//on définit l'action
-					$html = (new View($this->action))->generate($data);
+					$html = (new View($this->action, $this->controller))->generate($data);
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{

@@ -1,24 +1,33 @@
 <?php 
 	namespace view;
 
+	use model\http\Response;
+
 	class View{
 		// Nom du fichier associé à la vue
 		protected $file;
+		protected $interface;
 
 		//Titre de la vue
 		protected $title;
 
-		public function __construct($action){
-			//Déterminer le nom du fichier vue à partir de l'action
-			$this->file = 'view/front/content/' . $action . 'Action.phtml';
+		public function __construct($action, $controller, $interface = 'front'){
+			$this->interface = $interface;
+			if (file_exists('view/' . $interface . '/content/' . $controller . '/' . $action . 'Action.phtml')) {
+				$this->file = 'view/' . $interface . '/content/' . $controller . '/' . $action . 'Action.phtml';
+			}else{
+				(new Response)->redirect('404', 'Not found');
+			}
+			
 		}
 
 		//Générer et afficher la vue
 		public function generate($data = null){
 			//Générer la partie spécifique de la vue
 			$content = $this->generateFile($this->file, $data);
+
 			//Génération du fichier de base avec la partie spécifique
-			$view = $this->generateFile('view/front/layout.phtml', array('title' => $this->title, 'content' => $content));
+			$view = $this->generateFile('view/' . $this->interface . '/layout.phtml', array('title' => $this->title, 'content' => $content));
 			//renvoi de la vue au navigateur
 			return $view;
 		}
