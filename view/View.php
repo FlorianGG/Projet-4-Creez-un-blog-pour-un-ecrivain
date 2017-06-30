@@ -10,7 +10,7 @@
 
 		public function __construct($action){
 			//Déterminer le nom du fichier vue à partir de l'action
-			$this->file = 'view/content/' . $action . 'Action.php';
+			$this->file = 'view/content/' . $action . 'Action.phtml';
 		}
 
 		//Générer et afficher la vue
@@ -18,7 +18,7 @@
 			//Générer la partie spécifique de la vue
 			$content = $this->generateFile($this->file, $data);
 			//Génération du fichier de base avec la partie spécifique
-			$view = $this->generateFile('view/layout.php', array('title' => $this->title, 'content' => $content));
+			$view = $this->generateFile('view/layout.phtml', array('title' => $this->title, 'content' => $content));
 			//renvoi de la vue au navigateur
 			return $view;
 		}
