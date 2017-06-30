@@ -7,7 +7,7 @@
 
 	
 	
-	class BackEndController extends FrontController{
+	class BackEndController extends BaseController{
 
 		protected $auth;
 		protected $article;

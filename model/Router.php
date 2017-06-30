@@ -32,11 +32,12 @@
 			if (isset($controller) && $controller != null) {
 				//on crée une variable qui rajoute le namespace devant le fichier du controller
 				$refController= 'controller\\' . ucfirst($controller . 'Controller');
-				$refAction = $action . 'Action';
+				
 				//on verifie que la class issue du controller dans l'url existe bien
 				if (class_exists($refController)) {
 					//on verifie que l'action existe bien dans l'url
 					if (isset($action) && $action != null) {
+						$refAction = $action . 'Action';
 						if(method_exists($refController, $refAction)){
 							return (new $refController($this->request, $this->response))->$refAction();
 						}
