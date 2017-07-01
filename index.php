@@ -34,6 +34,7 @@
     echo $response;
 
 
+
     // // //TEST ADMIN
     // $testAdmin = ['pseudo'=>'admin', 'email'=>'test@gmail.fr', 'pass'=>'test'];
     // $newAdmin = new Admin($testAdmin);

@@ -4,7 +4,6 @@
 	class Auth{
 		protected $bdd;
 		protected $admin;
-		protected $id;
 
 		//function constructeur
 		public function __construct(){
@@ -18,13 +17,12 @@
 			$admin = $this->admin->readByPseudo($pseudo);
 			if(!is_null($admin) && $pass === $admin->getPass()){
 				$_SESSION['id'] = $admin->getId();
-				$this->id = $_SESSION['id'];
 				return true;
 			}
 		} 
 
 		public function logged(){
-			return isset($_SESSION['id']);
+			return isset($_SESSION['id']) && !is_null($_SESSION['id']);
 		}
 
 
