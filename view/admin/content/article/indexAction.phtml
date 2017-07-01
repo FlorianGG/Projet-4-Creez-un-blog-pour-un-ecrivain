@@ -9,6 +9,7 @@ $this->title = 'Interface de gestion des articles';
 		<article class="multi">
 		    <div class="title">
 		    	<h1 class="titreBillet"><?= $data[$key]['title'] ?></h1>
+		    </div>
 		    <button><a href="index.php?interface=admin&controller=article&action=show&id=<?php echo $data[$key]['id']; ?>">Lire l'article</a></button>
 		</article>
 	<?php } ?>

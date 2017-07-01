@@ -49,7 +49,7 @@
 				// Arrêt de la temporisation et renvoi du tampon de sortie
 				return ob_get_clean();
 			}else{
-				echo "Erreur 404";
+				(new Response)->redirect('404', 'Not found');
 			}
 		}
 	}

@@ -13,6 +13,8 @@
 		protected $response;
 		protected $action;
 		protected $controller;
+		protected $pseudo;
+		protected $pass;
 		
 		// http://localhost?controller=article&action=index
 		public function __construct(Request $request, Response $response){

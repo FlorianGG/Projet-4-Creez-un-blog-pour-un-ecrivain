@@ -19,9 +19,7 @@
 			$interface = $this->request->getParam('interface');
 			$controller = $this->request->getParam('controller');
 			$action = $this->request->getParam('action');
-			$id = $this->request->getParam('id');
 
-			
 			//on verifier que le controller est bien renseigné dans l'url
 
 			if (isset($controller) && $controller != null) {
@@ -32,7 +30,6 @@
 					//on crée une variable qui rajoute le namespace devant le fichier du controller
 					$refController= 'controller\\' . ucfirst($controller . 'Controller');
 				}
-				
 				
 				//on verifie que la class issue du controller dans l'url existe bien
 				if (class_exists($refController)) {
@@ -45,8 +42,8 @@
 					}
 				}
 			}
-			//si une erreur dans l'url on renvoi une erreur 404
-			var_dump((new $refController($this->request, $this->response))->$refAction());
+			// si une erreur dans l'url on renvoi une erreur 404
+			$this->response->redirect('404', 'Not found');
 		}	
 	}
 
