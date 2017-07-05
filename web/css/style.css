@@ -43,6 +43,25 @@ header li{
 	max-width: 80%;
 	text-align: center;
 }
+/*adminTable*/
+.articleManager{
+	margin: auto;
+	width: 60%;
+}
+.adminTable {
+    margin: 15px auto 30px auto;
+    border-collapse: collapse;
+}
+
+.adminTable td, th {
+    border: 1px solid black;
+    text-align: center;
+    padding: 8px;
+}
+
+.adminTable tr:nth-child(even) {
+    background-color: #dddddd;
+}
 
 /*Footer*/
 footer{

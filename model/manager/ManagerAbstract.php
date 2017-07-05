@@ -68,7 +68,6 @@
 		//fonction qui permet d'ajouter une ligne dans la bdd
 		public function create(ModelAbstract $data){
 			//on récupère les data nettoyées
-			
 			$array = $this->convertData($data);
 
 			//on prépare les variables string à utiliser dans la requête
@@ -147,7 +146,7 @@
 		 */
 
 		//fonction qui permet de modifier un article dans la bdd
-		public function modify(ManagerAbstract $data){
+		public function modify(ModelAbstract $data){
 			//on récupère les data nettoyées
 			$array = $this->convertData($data);
 

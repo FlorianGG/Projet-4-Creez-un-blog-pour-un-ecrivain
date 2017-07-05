@@ -86,15 +86,14 @@ INSERT INTO article (title, content, dateArticle, adminId) VALUES
 	Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias ex
 	cepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas offi
 	cia quod possimus eos?', '2017-06-05 13:56:00', 1),
-('Article 9', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
-	Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente 
+('Article 9', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente 
 	inventore! Repellendus neque cum, eius cumque voluptas in dicta libero 
 	quae voluptate.', '2017-06-05 13:57:00', 1),
 ('Article 10', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
 	Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio opti
 	oad, maxime rem animi in impedit consectetur quae omnis illum ea.'
 	 , '2017-06-05 13:58:00', 1),
-('Article11', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
+('Article 11', 'Lorem ipsum dolor sit amet, consectetur adipisicing elit. 
 	Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiand
 	ae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neq
 	ue aliquid ratione.', '2017-06-05 14:00:00', 1),

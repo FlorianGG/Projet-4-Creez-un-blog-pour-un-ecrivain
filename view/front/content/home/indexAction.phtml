@@ -1,0 +1,27 @@
+<?php 
+$this->title = 'Mon Blog : Liste des articles'; 
+?>
+<div class="accueil">
+	<h2>Bienvenue sur le blog de Jean Forteroche</h2>
+</div>
+<div class="title">
+	<h3>Ci-dessous les 3 derniers articles publiés</h3>
+</div>
+<div class="articles">
+	<?php foreach ($data as $key => $value){ 
+		$overview = substr(strip_tags($data[$key]['content']),0, 50) . '...';
+	?>
+		<article class="multi">
+		    <div class="title">
+		    	<h1 class="titreBillet"><?= $data[$key]['title'] ?></h1>
+		    	<time><em>Créer le : <?= $data[$key]['dateArticle'] ?></em></time>
+		    </div>
+		    <p><?= $overview ?></p>
+		    <button><a href="index.php?controller=article&action=show&id=<?php echo $data[$key]['id']; ?>">Lire l'article</a></button>
+		</article>
+	<?php } ?>
+</div>
+<article>
+	<h2>Biographie de l'auteur</h2>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+</article>

@@ -56,6 +56,7 @@
 		}
 
 		public function setContent($content){
+			$content = htmlspecialchars_decode($content);
 			if (is_string($content)) {
 				$this->content = $content;
 			}

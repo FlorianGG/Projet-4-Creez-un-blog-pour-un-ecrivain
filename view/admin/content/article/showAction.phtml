@@ -1,0 +1,19 @@
+<?php 
+$this->title = 'Admin : ' . $data['title']; 
+?>
+<?php if (!isset($message)) {?>
+	
+<article class="solo">
+    <div class="title">
+        <h1 class="titreBillet"><?= $data['title'] ?></h1>
+        <time><em>Créer le : <?= $data['dateArticle'] ?></em></time>
+    </div>
+    <p><?= $data['content'] ?></p>
+    <button><a href="index.php?interface=admin&controller=article&action=index">Retour à l'accueil</a></button>
+</article>
+
+<?php }else{?>
+<div>
+	<h2><? echo $message?></h2>
+</div>
+<?php	} ?>

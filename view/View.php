@@ -2,17 +2,20 @@
 	namespace view;
 
 	use model\http\Response;
+	use model\http\Request;
 
 	class View{
 		// Nom du fichier associé à la vue
 		protected $file;
 		protected $interface;
+		protected $request;
 
 		//Titre de la vue
 		protected $title;
 
 		public function __construct($action, $controller, $interface = 'front'){
 			$this->interface = $interface;
+			$this->request = new Request;
 			if (file_exists('view/' . $interface . '/content/' . $controller . '/' . $action . 'Action.phtml')) {
 				$this->file = 'view/' . $interface . '/content/' . $controller . '/' . $action . 'Action.phtml';
 			}else{
@@ -36,11 +39,10 @@
 		private function generateFile($file, $data = null){
 			if (file_exists($file)) {
 				
-				if (isset($data)) {
+				if (isset($data) && is_array($data)) {
 					// Rend les éléments du tableau $donnees accessibles dans la vue
 					extract($data);
 				}
-				
 				// Démarage de la temporisation
 				ob_start();
 				// Inclue le fichier vue

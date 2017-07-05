@@ -1,16 +1,49 @@
 <?php 
 $this->title = 'Interface de gestion des articles'; 
 ?>
+<button><a href="index.php?controller=home&action=index">Accueil</a></button>
+<div class="articleManager">
+  <div class="message">
+    <?php 
+      if (!is_null($this->request->getParam('message'))) {
+    ?>   
+    <h3><?echo $this->request->getParam('message')?></h3>
+    <? } ?>
+    
+  </div>
 
-<div class="articles">
-	<?php foreach ($data as $key => $value){ 
-		$overview = substr($data[$key]['content'],0, 50) . '...';
-	?>
-		<article class="multi">
-		    <div class="title">
-		    	<h1 class="titreBillet"><?= $data[$key]['title'] ?></h1>
-		    </div>
-		    <button><a href="index.php?interface=admin&controller=article&action=show&id=<?php echo $data[$key]['id']; ?>">Lire l'article</a></button>
-		</article>
-	<?php } ?>
+  <form action="index.php?interface=admin&controller=article&action=save" method="post">
+    <fieldset>
+      <legend>Nouvel Article:</legend>
+      <p><label for="title">Titre de l'article : <input type="text" name="title"  id="title" placeholder="Titre de l'article" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['title'];}?>"></label></p>
+      <p><label for="content"></label>Contenu de votre article : </p>
+      <p><textarea name="content" id="mytextarea" placeholder="Contenu de votre article" rows="15" cols="100"><?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['content'];}?></textarea></p>
+      <input type="hidden" name="adminId" value="<? echo $_SESSION['id'] ?>">
+      <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['id'];}?>">
+      <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
+      <input type="submit" value="Envoyer">
+      <button><a href="index.php?interface=admin&controller=article&action=index">Annuler</a></button>
+    </fieldset>
+  </form>
+
+  <table class="adminTable">
+    <tr>
+      <th>Titre</th>
+      <th>Auteur</th>
+      <th>Date Article</th>
+      <th>Action</th>
+    </tr>
+    <?php foreach ($data as $key => $value){ ?>
+    <tr>
+      <td><?= $data[$key]['title'] ?></td>
+      <td><?= $data[$key]['adminPseudo'] ?></td>
+      <td><?= $data[$key]['dateArticle'] ?></td>
+      <td>
+          <button><a href="index.php?interface=admin&controller=article&action=delete&id=<?php echo $data[$key]['id']; ?>">Supprimer</a></button>
+          <button><a href="index.php?interface=admin&controller=article&action=index&key=<?php echo $key; ?>">Modifier</a></button>
+          <button><a href="index.php?interface=admin&controller=article&action=show&id=<?php echo $data[$key]['id']; ?>">Vue</a></button>
+      </td>
+    </tr>
+    <?php } ?>
+  </table>
 </div>

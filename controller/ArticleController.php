@@ -4,9 +4,15 @@
 	use model\http\Request;
 	use model\http\Response;
 	use model\Article;
+	use model\Admin;
 	use view\View;	
 	
 	class ArticleController extends FrontController{
+
+		private function redirectAtHome($message){
+			$url ='http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?&controller=home&action=index&message=' . $message;
+			$this->response->redirectUrl($url);
+		}
 
 		//list all articles
 		public function indexAction(){
@@ -20,7 +26,8 @@
 				$array['id'] = $value->getId();
 				$array['title'] = $value->getTitle();
 				$array['content'] = $value->getContent();
-				$array['date'] = $value->getDateArticle();
+				$array['dateArticle'] = $value->getDateArticle();
+				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
 
 				$data[] = $array;
 			}
@@ -30,10 +37,11 @@
 
 		// http://localhost?controller=article&action=show&id=3
 		//display one article 
+
 		public function showAction(){
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
-				$html = "<h2>Article introuvable </h2>";
+				$message = "Article introuvable";
 			}else{
 				$article = (new Article)->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -43,19 +51,20 @@
 						'id' => $article->getId(),
 						'title' => $article->getTitle(),
 						'content' => $article->getContent(),
-						'date' => $article->getDateArticle()
+						'dateArticle' => $article->getDateArticle()
 						];
 					//on définit l'action
-					$html = (new View($this->action, $this->controller))->generate($data);
+					$html = (new View($this->action, $this->controller, $this->interface))->generate($data);
+					return $this->response->setBody($html);
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
-					$html = "<h2>Article introuvable </h2>";
+					$message = "Article introuvable";
 				}
 			}
 			//on return le $html
 			
-			return $this->response->setBody($html);
+			$this->redirectAtHome($message);
 		}
 
 		
