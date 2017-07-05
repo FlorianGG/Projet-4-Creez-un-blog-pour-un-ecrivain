@@ -51,7 +51,7 @@
 				if ($articleDelete) {
 					$message = 'L\'article n°' . $id . ' a bien été supprimé';
 				}elseif (is_null($article)) {
-					$html = 'Article introuvalbe';
+					$html = 'Article introuvable';
 				}
 				else{
 					$html = 'Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.';
