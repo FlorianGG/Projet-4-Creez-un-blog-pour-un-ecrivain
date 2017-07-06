@@ -43,6 +43,14 @@ header li{
 	max-width: 80%;
 	text-align: center;
 }
+/*Comment*/
+.comments{
+	margin: 90px auto;
+	width: 70%;
+}
+.comments textarea{
+	width: 100%;
+}
 /*adminTable*/
 .articleManager{
 	margin: auto;

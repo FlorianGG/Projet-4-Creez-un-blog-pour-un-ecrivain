@@ -18,6 +18,11 @@
 			$this->manager = new CommentManager;
 		}
 
+		//function readAllWithArticle qui fait appel au manager et sa fonction readAllWithArticle
+		public function readAllWithArticle(int $id){
+			return $this->manager->readAllWithArticle($id);
+		}
+
 		//fonction getters
 		public function getId(){
 			return $this->id;

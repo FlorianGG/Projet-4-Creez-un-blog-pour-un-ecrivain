@@ -23,4 +23,9 @@
 			}
 		}
 
+		protected function redirectInIndex($message){
+			$url ='http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=article&action=index&message=' . $message;
+			$this->response->redirectUrl($url);
+		}
+
 	}

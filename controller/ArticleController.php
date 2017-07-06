@@ -5,6 +5,7 @@
 	use model\http\Response;
 	use model\Article;
 	use model\Admin;
+	use controller\CommentController;
 	use view\View;	
 	
 	class ArticleController extends FrontController{
@@ -16,7 +17,6 @@
 
 		//list all articles
 		public function indexAction(){
-			$html = "";
 			$articles = (new Article)->readAll();
 			$data = [];
 
@@ -44,15 +44,23 @@
 				$message = "Article introuvable";
 			}else{
 				$article = (new Article)->read($id);
+				$comments = (new CommentController($this->request,$this->response))->indexAction($id);
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					//on insère les données dans un tableau pour les envoyer dans la vue
-					$data = [
+					$data['article'] = [
 						'id' => $article->getId(),
 						'title' => $article->getTitle(),
 						'content' => $article->getContent(),
 						'dateArticle' => $article->getDateArticle()
 						];
+					//on insère les commentaires de l'article dans le tableau
+					if (!is_null($comments)) {
+						$data['comments'] = $comments;
+					}else{
+						$data['comments'] = 'Pas de commentaire';
+					}
+					
 					//on définit l'action
 					$html = (new View($this->action, $this->controller, $this->interface))->generate($data);
 					return $this->response->setBody($html);

@@ -2,15 +2,15 @@
 	namespace controller\admin;
 
 	use controller\BackEndController;
-	use controller\admin\CommentController;
 	use model\Article;
+	use model\Comment;
 	use model\Admin;
 	use model\User;
 	use model\http\Request;
 	use model\http\Response;
 	use view\View;
 
-	class ArticleController extends BackEndController{
+	class CommentController extends BackEndController{
 
 		public function __construct(Request $request, Response $response){
 			parent::__construct($request, $response);
@@ -19,40 +19,39 @@
 
 		//list all articles
 		public function indexAction(){
-			$articles = (new Article)->readAll();
 			$data = [];
+			$comments = (new Comment)->readAll();
 
-			foreach ($articles as $key => $value) {
+			foreach ($comments as $key => $value) {
 				//on insère les données dans un tableau pour les envoyer dans la vue
 				$array = [];
 				$array['id'] = $value->getId();
-				$array['title'] = $value->getTitle();
 				$array['content'] = $value->getContent();
-				$array['dateArticle'] = $value->getDateArticle();
-				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+				$array['dateComment'] = $value->getDateComment();
+				$array['userPseudo'] = (new User)->read($value->getUserId())->getPseudo();
+				$array['articleTitle'] = (new Article)->read($value->getArticleId())->getTitle();	
+				$array['articleId'] = $value->getArticleId();			
+				$array['idParent'] = $value->getIdParent();
+
 
 				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-				$data['article'][] = $array;
+				$data[] = $array;
+
 			}
-
-			$data['comment'] = (new CommentController($this->request, $this->response))->indexAction();
-
-			$html = (new View($this->action, $this->controller, $this->interface))->generate($data);
-			return $this->response->setBody($html);
+			return $data;
 		}
 
-		// http://localhost?controller=backend&action=delete&id=3
-		//effacer un article
+		//effacer un commentaire
 		public function deleteAction(){
 			$id = (int) $this->request->getParam('id');
 			if (is_null($id) OR !isset($id) OR $id === 0) {
-				$message = 'Article introuvable';
+				$message = 'Commentaire introuvable';
 			}else{
-				$articleDelete = (new Article)->delete($id);
+				$articleDelete = (new Comment)->delete($id);
 				if ($articleDelete) {
-					$message = 'L\'article n°' . $id . ' a bien été supprimé';
+					$message = 'Le commentaire n°' . $id . ' a bien été supprimé';
 				}elseif (is_null($article)) {
-					$html = 'Article introuvable';
+					$html = 'Commentaire introuvable';
 				}
 				else{
 					$html = 'Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.';

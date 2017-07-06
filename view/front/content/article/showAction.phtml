@@ -1,12 +1,30 @@
 <?php 
-$this->title = 'Mon Blog : ' . $data['title']; 
+$this->title = 'Mon Blog : ' . $data['article']['title']; 
 ?>
 
 <article class="solo">
     <div class="title">
-        <h1 class="titreBillet"><?= $data['title'] ?></h1>
-        <time><em>Créer le : <?= $data['dateArticle'] ?></em></time>
+        <h1 class="titreBillet"><?= $data['article']['title'] ?></h1>
+        <time><em>Créer le : <?= $data['article']['dateArticle'] ?></em></time>
     </div>
-    <p><?= $data['content'] ?></p>
+    <p><?= $data['article']['content'] ?></p>
     <button><a href="index.php?controller=article&action=index">Retour à l'accueil</a></button>
+</article>
+<article class="comments">
+	<fieldset>
+		<legend>Vos commentaires</legend>
+		<?php 
+		foreach ($data['comments'] as $key => $value) {?>
+			<div class="comment">
+				<h4>Posté le :<?= $data['comments'][$key]['dateComment'] ?></h4>
+				<p><?= $data['comments'][$key]['content'] ?></p>
+				<p><em>Auteur : <?= $data['comments'][$key]['userPseudo'] ?></em></p>
+			</div>
+			
+		<?php }?>
+		<form action="" method="post">
+			 <p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="10"></textarea></p>
+			 <input type="button" value="Envoyer">
+		</form>
+	</fieldset>
 </article>
