@@ -50,6 +50,19 @@
 			}
 			return $data;
 		}
+		//GETTER Commun à tous les models
+		public function getId(){
+			return $this->id;
+		}
+		
+		//SETTER Commun à tous les models
+		public function setId($id){
+			$id = (int)$id;
+			if ($id > 0) {
+				$this->id = $id;
+			}
+			return $this;
+		}
 	}
 
 

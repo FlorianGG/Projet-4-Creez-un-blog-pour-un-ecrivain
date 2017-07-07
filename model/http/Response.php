@@ -23,7 +23,7 @@
 
 		//fonction qui redirige vers une autre url
 		public function redirectUrl($url, $code = 200){//revoir comme utiliser la variable $code
-			header('Location: '. $url);
+			header('Location:'. $url);
 			exit();
 		}
 	}

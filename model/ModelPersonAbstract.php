@@ -14,9 +14,6 @@
 		}
 
 		//fonctions getters
-		public function getId(){
-			return $this->id;
-		}
 		public function getPseudo(){
 			return $this->pseudo;
 		}
@@ -27,14 +24,7 @@
 			return $this->pass;
 		}
 
-		//fonctions setters
-		public function setId($id){
-			$id = (int)$id;
-			if ($id > 0) {
-				$this->id = $id;
-			}
-			return $this;
-		}
+
 		public function setPseudo($pseudo){
 			if (is_string($pseudo) && (strlen($pseudo) <= 70)) {
 				$this->pseudo = $pseudo;

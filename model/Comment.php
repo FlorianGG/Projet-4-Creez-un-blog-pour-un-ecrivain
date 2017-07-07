@@ -24,9 +24,6 @@
 		}
 
 		//fonction getters
-		public function getId(){
-			return $this->id;
-		}
 		public function getContent(){
 			return $this->content;
 		}
@@ -43,14 +40,6 @@
 			return $this->idParent;
 		}
 		//fonctions setters
-		public function setId($id){
-			$id = (int)$id;
-			if ($id > 0) {
-				$this->id = $id;
-			}
-			return $this;
-			
-		}
 		public function setContent($content){
 			if (is_string($content)) {
 				$this->content = $content;

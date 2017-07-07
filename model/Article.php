@@ -17,10 +17,6 @@
 		}
 
 		//fonction getters
-		public function getId(){
-			return $this->id;
-		}
-
 		public function getTitle(){
 			return $this->title;
 		}
@@ -38,15 +34,6 @@
 		}
 
 		//fonction setters
-		public function setId($id){
-			$id = (int)$id;
-			if ($id > 0) {
-				$this->id = $id;
-			}
-			return $this;
-			
-		}
-
 		public function setTitle($title){
 			if (is_string($title) && strlen($title) <= 70) {
 				$this->title = $title;

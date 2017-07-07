@@ -26,13 +26,14 @@
 				$url = 'http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=home&action=index';
 				$this->response->redirectUrl($url);
 			}else{
-				$this->response->redirect('403', 'Forbidden');
+				$url = 'http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=auth&action=auth';
+				$this->response->redirectUrl($url);
 			}
 		}
 
 		public function logoutAction(){
 			session_destroy();
-			$url = 'http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?controller=article&action=index';
+			$url = 'http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=auth&action=auth';
 			$this->response->redirectUrl($url);
 		}
 

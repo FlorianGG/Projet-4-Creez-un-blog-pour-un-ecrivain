@@ -14,7 +14,7 @@
 		//fonction qui vérifie si la variable GET existe et la retourne nettoyée
 		public function getParam($param){
 			if (isset($this->get[$param]) && !is_null($this->get[$param])) {
-				$param = htmlspecialchars($param);
+				$param = filter_var($param, FILTER_SANITIZE_SPECIAL_CHARS);
 				return $this->get[$param];
 			}else{
 				return null;
@@ -36,7 +36,7 @@
 			$request = [];
 			foreach ($this->post as $key => $value) {
 				if (isset($this->post[$key]) && !is_null($this->post[$key])) {
-					$value = htmlspecialchars($this->post[$key]);
+					$value = filter_var($this->post[$key], FILTER_SANITIZE_SPECIAL_CHARS);
 					$request[$key] = $value;
 				}else{
 					return null;
