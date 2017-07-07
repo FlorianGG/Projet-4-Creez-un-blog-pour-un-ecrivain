@@ -3,8 +3,6 @@
 
 	class ModelPersonAbstract extends ModelAbstract{
 
-		const PREFIXE_SHA1 = 'fl0ri@n';
-
 		//fonction qui instancie un managerUser et retourn un objet User correspondant à l'email recherché
 		public function readByEmail($email){
 			return $this->manager->readByEmail($email);
@@ -52,6 +50,9 @@
 			return $this;
 		}
 		public function setPass($pass){
+			if (is_null($this->getId())) {
+				$pass = password_hash($pass, PASSWORD_DEFAULT);
+			}
 			$this->pass = $pass;
 			return $this;
 		}	

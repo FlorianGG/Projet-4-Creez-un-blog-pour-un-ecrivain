@@ -12,10 +12,9 @@
 		}
 
 		public function login($pseudo, $pass){
-			$prefixeSha1 = ModelPersonAbstract::PREFIXE_SHA1;
-			$pass = sha1($prefixeSha1.$pass);
 			$admin = $this->admin->readByPseudo($pseudo);
-			if(!is_null($admin) && $pass === $admin->getPass()){
+			$pass = password_verify($pass, $admin->getPass());
+			if(!is_null($admin) && $pass === true){
 				$_SESSION['id'] = $admin->getId();
 				return true;
 			}

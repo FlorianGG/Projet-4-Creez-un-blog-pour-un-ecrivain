@@ -6,7 +6,7 @@
     use model\http\Response;
     use model\Router;
 
-    // //Test
+    //Test
     // use model\Article;
     // use model\manager\ArticleManager;
     // use model\Admin;
@@ -47,8 +47,8 @@
 
 
 
-    // //TEST USER
-    // $testUser = ['pseudo'=>'test1', 'email'=>'test5@gmail.fr', 'pass'=>'test'];
+    //TEST USER
+    // $testUser = ['pseudo'=>'test4', 'email'=>'test4@gmail.fr', 'pass'=>'john'];
     // $newUser = new User($testUser);
     // $newUser->save($newUser);
     
