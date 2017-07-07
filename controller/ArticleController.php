@@ -11,7 +11,8 @@
 	class ArticleController extends FrontController{
 
 		private function redirectAtHome($message){
-			$url ='http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?&controller=home&action=index&message=' . $message;
+			$path ='?&controller=home&action=index&message=' . $message;
+			$url = $this->app->getUrl($path);
 			$this->response->redirectUrl($url);
 		}
 
@@ -44,7 +45,7 @@
 				$message = "Article introuvable";
 			}else{
 				$article = (new Article)->read($id);
-				$comments = (new CommentController($this->request,$this->response))->indexAction($id);
+				$comments = (new CommentController($this->request,$this->response, $this->app))->indexAction($id);
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					//on insère les données dans un tableau pour les envoyer dans la vue

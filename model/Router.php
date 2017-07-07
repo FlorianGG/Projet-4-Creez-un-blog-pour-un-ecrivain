@@ -3,16 +3,19 @@
 
 	use model\http\Request;
 	use model\http\Response;
+	use app\App;
 
 
 	class Router{
 		protected $request;
 		protected $response;
+		protected $app;
 
 
-		public function __construct(Request $request, Response $response){
+		public function __construct(Request $request, Response $response, App $app){
 			$this->request = $request;
 			$this->response = $response;
+			$this->app = $app;
 		}
 
 		public function dispatch(){
@@ -37,7 +40,7 @@
 					if (isset($action) && $action != null) {
 						$refAction = $action . 'Action';
 						if(method_exists($refController, $refAction)){
-							return (new $refController($this->request, $this->response))->$refAction();
+							return (new $refController($this->request, $this->response, $this->app))->$refAction();
 						}
 					}
 				}

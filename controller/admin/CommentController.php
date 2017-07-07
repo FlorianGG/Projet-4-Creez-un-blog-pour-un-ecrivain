@@ -9,11 +9,12 @@
 	use model\http\Request;
 	use model\http\Response;
 	use view\View;
+	use app\App;
 
 	class CommentController extends BackEndController{
 
-		public function __construct(Request $request, Response $response){
-			parent::__construct($request, $response);
+		public function __construct(Request $request, Response $response, App $app){
+			parent::__construct($request, $response, $app);
 			parent::checkLogged();
 		}
 

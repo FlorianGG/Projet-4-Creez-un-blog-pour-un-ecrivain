@@ -9,11 +9,12 @@
 	use model\http\Request;
 	use model\http\Response;
 	use view\View;
+	use app\App;
 
 	class ArticleController extends BackEndController{
 
-		public function __construct(Request $request, Response $response){
-			parent::__construct($request, $response);
+		public function __construct(Request $request, Response $response, App $app){
+			parent::__construct($request, $response, $app);
 			parent::checkLogged();
 		}
 
@@ -35,7 +36,7 @@
 				$data['article'][] = $array;
 			}
 
-			$data['comment'] = (new CommentController($this->request, $this->response))->indexAction();
+			$data['comment'] = (new CommentController($this->request, $this->response, $this->app))->indexAction();
 
 			$html = (new View($this->action, $this->controller, $this->interface))->generate($data);
 			return $this->response->setBody($html);

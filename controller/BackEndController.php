@@ -3,6 +3,7 @@
 	use model\http\Request;
 	use model\http\Response;
 	use model\Auth;
+	use app\App;
 
 	
 	
@@ -10,21 +11,23 @@
 		protected $interface;
 		protected $auth;
 
-		public function __construct(Request $request, Response $response){
-			parent::__construct($request, $response);
+		public function __construct(Request $request, Response $response, App $app){
+			parent::__construct($request, $response, $app);
 			$this->interface = $this->request->getParam('interface');
 			$this->auth = new Auth;		
 		}
 
 		public function checkLogged(){
 			if (!$this->auth->logged()) {
-				$url = 'http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=auth&action=auth';
+				$path = '?interface=admin&controller=auth&action=auth';
+				$url = $this->app->getUrl($path);
 				$this->response->redirectUrl($url);
 			}
 		}
 
 		protected function redirectInIndex($message){
-			$url ='http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=article&action=index&message=' . $message;
+			$path ='?interface=admin&controller=article&action=index&message=' . $message;
+			$url = $this->app->getUrl($path);
 			$this->response->redirectUrl($url);
 		}
 

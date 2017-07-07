@@ -5,6 +5,7 @@
     use model\http\Request;
     use model\http\Response;
     use model\Router;
+    use app\App;
 
     //Test
     // use model\Article;
@@ -20,6 +21,8 @@
     require_once('vendor/Autoloader.php');
     Autoloader::register();
 
+    //on instancie une nouvelle app
+    $app = new App;
 
     //on instance une nouvelle requête
     $request = new Request;
@@ -27,7 +30,7 @@
     //on instance une nouvelle reponse
     $response = new Response;
 
-    $router = new Router($request, $response);
+    $router = new Router($request, $response, $app);
 
     $router->dispatch();
     

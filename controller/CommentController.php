@@ -15,7 +15,7 @@
 			$id = (int) $id;
 			$data = null;
 			$comments = (new Comment)->readAllWithArticle($id);
-			if (is_null($comments)) {
+			if (empty($comments)) {
 				return $comments;
 			}else{
 				foreach ($comments as $key => $value) {
