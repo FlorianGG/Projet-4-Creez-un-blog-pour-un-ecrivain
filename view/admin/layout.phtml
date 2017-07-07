@@ -10,7 +10,7 @@
     <body>
         <div id="content">
 			<h1>Bienvenue sur votre interface d'administration</h1>
-            <button><a href="index.php?interface=admin&controller=auth&action=logout">Logout</a></button>
+            <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=auth&action=logout');?>">Logout</a></button>
             <div id="specificContent">
                 <?= $content ?>
             </div>

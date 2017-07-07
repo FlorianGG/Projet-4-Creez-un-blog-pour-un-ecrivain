@@ -6,7 +6,8 @@
 	use model\Article;
 	use model\Admin;
 	use controller\CommentController;
-	use view\View;	
+	use view\View;
+	use app\App;	
 	
 	class ArticleController extends FrontController{
 
@@ -32,7 +33,7 @@
 
 				$data[] = $array;
 			}
-			$html = (new View($this->action, $this->controller))->generate($data);
+			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			return $this->response->setBody($html);
 		}
 
@@ -63,7 +64,7 @@
 					}
 					
 					//on définit l'action
-					$html = (new View($this->action, $this->controller, $this->interface))->generate($data);
+					$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 					return $this->response->setBody($html);
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable

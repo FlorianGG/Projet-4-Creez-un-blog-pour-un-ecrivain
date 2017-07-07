@@ -16,7 +16,7 @@
 		}
 
 		public function indexAction(){
-			$html = (new View($this->action, $this->controller, $this->interface))->generate();
+			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate();
 			return $this->response->setBody($html);
 		}
 	}

@@ -1,7 +1,7 @@
 <?php 
 $this->title = 'Interface de gestion des articles'; 
 ?>
-<button><a href="index.php?controller=home&action=index">Accueil</a></button>
+<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Accueil</a></button>
 <div class="articleManager">
   <div class="message">
     <?php 
@@ -12,7 +12,7 @@ $this->title = 'Interface de gestion des articles';
     
   </div>
 
-  <form action="index.php?interface=admin&controller=article&action=save" method="post">
+  <form action="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=save');?>" method="post">
     <fieldset>
       <legend>Nouvel Article:</legend>
       <p><label for="title">Titre de l'article : <input type="text" name="title"  id="title" placeholder="Titre de l'article" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data['article'][$this->request->getParam('key')]['title'];}?>"></label></p>
@@ -22,7 +22,7 @@ $this->title = 'Interface de gestion des articles';
       <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data['article'][$this->request->getParam('key')]['id'];}?>">
       <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
       <input type="submit" value="Envoyer">
-      <button><a href="index.php?interface=admin&controller=article&action=index">Annuler</a></button>
+      <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Annuler</a></button>
     </fieldset>
   </form>
 
@@ -40,9 +40,9 @@ $this->title = 'Interface de gestion des articles';
       <td><?= $data['article'][$key]['adminPseudo'] ?></td>
       <td><?= $data['article'][$key]['dateArticle'] ?></td>
       <td>
-          <button><a href="index.php?interface=admin&controller=article&action=delete&id=<?php echo $data['article'][$key]['id']; ?>">Supprimer</a></button>
-          <button><a href="index.php?interface=admin&controller=article&action=index&key=<?php echo $key; ?>">Modifier</a></button>
-          <button><a href="index.php?interface=admin&controller=article&action=show&id=<?php echo $data['article'][$key]['id']; ?>">Vue</a></button>
+          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=delete&id=' . $data['article'][$key]['id']);?>">Supprimer</a></button>
+          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index&key=' . $key);?>">Modifier</a></button>
+          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data['article'][$key]['id']);?>">Vue</a></button>
       </td>
     </tr>
     <?php } ?>
@@ -70,9 +70,9 @@ $this->title = 'Interface de gestion des articles';
       <td><?= $data['comment'][$key]['content'] ?></td>
       
       <td>
-          <button><a href="index.php?interface=admin&controller=comment&action=delete&id=<?php echo $data['comment'][$key]['id']; ?>">Supprimer</a></button>
-          <button><a href="index.php?interface=admin&controller=article&action=index&key=<?php echo $key; ?>">Modifier</a></button>
-          <button><a href="index.php?interface=admin&controller=article&action=show&id=<?php echo $data['comment'][$key]['articleId']; ?>">Vue</a></button>
+          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comment'][$key]['id']);?>">Supprimer</a></button>
+          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=index&key=' . $key);?>">Modifier</a></button>
+          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=show&id=' . $data['comment'][$key]['id']);?>">Vue</a></button>
       </td>
     </tr>
     <?php } ?>

@@ -3,6 +3,7 @@
 
 	use model\http\Response;
 	use model\http\Request;
+	use app\App;
 
 	class View{
 		// Nom du fichier associé à la vue
@@ -13,7 +14,8 @@
 		//Titre de la vue
 		protected $title;
 
-		public function __construct($action, $controller, $interface = 'front'){
+		public function __construct($action, $controller, $interface = 'front', App $app){
+			$this->app = $app;
 			$this->interface = $interface;
 			$this->request = new Request;
 			if (file_exists('view/' . $interface . '/content/' . $controller . '/' . $action . 'Action.phtml')) {

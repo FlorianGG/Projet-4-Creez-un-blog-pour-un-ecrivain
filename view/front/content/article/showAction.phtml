@@ -8,7 +8,7 @@ $this->title = 'Mon Blog : ' . $data['article']['title'];
         <time><em>Créer le : <?= $data['article']['dateArticle'] ?></em></time>
     </div>
     <p><?= $data['article']['content'] ?></p>
-    <button><a href="index.php?controller=article&action=index">Retour à l'accueil</a></button>
+    <button><a href="<?php echo $this->app->getUrl('?controller=article&action=index');?>">Retour à l'accueil</a></button>
 </article>
 <article class="comments">
 	<fieldset>

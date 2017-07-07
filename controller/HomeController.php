@@ -24,7 +24,7 @@
 				$data[] = $array;
 			}
 
-			$html = (new View($this->action, $this->controller))->generate($data);
+			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			return $this->response->setBody($html);
 		}
 	}
