@@ -4,7 +4,7 @@ $this->title = 'Mon Blog : Liste des articles';
 
 <div class="articles">
 	<?php foreach ($data as $key => $value){ 
-		$overview = substr(strip_tags($data[$key]['content']),0, 50) . '...';
+		$overview = substr(strip_tags($data[$key]['content']),0, 100) . '...';
 	?>
 		<article class="multi">
 		    <div class="title">

@@ -1,0 +1,43 @@
+<?php 
+$this->title = 'Interface de gestion des articles'; 
+?>
+<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Accueil</a></button>
+<div class="articleManager">
+	<div class="message">
+	<?php 
+	  if (!is_null($this->request->getParam('message'))) {
+	?>   
+	<h3><?echo $this->request->getParam('message')?></h3>
+	<? } ?>
+
+	</div>
+	<h2 style="text-align: center">Liste de tous les commentaires</h2>
+	<table class="adminTable">
+	  <tr>
+	    <th>Date</th>
+	    <th>Auteur</th>
+	    <th>Id</th>
+	    <th>Id du Parent</th>
+	    <th>Titre de l'article</th>
+	    <th>Contenu</th>
+	    <th>Action</th>
+	    
+	  </tr>
+	  <?php foreach ($data as $key => $value){ ?>
+	  <tr>
+	    <td><?= $data[$key]['dateComment'] ?></td>
+	    <td><?= $data[$key]['userPseudo'] ?></td>
+	    <td><?= $data[$key]['id'] ?></td>
+	    <td><?= $data[$key]['idParent'] ?></td>
+	    <td><?= $data[$key]['articleTitle'] ?></td>
+	    <td><?= $data[$key]['content'] ?></td>
+	    
+	    <td>
+	        <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data[$key]['id']);?>">Supprimer</a></button>
+	        <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=index&key=' . $key);?>">Modifier</a></button>
+	        <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=display&id=' . $data[$key]['articleId']);?>">Vue</a></button>
+	    </td>
+	  </tr>
+	  <?php } ?>
+	</table>
+ </div>

@@ -26,7 +26,7 @@
 		}
 
 		protected function redirectInIndex($message){
-			$path ='?interface=admin&controller=article&action=index&message=' . $message;
+			$path ='?interface=admin&controller=' . $this->controller . '&action=index&message=' . $message;
 			$url = $this->app->getUrl($path);
 			$this->response->redirectUrl($url);
 		}

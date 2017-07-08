@@ -29,14 +29,19 @@
 					$array['articleId'] = $value->getArticleId();			
 					$array['idParent'] = $value->getIdParent();
 					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-					$data[] = $array;
+					$data[$array['id']][] = $array[$key];
 				}
-				$array = [];
-				foreach ($data as $comment => $test) {
-					$array[$data[$comment]['id']] = $data[$comment];
-					
-				}
-				return $array;
+				var_dump($data);
+				// $array = [];
+				// foreach ($data as $comment => $test) {
+				// 	$array[$data[$comment]['id']] = $data[$comment];
+				// 	if ($array[$data[$comment]['id']]['idParent'] !== 0) {
+				// 		$array[$data[$comment]['idParent']][] = $array[$data[$comment]['id']];
+				// 	}
+				// }
+				// var_dump($array);
+				
+				// return $array;
 			}
 		}
 

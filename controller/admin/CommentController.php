@@ -39,7 +39,40 @@
 				$data[] = $array;
 
 			}
-			return $data;
+			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
+			return $this->response->setBody($html);
+		}
+
+		//Affiche les comments d'un article
+		public function displayAction(){
+			$id = (int) $this->request->getParam('id');
+			$data = null;
+			$comments = (new Comment)->readAllWithArticle($id);
+			if (empty($comments)) {
+				return $comments;
+			}else{
+				foreach ($comments as $key => $value) {
+					//on insère les données dans un tableau pour les envoyer dans la vue
+					$array = [];
+					$array['id'] = $value->getId();
+					$array['content'] = $value->getContent();
+					$array['dateComment'] = $value->getDateComment();
+					$array['userId'] = $value->getUserId();
+					$array['userPseudo'] = (new User)->read($value->getUserId())->getPseudo();
+					$array['articleTitle'] = (new Article)->read($value->getArticleId())->getTitle();	
+					$array['articleId'] = $value->getArticleId();			
+					$array['idParent'] = $value->getIdParent();
+					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
+					$data[] = $array;
+				}
+				$array = [];
+				foreach ($data as $comment => $test) {
+					$array[$data[$comment]['id']] = $data[$comment];
+					
+				}
+				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
+				return $this->response->setBody($html);
+			}
 		}
 
 		//effacer un commentaire
@@ -64,18 +97,19 @@
 		//ajouter un article
 		public function saveAction(){
 			$post = $this->request->getPost();
-			$article = new Article($post);
-			$newRecord = $article->save($article);
+			$comment = new Comment($post);
+			$newRecord = $comment->save($comment);
 			if ($newRecord) {
 				if (!empty($post['id'])) {
 					$message = 'Les modifications ont bien été effectuées';
 				}else{
-					$message = 'L\'article a bien été ajouté';
+					$message = 'Le commentaire a bien été ajouté';
 				}
 			}else{
 				$message = 'Une erreur est survenue durant l\'enregistrement';
 			}
-			$this->redirectInIndex($message);
+			$path ='?interface=admin&controller=' . $this->controller . '&action=display&id=' . $comment->getArticleId();
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 
 		// http://localhost?controller=article&action=show&id=3

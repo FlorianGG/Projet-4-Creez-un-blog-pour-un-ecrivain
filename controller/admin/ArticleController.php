@@ -33,10 +33,8 @@
 				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
 
 				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-				$data['article'][] = $array;
+				$data[] = $array;
 			}
-
-			$data['comment'] = (new CommentController($this->request, $this->response, $this->app))->indexAction();
 
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			return $this->response->setBody($html);

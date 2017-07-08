@@ -1,0 +1,36 @@
+<?php 
+$this->title = 'Commentaires'; 
+?>
+<p><button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Retour</a></button></p>
+<article class="comments">
+	<fieldset>
+		<legend>Vos commentaires</legend>
+		<?php 
+		foreach ($data as $key => $value) {?>
+			<div class="comment">
+				<p>
+					<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data[$key]['id']);?>">Supprimer</a></button>
+					<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=display&id=' . $this->request->getParam('id') . '&key=' . $key);?>">Modifier</a></button>
+				</p>
+				<h4>Posté le :<?= $data[$key]['dateComment'] ?></h4>
+				<p><?= $data[$key]['content'] ?></p>
+				<p><em>Auteur : <?= $data[$key]['userPseudo'] ?></em></p>
+			</div>
+			
+		<?php }?>
+	</fieldset>
+	<form id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=save');?>" method="post">
+	  <fieldset>
+	    <legend>Commentaire:</legend>
+	    <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['id'];}?>">
+	    <p><label for="content"></label>Votre commentaire : </p>
+	    <p><textarea name="content" placeholder="Contenu de votre commentaire" rows="15" cols="100"><?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['content'];}?></textarea></p>
+	    <input type="hidden" name="userId" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['userId'];}?>">
+	    <input type="hidden" name="dateComent" value="<?echo date("Y-m-d H:i:s");?>">
+	    <input type="hidden" name="articleId" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['articleId'];}?>">
+	    <input type="hidden" name="idParent" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['idParent'];}?>">
+	    <input type="submit" value="Envoyer">
+	    <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=index');?>">Annuler</a></button>
+	  </fieldset>
+	</form>
+</article>

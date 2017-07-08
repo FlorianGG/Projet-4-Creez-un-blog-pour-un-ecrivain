@@ -20,6 +20,9 @@
 		//list all articles
 		public function indexAction(){
 			$articles = (new Article)->readAll();
+			if (empty($articles)) {
+				# code...
+			}
 			$data = [];
 
 			foreach ($articles as $key => $value) {
