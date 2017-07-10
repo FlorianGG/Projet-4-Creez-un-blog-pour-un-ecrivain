@@ -8,29 +8,34 @@ $this->title = 'Commentaires';
 		<?php 
 		foreach ($data as $key => $value) {?>
 			<div class="comment">
-				<p>
-					<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data[$key]['id']);?>">Supprimer</a></button>
-					<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=display&id=' . $this->request->getParam('id') . '&key=' . $key);?>">Modifier</a></button>
-				</p>
-				<h4>Posté le :<?= $data[$key]['dateComment'] ?></h4>
+				<h4>Auteur : <?= $data[$key]['userPseudo'] ?></h4>
 				<p><?= $data[$key]['content'] ?></p>
-				<p><em>Auteur : <?= $data[$key]['userPseudo'] ?></em></p>
-			</div>
-			
+				<p><em>Posté le : <?= $data[$key]['dateComment'] ?></em></p>
+				<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+					<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required"></textarea></p>
+					<input type="hidden" name="userId" value="1">
+					<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+					<input type="hidden" name="articleId" value="<? $this->request->getParam('id') ?>">
+					<input type="hidden" name="idParent" value="<? echo $data[$key]['id'] ?>">
+					<input type="submit" value="Envoyer">
+				</form>
+				<?php if (isset($data[$key]['response'])) {
+					foreach ($data[$key]['response'] as $comment => $com) {?>
+						<div class="sousCommentaire" style="margin-left: 50px">
+							<h4>Auteur : <?= $data[$key]['response'][$comment]['userPseudo'] ?></h4>
+							<p><?= $data[$key]['response'][$comment]['content'] ?></p>
+							<p><em>Posté le : <?= $data[$key]['response'][$comment]['dateComment'] ?></em></p>
+						</div>
+				<?php }}  ?>
+			</div>	
 		<?php }?>
+		<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+			<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required"></textarea></p>
+			<input type="hidden" name="userId" value="1">
+			<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+			<input type="hidden" name="articleId" value="<? $this->request->getParam('id') ?>">
+			<input type="hidden" name="idParent" value="0">
+			<input type="submit" value="Envoyer">
+		</form>
 	</fieldset>
-	<form id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=save');?>" method="post">
-	  <fieldset>
-	    <legend>Commentaire:</legend>
-	    <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['id'];}?>">
-	    <p><label for="content"></label>Votre commentaire : </p>
-	    <p><textarea name="content" placeholder="Contenu de votre commentaire" rows="15" cols="100"><?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['content'];}?></textarea></p>
-	    <input type="hidden" name="userId" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['userId'];}?>">
-	    <input type="hidden" name="dateComent" value="<?echo date("Y-m-d H:i:s");?>">
-	    <input type="hidden" name="articleId" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['articleId'];}?>">
-	    <input type="hidden" name="idParent" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['idParent'];}?>">
-	    <input type="submit" value="Envoyer">
-	    <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=index');?>">Annuler</a></button>
-	  </fieldset>
-	</form>
 </article>

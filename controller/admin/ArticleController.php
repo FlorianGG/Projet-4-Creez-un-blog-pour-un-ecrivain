@@ -85,6 +85,7 @@
 				$message = "Article introuvable";
 			}else{
 				$article = (new Article)->read($id);
+				$comments = (new CommentController($this->request,$this->response, $this->app))->indexAction();
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					//on insère les données dans un tableau pour les envoyer dans la vue
@@ -94,6 +95,12 @@
 						'content' => $article->getContent(),
 						'dateArticle' => $article->getDateArticle()
 						];
+					//on insère les commentaires de l'article dans le tableau
+					if (!is_null($comments)) {
+						$data['comments'] = $comments;
+					}else{
+						$data['comments'] = 'Pas de commentaire';
+					}
 					//on définit l'action
 					$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 					return $this->response->setBody($html);

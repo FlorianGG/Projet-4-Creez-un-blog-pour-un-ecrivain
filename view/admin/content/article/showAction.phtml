@@ -17,3 +17,41 @@ $this->title = 'Admin : ' . $data['title'];
 	<h2><? echo $message?></h2>
 </div>
 <?php	} ?>
+<article class="comments">
+	<fieldset>
+		<legend>Vos commentaires</legend>
+		<?php 
+		foreach ($data['comments'] as $key => $value) {?>
+		<?php var_dump($data['comments'][$key]['ifNotLogged']); ?>
+			<div class="comment">
+				<h4>Auteur : <?= $data['comments'][$key]['userPseudo'] ?></h4>
+				<p><?= $data['comments'][$key]['content'] ?></p>
+				<p><em>Posté le : <?= $data['comments'][$key]['dateComment'] ?></em></p>
+				<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+					<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required" disabled=""></textarea></p>
+					<input type="hidden" name="userId" value="1">
+					<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+					<input type="hidden" name="articleId" value="<? $this->request->getParam('id') ?>">
+					<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
+					<input type="submit" value="Envoyer" disabled="disabled">
+				</form>
+				<?php if (isset($data['comments'][$key]['response'])) {
+					foreach ($data['comments'][$key]['response'] as $comment => $com) {?>
+						<div class="sousCommentaire" style="margin-left: 50px">
+							<h4>Auteur : <?= $data['comments'][$key]['response'][$comment]['userPseudo'] ?></h4>
+							<p><?= $data['comments'][$key]['response'][$comment]['content'] ?></p>
+							<p><em>Posté le : <?= $data['comments'][$key]['response'][$comment]['dateComment'] ?></em></p>
+						</div>
+				<?php }}  ?>
+			</div>	
+		<?php }?>
+		<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+			<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required"></textarea></p>
+			<input type="hidden" name="userId" value="1">
+			<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+			<input type="hidden" name="articleId" value="<? $this->request->getParam('id') ?>">
+			<input type="hidden" name="idParent" value="0">
+			<input type="submit" value="Envoyer">
+		</form>
+	</fieldset>
+</article>

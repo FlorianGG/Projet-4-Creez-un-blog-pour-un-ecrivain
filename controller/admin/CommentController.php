@@ -20,33 +20,8 @@
 
 		//list all articles
 		public function indexAction(){
-			$data = [];
-			$comments = (new Comment)->readAll();
-
-			foreach ($comments as $key => $value) {
-				//on insère les données dans un tableau pour les envoyer dans la vue
-				$array = [];
-				$array['id'] = $value->getId();
-				$array['content'] = $value->getContent();
-				$array['dateComment'] = $value->getDateComment();
-				$array['userPseudo'] = (new User)->read($value->getUserId())->getPseudo();
-				$array['articleTitle'] = (new Article)->read($value->getArticleId())->getTitle();	
-				$array['articleId'] = $value->getArticleId();			
-				$array['idParent'] = $value->getIdParent();
-
-
-				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-				$data[] = $array;
-
-			}
-			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
-			return $this->response->setBody($html);
-		}
-
-		//Affiche les comments d'un article
-		public function displayAction(){
 			$id = (int) $this->request->getParam('id');
-			$data = null;
+			$data = [];
 			$comments = (new Comment)->readAllWithArticle($id);
 			if (empty($comments)) {
 				return $comments;
@@ -57,22 +32,33 @@
 					$array['id'] = $value->getId();
 					$array['content'] = $value->getContent();
 					$array['dateComment'] = $value->getDateComment();
-					$array['userId'] = $value->getUserId();
 					$array['userPseudo'] = (new User)->read($value->getUserId())->getPseudo();
 					$array['articleTitle'] = (new Article)->read($value->getArticleId())->getTitle();	
 					$array['articleId'] = $value->getArticleId();			
 					$array['idParent'] = $value->getIdParent();
+					$array['ifNotLogged'] = $this->auth->ifNotLogged();
 					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-					$data[] = $array;
+					$data[$array['id']] = $array;
 				}
 				$array = [];
-				foreach ($data as $comment => $test) {
-					$array[$data[$comment]['id']] = $data[$comment];
-					
+				foreach ($data as $comment => $com) {
+					if ($data[$comment]['idParent'] === 0) {
+						$array[$data[$comment]['id']]= $data[$comment];
+					}else{
+
+						$array[$data[$comment]['idParent']]['response'][$comment] = $data[$comment];
+					}
 				}
-				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
-				return $this->response->setBody($html);
+				return $array;
 			}
+		}
+
+		//Affiche les comments d'un article
+		public function displayAction(){
+			$array = $this->indexAction();
+				
+			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($array);
+			return $this->response->setBody($html);
 		}
 
 		//effacer un commentaire

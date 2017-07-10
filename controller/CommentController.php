@@ -11,9 +11,9 @@
 	
 	class CommentController extends FrontController{
 
-		public function indexAction(int $id){
-			$id = (int) $id;
-			$data = null;
+		public function indexAction(){
+			$id = (int) $this->request->getParam('id');
+			$data = [];
 			$comments = (new Comment)->readAllWithArticle($id);
 			if (empty($comments)) {
 				return $comments;
@@ -29,30 +29,40 @@
 					$array['articleId'] = $value->getArticleId();			
 					$array['idParent'] = $value->getIdParent();
 					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-					$data[$array['id']][] = $array[$key];
+					$data[$array['id']] = $array;
 				}
-				var_dump($data);
-				// $array = [];
-				// foreach ($data as $comment => $test) {
-				// 	$array[$data[$comment]['id']] = $data[$comment];
-				// 	if ($array[$data[$comment]['id']]['idParent'] !== 0) {
-				// 		$array[$data[$comment]['idParent']][] = $array[$data[$comment]['id']];
-				// 	}
-				// }
-				// var_dump($array);
-				
-				// return $array;
+				$array = [];
+				foreach ($data as $comment => $com) {
+					if ($data[$comment]['idParent'] === 0) {
+						$array[$data[$comment]['id']]= $data[$comment];
+					}else{
+
+						$array[$data[$comment]['idParent']]['response'][$comment] = $data[$comment];
+					}
+				}
+				return $array;
 			}
 		}
 
-		public function commentsWithChildren(array $data){
-			$array = [];
-			foreach ($data as $key => $value) {
-				if ($data[$key]['idParent'] == 0) {
-					
+		// http://localhost?controller=backend&action=addArticle
+		//ajouter un article
+		public function saveAction(){
+			$post = $this->request->getPost();
+			$comment = new Comment($post);
+			$newRecord = $comment->save($comment);
+			if ($newRecord) {
+				if (!empty($post['id'])) {
+					$message = 'Les modifications ont bien été effectuées';
+				}else{
+					$message = 'Le commentaire a bien été ajouté';
 				}
+			}else{
+				$message = 'Une erreur est survenue durant l\'enregistrement';
 			}
+			$path ='?controller=article&action=show&id=' . $comment->getArticleId();
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
+
 
 
 

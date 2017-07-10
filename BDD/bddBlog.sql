@@ -274,7 +274,13 @@ INSERT INTO comment (content, dateComment, idParent, userId, articleId) VALUES
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
 	, '2017-06-06 13:56:00', 10, 1, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
+	, '2017-06-06 13:56:00', 10, 1, 7),
+('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
 	, '2017-06-06 14:00:00', 0, 1, 7),
+('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
+	, '2017-06-06 14:00:00', 13, 1, 7),
+('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
+	, '2017-06-06 13:56:00', 13, 1, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias excepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas officia quod possimus eos?'
 	, '2017-06-06 13:56:00', 0, 1, 8),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit.Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente inventore! Repellendus neque cum, eius cumque voluptas in dicta libero quae voluptate.'

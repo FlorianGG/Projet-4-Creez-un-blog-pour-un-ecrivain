@@ -16,12 +16,21 @@
 			$pass = password_verify($pass, $admin->getPass());
 			if(!is_null($admin) && $pass === true){
 				$_SESSION['id'] = $admin->getId();
+
 				return true;
 			}
 		} 
 
 		public function logged(){
 			return isset($_SESSION['id']) && !is_null($_SESSION['id']);
+		}
+
+		public function ifNotLogged(){
+			if (isset($_SESSION['id'])) {
+				$disabled = '';
+			}else{
+				$disabled = 'disabled="disabled"';
+			}
 		}
 
 
