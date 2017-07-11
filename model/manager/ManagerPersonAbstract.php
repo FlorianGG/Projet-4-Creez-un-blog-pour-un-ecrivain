@@ -6,12 +6,6 @@
 
 	class ManagerPersonAbstract extends ManagerAbstract{
 
-		public function create(ModelAbstract $data){
-			$pass = sha1(ModelPersonAbstract::PREFIXE_SHA1.$data->getPass());
-			$data->setPass($pass);
-			parent::create($data);
-		}
-		
 		//function ReadByEmail qui permet de lire une ligne de la bdd en fonction de son email
 		public function readByEmail(string $email){
 			//on prepare la requete filtré par l'email	

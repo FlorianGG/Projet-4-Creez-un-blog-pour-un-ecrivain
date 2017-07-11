@@ -41,7 +41,7 @@ $this->title = 'Interface de gestion des articles';
       <p><label for="title">Titre de l'article : <input type="text" name="title"  id="title" placeholder="Titre de l'article" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['title'];}?>"></label></p>
       <p><label for="content"></label>Contenu de votre article : </p>
       <p><textarea name="content" id="tinyMCE1" placeholder="Contenu de votre article" rows="15" cols="100"><?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['content'];}?></textarea></p>
-      <input type="hidden" name="adminId" value="<? echo $_SESSION['id'] ?>">
+      <input type="hidden" name="adminId" value="<? echo $_SESSION['adminId'] ?>">
       <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['id'];}?>">
       <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
       <input type="submit" value="Envoyer">

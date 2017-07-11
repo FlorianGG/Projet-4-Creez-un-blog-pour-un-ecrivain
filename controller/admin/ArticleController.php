@@ -89,7 +89,7 @@
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					//on insère les données dans un tableau pour les envoyer dans la vue
-					$data = [
+					$data['article'] = [
 						'id' => $article->getId(),
 						'title' => $article->getTitle(),
 						'content' => $article->getContent(),

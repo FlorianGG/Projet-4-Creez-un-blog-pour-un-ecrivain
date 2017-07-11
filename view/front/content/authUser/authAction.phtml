@@ -1,0 +1,20 @@
+<?php 
+	$this->title = 'Utilisateur : Identification'; 
+?>
+
+	<div class="auth">
+		<h2>Bienvenue sur la page d'authentification du Blog</h2>
+		<form method="post" action="<?php echo $this->app->getUrl('?controller=authUser&action=login');?>">
+			<fieldset>
+				<legend>Veuillez entrez vos identifiants : </legend>
+				<p><label for="pseudo">Votre pseudo : <input type="text" name="pseudo" id="pseudo" value="<?php if (isset($_COOKIE['pseudo'])) {echo $_COOKIE['pseudo'];} ?>"></label></p>
+				<p><label for="pass">Votre mot de passe : <input type="password" name="pass" id="pass"></label></p>
+				<p><input type="submit" value="Envoyer"></p>
+			</fieldset>
+		</form>
+
+	</div>
+
+
+
+

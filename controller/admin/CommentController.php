@@ -36,7 +36,6 @@
 					$array['articleTitle'] = (new Article)->read($value->getArticleId())->getTitle();	
 					$array['articleId'] = $value->getArticleId();			
 					$array['idParent'] = $value->getIdParent();
-					$array['ifNotLogged'] = $this->auth->ifNotLogged();
 					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
 					$data[$array['id']] = $array;
 				}
@@ -53,16 +52,9 @@
 			}
 		}
 
-		//Affiche les comments d'un article
-		public function displayAction(){
-			$array = $this->indexAction();
-				
-			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($array);
-			return $this->response->setBody($html);
-		}
-
 		//effacer un commentaire
 		public function deleteAction(){
+			$articleId = $this->request->getParam('article');
 			$id = (int) $this->request->getParam('id');
 			if (is_null($id) OR !isset($id) OR $id === 0) {
 				$message = 'Commentaire introuvable';
@@ -77,7 +69,8 @@
 					$html = 'Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.';
 				}
 			}
-			$this->redirectInIndex($message);
+			$path ='?interface=admin&controller=article&action=show&id=' . $articleId;
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 		// http://localhost?controller=backend&action=addArticle
 		//ajouter un article
@@ -94,7 +87,7 @@
 			}else{
 				$message = 'Une erreur est survenue durant l\'enregistrement';
 			}
-			$path ='?interface=admin&controller=' . $this->controller . '&action=display&id=' . $comment->getArticleId();
+			$path ='?interface=admin&controller=article&action=show&id=' . $comment->getArticleId();
 			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 

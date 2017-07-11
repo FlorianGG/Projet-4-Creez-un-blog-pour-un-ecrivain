@@ -1,0 +1,16 @@
+<?php 
+$this->title = 'Interface d\'inscription nouvel utilisateur'; 
+?>
+  <form id="formArticle" action="<?php echo $this->app->getUrl('?controller=user&action=save');?>" method="post">
+    <fieldset>
+      <legend>Nouvel utilisateur</legend>
+      <p><label for="pseudo">Votre pseudo <input type="text" name="pseudo"  id="pseudo" placeholder="Votre pseudo" required="required"></label></p>
+      <p><label for="email">Votre adresse email : <input type="email" name="email"  id="email" placeholder="Votre email" required="required"></label></p>
+      <p><label for="pass">Votre mot de passe <input type="password" name="pass"  id="pass" placeholder="Votre mot de passe" required="required"></label></p>
+      <p><label for="pass2">Votre mot de passe <input type="password" name="pass2"  id="pass2" placeholder="Votre mot de passe" required="required"></label></p>
+      <p><input type="checkbox" id="remember" name="remember"><label for="remember">Se souvenir de moi ?</label></p>
+      <input type="submit" value="Envoyer">
+      <button><a href="<?php echo $this->app->getUrl('?controller=user&action=registration');?>">Annuler</a></button>
+    </fieldset>
+  </form>
+</div>

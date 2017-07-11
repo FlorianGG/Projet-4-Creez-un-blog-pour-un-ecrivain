@@ -14,6 +14,7 @@ CREATE TABLE IF NOT EXISTS user (
 ENGINE=INNODB;
 
 INSERT INTO user (pseudo, email, pass) VALUES
+('admin', 'admin@gmail.com', '$2y$10$l65.5FkhEkkTXPurgUTOauF4kq0lphGg23Q2hn2Get/w/sJZYTedm'),
 ('john', 'john@gmail.com', '$2y$10$U.MLILmoiRBz31dRbdRPGuetO9wFByc7dbc9qtragduWj39kiO2zC');
 
 CREATE UNIQUE INDEX `UX_user_email` ON `user` (`email`);
@@ -252,44 +253,44 @@ ENGINE=INNODB;
 
 INSERT INTO comment (content, dateComment, idParent, userId, articleId) VALUES
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente inventore! Repellendus neque cum, eius cumque voluptas in dicta libero quae voluptate.'
-	, '2017-06-06 13:50:00', 0, 1, 1),
+	, '2017-06-06 13:50:00', 0, 2, 1),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente inventore! Repellendus neque cum, eius cumque voluptas in dicta libero quae voluptate.'
-	, '2017-06-06 13:51:00', 0, 1, 1),
+	, '2017-06-06 13:51:00', 0, 2, 1),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio optioad, maxime rem animi in impedit consectetur quae omnis illum ea.'
-	 , '2017-06-06 13:51:00', 0, 1, 2),
+	 , '2017-06-06 13:51:00', 0, 2, 2),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio optioad, maxime rem animi in impedit consectetur quae omnis illum ea.'
-	 , '2017-06-06 13:52:00', 3, 1, 2),
+	 , '2017-06-06 13:52:00', 3, 2, 2),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 13:52:00', 0, 1, 3),
+	, '2017-06-06 13:52:00', 0, 2, 3),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias excepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas officia quod possimus eos?'
-	, '2017-06-06 13:53:00', 0, 1, 4),
+	, '2017-06-06 13:53:00', 0, 2, 4),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias excepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas officia quod possimus eos?'
-	, '2017-06-06 13:54:00', 0, 1, 4),
+	, '2017-06-06 13:54:00', 0, 2, 4),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente inventore! Repellendus neque cum, eius cumque voluptas in dicta libero quae voluptate.'
-	, '2017-06-06 13:54:00', 0, 1, 5),
+	, '2017-06-06 13:54:00', 0, 2, 5),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio optioad, maxime rem animi in impedit consectetur quae omnis illum ea.'
-	 , '2017-06-06 13:54:30', 0, 1, 6),
+	 , '2017-06-06 13:54:30', 0, 2, 6),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 13:55:00', 0, 1, 7),
+	, '2017-06-06 13:55:00', 0, 2, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 13:56:00', 10, 1, 7),
+	, '2017-06-06 13:56:00', 10, 2, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 13:56:00', 10, 1, 7),
+	, '2017-06-06 13:56:00', 10, 2, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 14:00:00', 0, 1, 7),
+	, '2017-06-06 14:00:00', 0, 2, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 14:00:00', 13, 1, 7),
+	, '2017-06-06 14:00:00', 13, 2, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 13:56:00', 13, 1, 7),
+	, '2017-06-06 13:56:00', 13, 2, 7),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias excepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas officia quod possimus eos?'
-	, '2017-06-06 13:56:00', 0, 1, 8),
+	, '2017-06-06 13:56:00', 0, 2, 8),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit.Eveniet assumenda rem labore rerum autem voluptates fuga porro sapiente inventore! Repellendus neque cum, eius cumque voluptas in dicta libero quae voluptate.'
-	, '2017-06-06 13:57:00', 0, 1, 9),
+	, '2017-06-06 13:57:00', 0, 2, 9),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad nulla incidunt, quas veniam. Eius assumenda mollitia nulla odio optioad, maxime rem animi in impedit consectetur quae omnis illum ea.'
-	 , '2017-06-06 13:58:00', 0, 1, 10),
+	 , '2017-06-06 13:58:00', 0, 2, 10),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas autem, officiis ipsum aliquam molestiae, cupiditate harum repudiandae nobis culpa ullam voluptatem mollitia vel assumenda nam quo est, neque aliquid ratione.'
-	, '2017-06-06 14:00:00', 0, 1, 11),
+	, '2017-06-06 14:00:00', 0, 2, 11),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Rem eligendi, animi esse obcaecati et repellat natus! Sunt, molestias excepturi quaerat nemo recusandae, quidem dignissimos ipsum voluptas officia quod possimus eos?'
-	, '2017-06-06 14:01:00', 0, 1, 12),
+	, '2017-06-06 14:01:00', 0, 2, 12),
 ('Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eveniet ipsam modi soluta facere consequuntur, sequi eos quasi velit dolorem, minus sunt! Iste ullam rerum vitae repellendus numquam, sed pariatur dignissimos.'
-	, '2017-06-06 14:02:00', 0, 1, 13);
+	, '2017-06-06 14:02:00', 0, 2, 13);

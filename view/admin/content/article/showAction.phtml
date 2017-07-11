@@ -1,57 +1,68 @@
 <?php 
-$this->title = 'Admin : ' . $data['title']; 
+$this->title = 'Admin : ' . $data['article']['title']; 
 ?>
-<?php if (!isset($message)) {?>
-	
-<article class="solo">
-    <div class="title">
-        <h1 class="titreBillet"><?= $data['title'] ?></h1>
-        <time><em>Créer le : <?= $data['dateArticle'] ?></em></time>
-    </div>
-    <p><?= $data['content'] ?></p>
-    <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Retour à l'accueil</a></button>
-</article>
 
-<?php }else{?>
-<div>
-	<h2><? echo $message?></h2>
-</div>
-<?php	} ?>
 <article class="comments">
 	<fieldset>
 		<legend>Vos commentaires</legend>
+		<?php if (isset($_SESSION['userId'])) {?>
+			<form action="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=save');?>" method="post">
+				<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required"></textarea></p>
+				<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
+				<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+				<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
+				<input type="hidden" name="idParent" value="0">
+				<input type="submit" value="Envoyer">
+			</form>
+		<?php } ?>
 		<?php 
-		foreach ($data['comments'] as $key => $value) {?>
-		<?php var_dump($data['comments'][$key]['ifNotLogged']); ?>
+		foreach ($data['comments'] as $key => $value) { ?>
 			<div class="comment">
-				<h4>Auteur : <?= $data['comments'][$key]['userPseudo'] ?></h4>
-				<p><?= $data['comments'][$key]['content'] ?></p>
-				<p><em>Posté le : <?= $data['comments'][$key]['dateComment'] ?></em></p>
-				<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
-					<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required" disabled=""></textarea></p>
-					<input type="hidden" name="userId" value="1">
+			<?php  
+				if (isset($data['comments'][$key]['id'])) { ?>
+					<!-- Vue d'un commentaire de degré 1-->
+					<h4>Auteur : <?= $data['comments'][$key]['userPseudo'] ?></h4>
+					<p><?= $data['comments'][$key]['content'] ?></p>
+					<p><em>Posté le : <?= $data['comments'][$key]['dateComment'] ?></em> <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['id'] . '&article=' . $data['comments'][$key]['articleId']);?>">Supprimer</a></button></p>
+			<?php 	}else{ ?>
+				<!-- Vue si le commentaire a été supprimé -->
+				<h4>Auteur : Admin </h4>
+				<p> Ce commentaire a été supprimé par l'administrateur </p>
+			<?php } ?>
+				<?php if (isset($_SESSION['userId'])) {?>	
+				<button class="buttonComment">Répondre</button>
+				<!-- Interface de réponse à un commentaire activé par le button -->
+				<form class="formComment" action="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=save');?>" method="post">
+					<p><textarea name="content" id="mytextarea" placeholder="Votre réponse au commentaire" rows="5" required="required"></textarea></p>
+					<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
 					<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
-					<input type="hidden" name="articleId" value="<? $this->request->getParam('id') ?>">
+					<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
 					<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
-					<input type="submit" value="Envoyer" disabled="disabled">
+					<input type="submit" value="Envoyer">
 				</form>
+				<?php } ?>
 				<?php if (isset($data['comments'][$key]['response'])) {
 					foreach ($data['comments'][$key]['response'] as $comment => $com) {?>
+					<!-- Vue d'un commentaire de degré 2 -->
 						<div class="sousCommentaire" style="margin-left: 50px">
 							<h4>Auteur : <?= $data['comments'][$key]['response'][$comment]['userPseudo'] ?></h4>
 							<p><?= $data['comments'][$key]['response'][$comment]['content'] ?></p>
-							<p><em>Posté le : <?= $data['comments'][$key]['response'][$comment]['dateComment'] ?></em></p>
+							<p><em>Posté le : <?= $data['comments'][$key]['response'][$comment]['dateComment'] ?></em> <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['response'][$comment]['id'] . '&article=' . $data['comments'][$key]['response'][$comment]['articleId']);?>">Supprimer</a></button></p>
+							<?php if (isset($_SESSION['userId'])) {?>	
+							<button class="buttonComment">Répondre</button>
+							<!-- Interface de réponse à un commentaire activé par le button -->
+							<form class="formComment" action="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=save');?>" method="post">
+								<p><textarea name="content" id="mytextarea" placeholder="Votre réponse au commentaire" rows="5" required="required"></textarea></p>
+								<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
+								<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+								<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
+								<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
+								<input type="submit" value="Envoyer">
+							</form>
+							<?php } ?>
 						</div>
 				<?php }}  ?>
 			</div>	
 		<?php }?>
-		<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
-			<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required"></textarea></p>
-			<input type="hidden" name="userId" value="1">
-			<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
-			<input type="hidden" name="articleId" value="<? $this->request->getParam('id') ?>">
-			<input type="hidden" name="idParent" value="0">
-			<input type="submit" value="Envoyer">
-		</form>
 	</fieldset>
 </article>

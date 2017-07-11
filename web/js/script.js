@@ -1,3 +1,9 @@
+$(document).ready(function(){
+    $(".buttonComment").click(function(){
+    	$('.formComment').hide();
+        $(this).next('.formComment').toggle();
+    });
+});
 // // Add scrollspy to <body>
 // $('body').scrollspy({target: ".navbar", offset: 50});
 
@@ -23,3 +29,4 @@
 //   } // End if
 
 // });
+

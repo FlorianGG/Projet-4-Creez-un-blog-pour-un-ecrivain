@@ -51,6 +51,10 @@ header li{
 .comments textarea{
 	width: 100%;
 }
+
+.formComment{
+	display: none;
+}
 /*adminTable*/
 .articleManager{
 	margin: auto;

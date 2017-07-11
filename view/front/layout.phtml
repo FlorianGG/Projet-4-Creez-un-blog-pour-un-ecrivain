@@ -4,18 +4,34 @@
         <meta charset="UTF-8" />
         <link rel="stylesheet" type="text/css" href="web/css/style.css">
         <title><?= $title ?></title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="web/js/script.js"></script> 
     </head>
     <body>
         <div id="content">
 			<header>
                     <div class="collapse navbar-collapse" id="myNavbar">
                       <ul class="nav navbar-nav navbar-right">
+                        <li>
+                        </li>
                         <li><a href="index.php?controller=home&action=index">Accueil</a></li>
                         <li><a href="index.php?controller=article&action=index">Liste des articles</a></li> 
+                        <li>
+                            <?php if (isset($_SESSION['userId'])) {
+                                echo 'Bienvenue utilisateur n° ' . $_SESSION['userId'];
+                            }else{?>
+                                <a href="index.php?controller=authUser&action=auth">Connection</a>
+                        </li>
+                         <li><a href="index.php?controller=user&action=registration">Inscription</a></li>
+                             <?php } ?>                            
                       </ul>
                     </div>
             </header>
-
+            <?php if (isset($_SESSION['userId'])) {?>
+                <button><a href="<?php echo $this->app->getUrl('?controller=authUser&action=logout');?>">Logout</a></button>
+            <?php } ?>
+            
+            
             <div id="specificContent">
                 <?= $content ?>
             </div>
@@ -23,6 +39,5 @@
                 <p>Site réalisé par Florian Garcia</p>
             </footer>    
         </div>
-        <script type="text/javascript" src="web/js/script.js"></script> 
     </body>
 </html>
