@@ -18,9 +18,17 @@
     // use model\Comment;
     // use model\manager\CommentManager;
     // use model\ModelPersonAbstract;
+    // use model\Biography;
+
 
     require_once('vendor/Autoloader.php');
     Autoloader::register();
+
+    // $test = '<h1>qgsdhbfjnsdfhegisohdgfoeuisjgk,hl;g</h1>';
+
+    // $ajout =(new Biography)->setContent($test);
+    // var_dump($ajout);
+    // echo (new Biography)->getContent();
 
     //on instancie une nouvelle app
     $app = new App;

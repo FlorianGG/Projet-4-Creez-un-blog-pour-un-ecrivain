@@ -5,6 +5,7 @@
 	use model\http\Response;
 	use model\Article;
 	use model\Admin;
+	use model\Biography;
 	use view\View;	
 	
 	class HomeController extends FrontController{
@@ -21,8 +22,9 @@
 				$array['dateArticle'] = $articles[$i]->getDateArticle();
 				$array['adminPseudo'] = (new Admin)->read($articles[$i]->getAdminId())->getPseudo();
 
-				$data[] = $array;
+				$data['articles'][] = $array;
 			}
+			$data['biography'] = (new Biography)->getContent();
 
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			return $this->response->setBody($html);
