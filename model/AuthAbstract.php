@@ -17,6 +17,7 @@
 			$passhash = password_verify($pass, $person->getPass());
 			if(!is_null($person) && $passhash === true){
 				$_SESSION[$this->personId] = $person->getId();
+				$_SESSION['pseudo'] = $person->getPseudo();
 				return true;
 			}
 		} 

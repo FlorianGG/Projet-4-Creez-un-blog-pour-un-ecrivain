@@ -57,16 +57,16 @@
 			$articleId = $this->request->getParam('article');
 			$id = (int) $this->request->getParam('id');
 			if (is_null($id) OR !isset($id) OR $id === 0) {
-				$message = 'Commentaire introuvable';
+				$this->app->addErrorMessage('Commentaire introuvable');
 			}else{
 				$articleDelete = (new Comment)->delete($id);
 				if ($articleDelete) {
-					$message = 'Le commentaire n°' . $id . ' a bien été supprimé';
+					$this->app->addSuccessMessage('Le commentaire n°' . $id . ' a bien été supprimé');
 				}elseif (is_null($article)) {
-					$html = 'Commentaire introuvable';
+					$this->app->addErrorMessage('Commentaire introuvable');
 				}
 				else{
-					$html = 'Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.';
+					$this->app->addErrorMessage('Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.');
 				}
 			}
 			$path ='?interface=admin&controller=article&action=show&id=' . $articleId;
@@ -80,12 +80,12 @@
 			$newRecord = $comment->save($comment);
 			if ($newRecord) {
 				if (!empty($post['id'])) {
-					$message = 'Les modifications ont bien été effectuées';
+					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
 				}else{
-					$message = 'Le commentaire a bien été ajouté';
+					$this->app->addSuccessMessage('Le commentaire a bien été ajouté');
 				}
 			}else{
-				$message = 'Une erreur est survenue durant l\'enregistrement';
+				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
 			}
 			$path ='?interface=admin&controller=article&action=show&id=' . $comment->getArticleId();
 			$this->response->redirectUrl($this->app->getUrl($path));
@@ -96,7 +96,7 @@
 		public function showAction(){
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
-				$message = "Article introuvable";
+				$this->app->addErrorMessage('Article introuvable');
 			}else{
 				$article = (new Article)->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -114,12 +114,12 @@
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
-					$message = "Article introuvable";
+					$this->app->addErrorMessage('Article introuvable');
 				}
 			}
-			//on return le $html
 			
-			$this->redirectInIndex($message);
+			$path ='?interface=admin&controller=' . $this->controller . '&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 	}
 

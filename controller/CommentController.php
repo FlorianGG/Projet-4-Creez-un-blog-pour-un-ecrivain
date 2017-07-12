@@ -7,7 +7,8 @@
 	use model\Comment;
 	use model\Admin;
 	use model\User;
-	use view\View;	
+	use view\View;
+	use app\App;	
 	
 	class CommentController extends FrontController{
 
@@ -52,12 +53,12 @@
 			$newRecord = $comment->save($comment);
 			if ($newRecord) {
 				if (!empty($post['id'])) {
-					$message = 'Les modifications ont bien été effectuées';
+					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
 				}else{
-					$message = 'Le commentaire a bien été ajouté';
+					$this->app->addSuccessMessage('Le commentaire a bien été ajouté');
 				}
 			}else{
-				$message = 'Une erreur est survenue durant l\'enregistrement';
+				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
 			}
 			$path ='?controller=article&action=show&id=' . $comment->getArticleId();
 			$this->response->redirectUrl($this->app->getUrl($path));

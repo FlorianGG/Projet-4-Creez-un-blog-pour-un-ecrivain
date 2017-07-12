@@ -23,13 +23,6 @@
 				$this->response->redirectUrl($url);
 			}
 		}
-
-		protected function redirectInIndex($message){
-			$path ='?controller=home&action=index&message=' . $message;
-			$url = $this->app->getUrl($path);
-			$this->response->redirectUrl($url);
-		}
-
 	}
 
 ?>

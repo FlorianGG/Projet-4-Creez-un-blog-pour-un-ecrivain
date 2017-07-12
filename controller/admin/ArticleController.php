@@ -45,19 +45,20 @@
 		public function deleteAction(){
 			$id = (int) $this->request->getParam('id');
 			if (is_null($id) OR !isset($id) OR $id === 0) {
-				$message = 'Article introuvable';
+				$this->app->addErrorMessage('Article introuvable');
 			}else{
 				$articleDelete = (new Article)->delete($id);
 				if ($articleDelete) {
-					$message = 'L\'article n°' . $id . ' a bien été supprimé';
+					$this->app->addSuccessMessage('L\'article n°' . $id . ' a bien été supprimé');
 				}elseif (is_null($article)) {
-					$html = 'Article introuvable';
+					$this->app->addErrorMessage('Article introuvable');
 				}
 				else{
-					$html = 'Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.';
+					$this->app->addErrorMessage('Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.');
 				}
 			}
-			$this->redirectInIndex($message);
+			$path ='?interface=admin&controller=article&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 		// http://localhost?controller=backend&action=addArticle
 		//ajouter un article
@@ -67,14 +68,15 @@
 			$newRecord = $article->save($article);
 			if ($newRecord) {
 				if (!empty($post['id'])) {
-					$message = 'Les modifications ont bien été effectuées';
+					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
 				}else{
-					$message = 'L\'article a bien été ajouté';
+					$this->app->addSuccessMessage('L\'article a bien été ajouté');
 				}
 			}else{
-				$message = 'Une erreur est survenue durant l\'enregistrement';
+				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
 			}
-			$this->redirectInIndex($message);
+			$path ='?interface=admin&controller=article&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 
 		// http://localhost?controller=article&action=show&id=3
@@ -82,7 +84,7 @@
 		public function showAction(){
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
-				$message = "Article introuvable";
+				$this->app->addErrorMessage('Article introuvable');
 			}else{
 				$article = (new Article)->read($id);
 				$comments = (new CommentController($this->request,$this->response, $this->app))->indexAction();
@@ -107,12 +109,13 @@
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
-					$message = "Article introuvable";
+					$this->app->addErrorMessage('Article introuvable');
 				}
 			}
 			//on return le $html
 			
-			$this->redirectInIndex($message);
+			$path ='?interface=admin&controller=article&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 	}
 

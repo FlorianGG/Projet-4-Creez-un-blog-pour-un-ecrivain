@@ -1,86 +1,92 @@
 body{
-	width: 100%;
+	padding-top: 50px;
 	margin: 0;
+	font-family: 'Lora', serif !important;
+	background: #fff;
+	text-align: center;
+}
+
+h1, h2, h3,h4, header span, header a, header i{
+	color:#4C6b77 !important;
+}
+section{
+	margin: 20px auto;
+	padding: 60px 0;
+}
+
+button{
+	margin: 0 auto;
+	background: #4C6b77 !important;
+	color: white !important;
 }
 
 a{
 	text-decoration: none;
-	color: black;
 }
 
-/*Nav*/
-header{
+.alert{
+	width: 50%;
+	margin: 0 auto;
+}
 
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	height: 90px;
-	background-color: #ededed;
+/*Image principale sur page d'accueil*/
+.mainImage{
+	position: relative;
+	margin-bottom: 40px;
 }
-header ul{
-	display: flex;
-	justify-content: center;
+.mainImage h1{
+	font-size: 4vw;
 }
-header li{
-	text-decoration: none;
-	list-style: none;
-	padding: 0 10px;
-}
-/*Articles*/
-.articles{
-	display: flex;
-	flex-wrap: wrap;
-	justify-content: center;
-}
-.multi{
-	text-align: center;
+.textMainImage{
+	position: absolute;
+	bottom: 20%;
+	left:5%;
 	padding: 5px;
-	width: 28%;
+	background-color: rgba(255, 255, 255, 0.6);
+	font-weight: bold;
+
+}
+.textMainImage h4{
+	text-align: right;
+	font-size: 2.5vw;
+}
+.textMainImage a {
+	color: white;
+
 }
 
-.solo{
-	margin: 15px auto;
+/*Zone panel avec les vignettes*/
+.news{
+	background-color: #E0E6F1;
+}
+.title{
+	margin: 30px auto;
+}
+figcaption{
 	max-width: 80%;
-	text-align: center;
+	margin: 10px auto;
 }
-/*Comment*/
-.comments{
-	margin: 90px auto;
-	width: 70%;
-}
-.comments textarea{
-	width: 100%;
-}
-
-.formComment{
-	display: none;
-}
-/*adminTable*/
-.articleManager{
+.vignetteLivre{
 	margin: auto;
-	width: 60%;
-}
-.adminTable {
-    margin: 15px auto 30px auto;
-    border-collapse: collapse;
 }
 
-.adminTable td, th {
-    border: 1px solid black;
-    text-align: center;
-    padding: 8px;
+/*Zone de la biographie*/
+.biographie{
+	background-color: #F8F8F8;
 }
-
-.adminTable tr:nth-child(even) {
-    background-color: #dddddd;
-}
-
-/*Footer*/
-footer{
+.bio{
 	display: flex;
-	justify-content: center;
 	align-items: center;
-	height: 90px;
-	background-color: #ededed;
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .bio{
+        display: block;
+    }
+    .auteur{
+    	max-width: 300px !important;
+    	margin: 10px auto 30px auto;
+    }
 }
 

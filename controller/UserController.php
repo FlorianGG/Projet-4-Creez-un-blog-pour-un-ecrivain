@@ -25,40 +25,18 @@
 			$newRecord = $user->save($user);
 			if ($newRecord) {
 				if (!empty($post['id'])) {
-					$message = 'Les modifications ont bien été effectuées';
+					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
 				}else{
-					$message = 'L\'utilisateur a bien été ajouté';
+					$this->app->addSuccessMessage('L\'utilisateur a bien été ajouté');
 					if ($post['remember']) {
 						setcookie('pseudo', $post['pseudo'], time() + 7*24*3600, null, null, false, true);
 					}
 					$this->loginAction();
 				}
 			}else{
-				$message = 'Une erreur est survenue durant l\'enregistrement';
+				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
 			}
-			$this->redirectInIndex($message);
+			$path ='?controller=home&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
-
-		public function loginAction(){
-			$pseudo = $this->request->getPost()['pseudo'];
-			$pass = $this->request->getPost()['pass'];
-			if($this->authUser->login($pseudo, $pass)){
-				$path = '?controller=home&action=index';
-				$url = $this->app->getUrl($path);
-				$this->response->redirectUrl($url);
-			}else{
-				$path = '?controller=authUser&action=auth';
-				$url = $this->app->getUrl($path);
-				$this->response->redirectUrl($url);
-			}
-		}
-
-		public function logoutAction(){
-			session_destroy();
-			$path = '?controller=home&action=index';
-			$url = $this->app->getUrl($path);
-			$this->response->redirectUrl($url);
-		}
-
-
 	}

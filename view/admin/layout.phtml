@@ -8,6 +8,18 @@
         <script type="text/javascript" src="web/js/tinymce.js"></script> 
     </head>
     <body>
+        <?php if (isset($_SESSION['successMessage'])) { ?>
+            <div class="successMessage">
+                <p><?php echo $_SESSION['successMessage'] ?></p>
+            </div>
+            <?php $_SESSION['successMessage'] = "" ?>
+        <?php } ?>
+        <?php if (isset($_SESSION['errorMessage'])) { ?>
+            <div class="errorMessage">
+                <p><?php echo $_SESSION['errorMessage'] ?></p>
+            </div>
+            <?php $_SESSION['errorMessage'] = "" ?>
+        <?php } ?>
         <div id="content">
 			<h1>Bienvenue sur votre interface d'administration</h1>
             <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=authAdmin&action=logout');?>">Logout</a></button>

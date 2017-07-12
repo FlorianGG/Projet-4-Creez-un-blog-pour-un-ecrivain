@@ -19,16 +19,9 @@
 
 		public function checkLogged(){
 			if (!$this->authAdmin->logged()) {
+				$this->app->addErrorMessage('Vous n\'êtes pas autorisé à accéder à cette page. Veuillez vous identifier');
 				$path = '?interface=admin&controller=authAdmin&action=auth';
-				$url = $this->app->getUrl($path);
-				$this->response->redirectUrl($url);
+				$this->response->redirectUrl($this->app->getUrl($path));
 			}
 		}
-
-		protected function redirectInIndex($message){
-			$path ='?interface=admin&controller=' . $this->controller . '&action=index&message=' . $message;
-			$url = $this->app->getUrl($path);
-			$this->response->redirectUrl($url);
-		}
-
 	}

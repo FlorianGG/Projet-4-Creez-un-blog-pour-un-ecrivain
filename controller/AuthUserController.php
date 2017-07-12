@@ -23,10 +23,12 @@
 			$pseudo = $this->request->getPost()['pseudo'];
 			$pass = $this->request->getPost()['pass'];
 			if($this->authUser->login($pseudo, $pass)){
+				$this->app->addSuccessMessage('Authentification réussie');
 				$path = '?controller=home&action=index';
 				$url = $this->app->getUrl($path);
 				$this->response->redirectUrl($url);
 			}else{
+				$this->app->addErrorMessage('Pseudo et/ou mot de passe non reconnu');
 				$path = '?controller=authUser&action=auth';
 				$url = $this->app->getUrl($path);
 				$this->response->redirectUrl($url);
@@ -34,6 +36,7 @@
 		}
 
 		public function logoutAction(){
+			$this->app->addSuccessMessage('Vous avez bien été déconnecté');
 			session_destroy();
 			$path = '?controller=home&action=index';
 			$url = $this->app->getUrl($path);

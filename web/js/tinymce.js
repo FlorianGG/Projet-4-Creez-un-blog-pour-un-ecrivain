@@ -12,6 +12,7 @@ tinymce.init({
   toolbar3: "forecolor backcolor | hr removeformat | subscript superscript | charmap emoticons | print fullscreen | ltr rtl | visualchars visualblocks ",
   content_css: [
     '//fonts.googleapis.com/css?family=Lato:300,300i,400,400i',
+    '//fonts.googleapis.com/css?family=Lora:400,700',
     '//www.tinymce.com/css/codepen.min.css'],
 
   menubar: false,

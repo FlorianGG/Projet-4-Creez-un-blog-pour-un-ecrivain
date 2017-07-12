@@ -27,6 +27,7 @@
 				$url = $this->app->getUrl($path);
 				$this->response->redirectUrl($url);
 			}else{
+				$this->app->addErrorMessage('Pseudo et/ou mot de passe non reconnu');
 				$path = '?interface=admin&controller=authAdmin&action=auth';
 				$url = $this->app->getUrl($path);
 				$this->response->redirectUrl($url);
@@ -35,6 +36,7 @@
 
 		public function logoutAction(){
 			session_destroy();
+			$this->app->addSuccessMessage('Vous avez bien été déconnecté');
 			$path = '?interface=admin&controller=authAdmin&action=auth';
 			$url = $this->app->getUrl($path);
 			$this->response->redirectUrl($url);

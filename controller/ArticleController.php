@@ -11,19 +11,13 @@
 	
 	class ArticleController extends FrontController{
 
-		private function redirectAtHome($message){
-			$path ='?&controller=home&action=index&message=' . $message;
-			$url = $this->app->getUrl($path);
-			$this->response->redirectUrl($url);
-		}
-
 		//list all articles
 		public function indexAction(){
 			$articles = (new Article)->readAll();
-			if (empty($articles)) {
-				# code...
-			}
 			$data = [];
+			if (empty($articles)) {
+				$html = 'Rien à afficher';
+			}
 
 			foreach ($articles as $key => $value) {
 				//on insère les données dans un tableau pour les envoyer dans la vue
@@ -46,7 +40,7 @@
 		public function showAction(){
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
-				$message = "Article introuvable";
+				$this->app->addErrorMessage('Article introuvable');
 			}else{
 				$article = (new Article)->read($id);
 				$comments = (new CommentController($this->request,$this->response, $this->app))->indexAction();
@@ -72,12 +66,11 @@
 
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
-					$message = "Article introuvable";
+					$this->app->addErrorMessage('Article introuvable');
 				}
 			}
-			//on return le $html
-			
-			$this->redirectAtHome($message);
+			$path ='?controller=home&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path));
 		}
 
 		
