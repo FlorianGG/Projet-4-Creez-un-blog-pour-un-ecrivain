@@ -18,6 +18,14 @@
 			parent::checkLogged();
 		}
 
+		private function checkIsArticleExist($function){
+			if (is_null($function)) {
+				return null;
+			}else{
+				return $function->getId();
+			}
+		}
+
 		//list all articles
 		public function indexAction(){
 			$articles = (new Article)->readAll();
@@ -31,6 +39,7 @@
 				$array['content'] = $value->getContent();
 				$array['dateArticle'] = $value->getDateArticle();
 				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+
 
 				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
 				$data[] = $array;
@@ -95,7 +104,9 @@
 						'id' => $article->getId(),
 						'title' => $article->getTitle(),
 						'content' => $article->getContent(),
-						'dateArticle' => $article->getDateArticle()
+						'dateArticle' => $article->getDateArticle(),
+						'previousId'=>$this->checkIsArticleExist($article->previousId($article->getId())),
+						'nextId'=>$this->checkIsArticleExist($article->nextId($article->getId()))
 						];
 					//on insère les commentaires de l'article dans le tableau
 					if (!is_null($comments)) {

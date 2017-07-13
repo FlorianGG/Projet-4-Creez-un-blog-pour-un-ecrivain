@@ -1,75 +1,141 @@
 <?php 
 $this->title = 'Mon Blog : ' . $data['article']['title']; 
 ?>
-<article class="solo">
-    <div class="title">
-        <h1 class="titreBillet"><?= $data['article']['title'] ?></h1>
-        <time><em>Créé le : <?= $data['article']['dateArticle'] ?></em></time>
-    </div>
-    <p><?= $data['article']['content'] ?></p>
-    <button><a href="<?php echo $this->app->getUrl('?controller=article&action=index');?>">Retour à l'accueil</a></button>
-</article>
-<article class="comments">
-	<fieldset>
-		<legend>Vos commentaires</legend>
-		<?php if (isset($_SESSION['userId'])) {?>
-			<form action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
-				<p><textarea name="content" id="mytextarea" placeholder="Votre commentaire" rows="5" required="required"></textarea></p>
-				<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
-				<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
-				<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
-				<input type="hidden" name="idParent" value="0">
-				<input type="submit" value="Envoyer">
-			</form>
-		<?php } ?>
-		<?php 
-		foreach ($data['comments'] as $key => $value) { ?>
-			<div class="comment">
-			<?php  
-				if (isset($data['comments'][$key]['id'])) { ?>
-					<!-- Vue d'un commentaire de degré 1-->
-					<h4>Auteur : <?= $data['comments'][$key]['userPseudo'] ?></h4>
-					<p><?= $data['comments'][$key]['content'] ?></p>
-					<p><em>Posté le : <?= $data['comments'][$key]['dateComment'] ?></em></p>
-			<?php 	}else{ ?>
-				<!-- Vue si le commentaire a été supprimé -->
-				<h4>Auteur : Admin </h4>
-				<p> Ce commentaire a été supprimé par l'administrateur </p>
-			<?php } ?>
-				<?php if (isset($_SESSION['userId'])) {?>	
-				<button class="buttonComment">Répondre</button>
-				<!-- Interface de réponse à un commentaire activé par le button -->
-				<form class="formComment" action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
-					<p><textarea name="content" id="mytextarea" placeholder="Votre réponse au commentaire" rows="5" required="required"></textarea></p>
+<div class="row">
+	<section class="col-sm-8 col-sm-offset-2 article">
+	    <div class="title">
+	        <h1 class="titreBillet"><?= $data['article']['title'] ?></h1>
+	        <time><em>Créé le : <?= $data['article']['dateArticle'] ?></em></time>
+	    </div>
+	    <p><?= $data['article']['content'] ?></p>
+	    <div class="row boutonArticle">
+	    	<div class="col-xs-2 col-xs-offset-1 precedent">
+	    		<?php if (!is_null($data['article']['previousId'])) { ?>
+	    			<a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data['article']['previousId']);?>"><button class="btn btn-default">Chapitre précédent</button></a>
+	    		<?php  } ?>
+	 
+	    	</div>
+	    	<div class="col-xs-2 col-xs-offset-2">
+	    		<a href="<?php echo $this->app->getUrl('?controller=article&action=index');?>"><button class="btn btn-default">Retour à l'accueil</button></a>
+	    	</div>
+	    		<div class="col-xs-2 col-xs-offset-2 precedent">
+	    			<?php if (!is_null($data['article']['nextId'])) { ?>
+	    				<a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data['article']['nextId']);?>"><button class="btn btn-default">Chapitre suivant</button></a>
+	    			<?php  } ?>
+	    		
+	    	</div>
+	    </div>
+	</section>
+
+</div>
+<div class="row">
+	<fieldset class="col-xs-8 col-xs-offset-2">
+			<legend>Vos commentaires</legend>
+			<?php if (isset($_SESSION['userId'])) {?>
+			<div class="row">
+				<form class="col-xs-10 col-xs-offset-1" action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+					<textarea class="form-control" name="content" id="mytextarea" placeholder="Votre commentaire" rows="3" required="required"></textarea>
 					<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
 					<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
 					<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
-					<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
-					<input type="submit" value="Envoyer">
+					<input type="hidden" name="idParent" value="0">
+					<br>
+					<button type="submit" class="btn btn-default btn-xs">Envoyer</button>
 				</form>
-				<?php } ?>
-				<?php if (isset($data['comments'][$key]['response'])) {
-					foreach ($data['comments'][$key]['response'] as $comment => $com) {?>
-					<!-- Vue d'un commentaire de degré 2 -->
-						<div class="sousCommentaire" style="margin-left: 50px">
-							<h4>Auteur : <?= $data['comments'][$key]['response'][$comment]['userPseudo'] ?></h4>
-							<p><?= $data['comments'][$key]['response'][$comment]['content'] ?></p>
-							<p><em>Posté le : <?= $data['comments'][$key]['response'][$comment]['dateComment'] ?></em></p>
-							<?php if (isset($_SESSION['userId'])) {?>	
-							<button class="buttonComment">Répondre</button>
-							<!-- Interface de réponse à un commentaire activé par le button -->
-							<form class="formComment" action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
-								<p><textarea name="content" id="mytextarea" placeholder="Votre réponse au commentaire" rows="5" required="required"></textarea></p>
-								<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
-								<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
-								<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
-								<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
-								<input type="submit" value="Envoyer">
-							</form>
-							<?php } ?>
+			</div>
+			<?php } ?>
+			<div class="row">
+				<?php foreach ($data['comments'] as $key => $value) {
+						if (isset($data['comments'][$key]['id'])) { ?>
+							<!-- Vue d'un commentaire de degré 1-->
+							<div class="row">
+								<div class="col-xs-12">
+									<div class="well well-sm">
+										<div class="row">
+											<div class="col-md-5 col-xs-6">
+												<p><strong class="badge"><?= $data['comments'][$key]['userPseudo'] ?></strong></p>
+											</div>
+											<div class="col-md-5 col-md-offset-2 col-xs-6">
+												<small><em> Le : <?= $data['comments'][$key]['dateComment'] ?></em></small>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-xs-12">
+												<p><?= $data['comments'][$key]['content'] ?></p>
+											</div>
+										</div>
+										<?php if (isset($_SESSION['userId'])) {?>	
+										<button class="btn btn-default btn-xs buttonComment">Répondre</button>
+										<!-- Interface de réponse à un commentaire activé par le button -->
+										<div class="row formComment">
+											<form class="col-xs-10 col-xs-offset-2" action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+												<textarea class="form-control" name="content" id="mytextarea" placeholder="Votre réponse au commentaire" rows="3" required="required"></textarea>
+												<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
+												<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+												<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
+												<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
+												<br>
+												<button type="submit" class="btn btn-default btn-xs">Envoyer</button>
+											</form>
+										</div>
+										<?php } ?>
+									</div>
+								</div>
+							</div>
+							
+					<?php 	}else{ ?>
+						<!-- Vue si le commentaire a été supprimé -->
+						<div class="well">
+							<p><strong class="badge">Admin</strong></p>
+							<p> Ce commentaire a été supprimé par l'administrateur </p>
 						</div>
-				<?php }}  ?>
-			</div>		
-		<?php }?>
+					<?php } ?>
+						<?php if (isset($data['comments'][$key]['response'])) {
+							foreach ($data['comments'][$key]['response'] as $comment => $com) {?>
+							<!-- Vue d'un commentaire de degré 2 -->
+							<div class="row">
+								<div class="col-xs-11 col-xs-offset-1">
+									<div class="well well-sm sousCommentaire">
+										<div class="row">
+											<div class="col-md-5 col-xs-6">
+												<p><strong class="badge"><?= $data['comments'][$key]['response'][$comment]['userPseudo'] ?></strong></p>
+											</div>
+											<div class="col-md-5 col-md-offset-2 col-xs-6">
+												<small><em> Le : <?= $data['comments'][$key]['response'][$comment]['dateComment'] ?></em></small>
+											</div>
+										</div>
+										<div class="row">
+											<div class="col-xs-12">
+												<p><?= $data['comments'][$key]['response'][$comment]['content'] ?></p>
+											</div>
+										</div>
+										<?php if (isset($_SESSION['userId']) && isset($data['comments'][$key]['id'])) {
+											?>
+										<button class="btn btn-default btn-xs buttonComment">Répondre</button>
+										<!-- Interface de réponse à un commentaire activé par le button -->
+										<div class="row formComment">
+											<form class="col-sm-10 col-sm-offset-2" action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
+												<textarea class="form-control" name="content" id="mytextarea" placeholder="Votre réponse au commentaire" rows="3" required="required"></textarea>
+												<input type="hidden" name="userId" value="<?php  echo $_SESSION['userId']?>">
+												<input type="hidden" name="dateComment" value="<?echo date("Y-m-d H:i:s");?>">
+												<input type="hidden" name="articleId" value="<? echo $data['article']['id'] ?>">
+												<input type="hidden" name="idParent" value="<? echo $data['comments'][$key]['id'] ?>">
+												<br>
+												<button type="submit" class="btn btn-default btn-xs">Envoyer</button>
+											</form>
+										</div>
+										<?php } ?>
+									</div>
+
+								</div>
+							</div>
+
+						<?php }}  ?>	
+				<?php }?>
+			</div>
 	</fieldset>
-</article>
+</div>
+
+
+
+

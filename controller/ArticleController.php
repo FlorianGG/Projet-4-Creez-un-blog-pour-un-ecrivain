@@ -36,13 +36,20 @@
 
 		// http://localhost?controller=article&action=show&id=3
 		//display one article 
-
+		private function checkIsArticleExist($function){
+			if (is_null($function)) {
+				return null;
+			}else{
+				return $function->getId();
+			}
+		}
 		public function showAction(){
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
 				$this->app->addErrorMessage('Article introuvable');
 			}else{
 				$article = (new Article)->read($id);
+
 				$comments = (new CommentController($this->request,$this->response, $this->app))->indexAction();
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
@@ -51,7 +58,9 @@
 						'id' => $article->getId(),
 						'title' => $article->getTitle(),
 						'content' => $article->getContent(),
-						'dateArticle' => $article->getDateArticle()
+						'dateArticle' => $article->getDateArticle(),
+						'previousId'=>$this->checkIsArticleExist($article->previousId($article->getId())),
+						'nextId'=>$this->checkIsArticleExist($article->nextId($article->getId()))
 						];
 					//on insère les commentaires de l'article dans le tableau
 					if (!is_null($comments)) {

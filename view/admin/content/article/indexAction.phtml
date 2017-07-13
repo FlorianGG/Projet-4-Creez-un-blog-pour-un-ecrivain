@@ -1,41 +1,54 @@
 <?php 
 $this->title = 'Interface de gestion des articles'; 
 ?>
-<button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Accueil</a></button>
-<div class="articleManager">
-  <h2 style="text-align: center">Liste de tous les articles</h2>
-  <table class="adminTable">
-    <tr>
-      <th>Titre</th>
-      <th>Auteur</th>
-      <th>Date Article</th>
-      <th>Action</th>
-    </tr>
-    <?php foreach ($data as $key => $value){ ?>
-    <tr>
-      <td><?= $data[$key]['title'] ?></td>
-      <td><?= $data[$key]['adminPseudo'] ?></td>
-      <td><?= $data[$key]['dateArticle'] ?></td>
-      <td>
-          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=delete&id=' . $data[$key]['id']);?>">Supprimer</a></button>
-          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index&key=' . $key . '#formArticle');?>">Modifier</a></button>
-          <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data[$key]['id']);?>">Vue</a></button>
-      </td>
-    </tr>
-    <?php } ?>
-  </table>
-
-  <form id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=save');?>" method="post">
-    <fieldset>
-      <legend>Nouvel Article:</legend>
-      <p><label for="title">Titre de l'article : <input type="text" name="title"  id="title" placeholder="Titre de l'article" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['title'];}?>"></label></p>
-      <p><label for="content"></label>Contenu de votre article : </p>
-      <p><textarea name="content" id="tinyMCE1" placeholder="Contenu de votre article" rows="15" cols="100"><?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['content'];}?></textarea></p>
-      <input type="hidden" name="adminId" value="<? echo $_SESSION['adminId'] ?>">
-      <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['id'];}?>">
-      <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
-      <input type="submit" value="Envoyer">
-      <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Annuler</a></button>
-    </fieldset>
-  </form>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <h2 class="title">Liste de tous les articles</h2>
+    <table class="table table-hover table-condensed">
+      <tr>
+        <thead>
+          <th>Titre</th>
+          <th>Auteur</th>
+          <th>Date Article</th>
+          <th>Action</th>
+        </thead>
+      </tr>
+      <?php foreach ($data as $key => $value){ ?>
+      <tr>
+        <tbody class="table-striped">
+          <td><?= $data[$key]['title'] ?></td>
+          <td><?= $data[$key]['adminPseudo'] ?></td>
+          <td><?= $data[$key]['dateArticle'] ?></td>
+          <td> 
+              <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=delete&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs">Supprimer</button></a>
+              <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index&key=' . $key . '#formArticle');?>"><button class="btn btn-default btn-xs">Modifier</button></a>
+              <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs">Vue</button></a>     
+          </td>
+        </tbody>
+      </tr>
+      <?php } ?>
+    </table>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <form class="form-horizontal" id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=save');?>" method="post">
+      <fieldset>
+        <legend>Nouvel Article:</legend>
+        <div class="form-group">
+          <label class="control-label col-sm-2" for="title">Titre de l'article : </label>
+          <div class="col-sm-10">
+            <input class="form-control" type="text" name="title" id="title" placeholder="Titre de l'article" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['title'];}?>">
+          </div>
+        </div>
+        <p><label class="control-label" for="content">Contenu de votre article : </label></p>
+        <p><textarea class="form-control" name="content" id="tinyMCE1" placeholder="Contenu de votre article" rows="20" cols="100"><?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['content'];}?></textarea></p>
+        <input type="hidden" name="adminId" value="<? echo $_SESSION['adminId'] ?>">
+        <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('key'))) {echo $data[$this->request->getParam('key')]['id'];}?>">
+        <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
+        <button class="btn btn-default btn-sm">Envoyer</button>
+        <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><button class="btn btn-danger btn-sm">Annuler</button></a>
+      </fieldset>
+    </form>
+  </div>
 </div>

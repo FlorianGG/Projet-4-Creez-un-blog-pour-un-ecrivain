@@ -31,7 +31,8 @@
 			return $this->userId;
 		}
 		public function getDateComment(){
-			return $this->dateComment;
+			$date = new \DateTime($this->dateComment);
+			return $date->format('d-m-Y à H:i');
 		}
 		public function getArticleId(){
 			return $this->articleId;

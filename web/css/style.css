@@ -2,7 +2,7 @@ body{
 	padding-top: 50px;
 	margin: 0;
 	font-family: 'Lora', serif !important;
-	background: #fff;
+	background: #E0E6F1 !important;
 	text-align: center;
 }
 
@@ -10,18 +10,35 @@ h1, h2, h3,h4, header span, header a, header i{
 	color:#4C6b77 !important;
 }
 section{
-	margin: 20px auto;
-	padding: 60px 0;
+	margin: auto;
+	padding: 40px 0;
+}
+table{
+	background-color: #F8F8F8 !important;
+}
+
+.table-hover tbody tr:hover td {
+    background: #E0E6F1;
+}
+
+table th{
+	text-align: center;
+}
+
+.btn{
+	margin: 0px auto 15px auto !important;
+	color: white !important;
 }
 
 .btn-default{
-	margin: 0 auto;
 	background: #4C6b77 !important;
-	color: white !important;
 }
 
 a{
 	text-decoration: none;
+}
+a:hover{
+	text-decoration: none !important;
 }
 
 .alert{
@@ -56,12 +73,10 @@ a{
 }
 
 /*Zone panel avec les vignettes*/
-.news{
-	background-color: #E0E6F1;
-}
 .title{
 	margin: 30px auto;
 }
+
 figcaption{
 	max-width: 80%;
 	margin: 10px auto;
@@ -77,6 +92,46 @@ figcaption{
 .bio{
 	display: flex;
 	align-items: center;
+}
+
+/*Page article dans le front*/
+.article{
+	margin: 20px auto;
+	background-color: #fff;
+}
+
+.boutonArticle{
+	margin-top: 50px;
+}
+/*Zone de commentaires*/
+.formComment{
+	display: none;
+}
+
+.badge{
+	background-color: #4C6b77 !important;
+	padding: 5px 10px !important;
+}
+
+.well{
+	text-align: left;
+	padding-left: 30px !important;
+	background-color: #fff !important;
+	padding-bottom: 0 !important;
+}
+
+.sousCommentaire{
+	background-color: #f4f4f4 !important;
+}
+
+/*Zone inscription et connection*/
+.auth{
+	background-color: #F8F8F8;
+	padding-top: 40px;
+	padding-bottom: 55px;
+}
+.annulation{
+	color: #fff;
 }
 
 /*Footer*/

@@ -7,7 +7,7 @@ $this->title = 'Mon Blog : Liste des articles';
         <div class="textMainImage">
             <h1>Billet simple pour l'Alaska</h1>
             <h4>Par Jean Forteroche</h4>
-            <button class="btn btn-default"><a href="index.php#news">Découvre les derniers chapitres</a></button>
+            <button class="btn btn-default"><a href="<?php echo $this->app->getUrl('?controller=home&action=index#news');?>">Découvre les derniers chapitres</a></button>
         </div>
     </div>
 </div>
@@ -25,7 +25,7 @@ $this->title = 'Mon Blog : Liste des articles';
 				  	<img src="web/img/book.jpg" alt="Livre ouvert" class="img-responsive vignetteLivre">
 				  	<figcaption>
 				  		<p><?= $overview ?></p>
-				  		<button class="btn btn-default"><a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data['articles'][$key]['id']);?>"></a>Lire l'article</button>
+				  		<a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data['articles'][$key]['id']);?>"><button class="btn btn-default">Lire l'article</button></a>
 				  	</figcaption>	
 			  	</figure>
 			  </div>

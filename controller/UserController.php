@@ -21,6 +21,11 @@
 
 		public function saveAction(){
 			$post = $this->request->getPost();
+			if($post['pass2'] !== $post['pass']){
+				$this->app->addErrorMessage('Les deux mots de passe ne sont pas identiques');
+				$path ='?controller=user&action=registration';
+				$this->response->redirectUrl($this->app->getUrl($path));
+			}
 			$user = new User($post);
 			$newRecord = $user->save($user);
 			if ($newRecord) {
@@ -28,10 +33,10 @@
 					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
 				}else{
 					$this->app->addSuccessMessage('L\'utilisateur a bien été ajouté');
-					if ($post['remember']) {
+					if (isset($post['remember'])) {
 						setcookie('pseudo', $post['pseudo'], time() + 7*24*3600, null, null, false, true);
 					}
-					$this->loginAction();
+					(new AuthUserController($this->request, $this->response, $this->app))->loginAction();
 				}
 			}else{
 				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');

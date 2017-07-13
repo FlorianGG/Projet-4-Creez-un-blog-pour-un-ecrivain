@@ -2,34 +2,69 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" type="text/css" href="web/css/style.css">
         <title><?= $title ?></title>
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Lora:400,400i,700" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="web/css/style.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
         <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
         <script type="text/javascript" src="web/js/tinymce.js"></script> 
     </head>
     <body>
-        <?php if (isset($_SESSION['successMessage'])) { ?>
-            <div class="successMessage">
-                <p><?php echo $_SESSION['successMessage'] ?></p>
-            </div>
-            <?php $_SESSION['successMessage'] = "" ?>
-        <?php } ?>
-        <?php if (isset($_SESSION['errorMessage'])) { ?>
-            <div class="errorMessage">
-                <p><?php echo $_SESSION['errorMessage'] ?></p>
-            </div>
-            <?php $_SESSION['errorMessage'] = "" ?>
-        <?php } ?>
-        <div id="content">
-			<h1>Bienvenue sur votre interface d'administration</h1>
-            <button><a href="<?php echo $this->app->getUrl('?interface=admin&controller=authAdmin&action=logout');?>">Logout</a></button>
-            <div id="specificContent">
-                <?= $content ?>
-            </div>
-            <footer>
-                <p>Site réalisé par Florian Garcia</p>
-            </footer>    
+    <div id="content" class="container-fluid">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> 
+                            </button>
+                            <a class="navbar-brand" href="<?php echo $this->app->getUrl('?controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i> Jean Forteroche</a>
+                        </div>
+                        <?php if (isset($_SESSION['adminId'])) { ?>
+                            <div class="collapse navbar-collapse" id="myNavbar">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i> Accueil</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><i class="glyphicon glyphicon-book"></i> Gestion des articles</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=biography&action=set');?>"><i class="glyphicon glyphicon-info-sign"></i> Biographie</a></li> 
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=authAdmin&action=logout');?>"><span class="glyphicon glyphicon-off"></span> Déconnection</a></li>
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </div>
+                </nav>
+            </header>
         </div>
+        <div class="row">
+            <?php if (!empty($_SESSION['successMessage'])) { ?>
+                <div class="alert alert-success alert-dismissable fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <i class="icon icon-check-circle icon-lg"></i>
+                    <strong>Succès !</strong> <?php echo $_SESSION['successMessage'] ?>
+                </div>
+               <?php $_SESSION['successMessage'] = "" ?>
+            <?php } ?>
+           <?php if (!empty($_SESSION['errorMessage'])) { ?>
+                <div class="alert alert-danger alert-dismissable fade in">       
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <i class="icon icon-times-circle icon-lg"></i>
+                    <strong>Erreur !</strong> <?php echo $_SESSION['errorMessage'] ?>.
+                </div>       
+               <?php $_SESSION['errorMessage'] = "" ?>
+           <?php } ?> 
+        </div>
+       <div class="row">
+            <?= $content ?>
+       </div>
+       <div class="row">
+           <footer>
+               <p>Site réalisé par Florian Garcia</p>
+           </footer>  
+       </div>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script type="text/javascript" src="web/js/script.js"></script> 
     </body>

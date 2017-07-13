@@ -22,8 +22,13 @@
 		public function loginAction(){
 			$pseudo = $this->request->getPost()['pseudo'];
 			$pass = $this->request->getPost()['pass'];
+			$post = $this->request->getPost();
 			if($this->authUser->login($pseudo, $pass)){
 				$this->app->addSuccessMessage('Authentification réussie');
+				setcookie('pseudo','');
+				if (isset($post['remember'])) {
+					setcookie('pseudo', $post['pseudo'], time() + 7*24*3600, null, null, false, true);
+				}
 				$path = '?controller=home&action=index';
 				$url = $this->app->getUrl($path);
 				$this->response->redirectUrl($url);

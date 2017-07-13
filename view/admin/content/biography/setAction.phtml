@@ -1,14 +1,13 @@
 <?php 
 	$this->title = 'Administration : Biographie'; 
 ?>
-
-	<div class="auth">
-		<form method="post" action="<?php echo $this->app->getUrl('?interface=admin&controller=biography&action=post');?>">
-			<fieldset>
-				<legend>Veuillez écrire ou modifier votre biographie : </legend>
-				<p><textarea name="content" id="tinyMCE1" placeholder="Contenu de votre biographie" rows="15" cols="100"><?php  echo $data[0];?></textarea></p>
-				<p><input type="submit" value="Envoyer"></p>
-			</fieldset>
-		</form>
-
-	</div>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+  <legend><h2 class="title">Écrire ou modifier votre biographie : </h2></legend>
+    <form class="form-horizontal" id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=biography&action=post');?>" method="post">
+		<textarea class="form-control" name="content" id="tinyMCE1" placeholder="Contenu de votre biographie" rows="20" cols="100"><?php  echo $data[0];?></textarea>
+		<br>
+        <button class="btn btn-default">Envoyer</button>
+    </form>
+  </div>
+</div>

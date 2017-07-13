@@ -16,6 +16,16 @@
 			$this->manager = new ArticleManager;
 		}
 
+		//function previousId qui fait appel au manager et sa fonction previousId
+		public function previousId(int $id){
+			return $this->manager->previousId($id);
+		}
+
+		//function nextId qui fait appel au manager et sa fonction nextId
+		public function nextId(int $id){
+			return $this->manager->nextId($id);
+		}
+
 		//fonction getters
 		public function getTitle(){
 			return $this->title;
@@ -30,7 +40,8 @@
 		}
 
 		public function getDateArticle(){
-			return $this->dateArticle;
+			$date = new \DateTime($this->dateArticle);
+			return $date->format('d-m-Y à H:i');
 		}
 
 		//fonction setters
