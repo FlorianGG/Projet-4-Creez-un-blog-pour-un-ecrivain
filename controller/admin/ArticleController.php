@@ -28,25 +28,30 @@
 
 		//list all articles
 		public function indexAction(){
-			$articles = (new Article)->readAll();
-			$data = [];
+			try{
+				$articles = (new Article)->readAll();
+				$data = [];
 
-			foreach ($articles as $key => $value) {
-				//on insère les données dans un tableau pour les envoyer dans la vue
-				$array = [];
-				$array['id'] = $value->getId();
-				$array['title'] = $value->getTitle();
-				$array['content'] = $value->getContent();
-				$array['dateArticle'] = $value->getDateArticle();
-				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+				foreach ($articles as $key => $value) {
+					//on insère les données dans un tableau pour les envoyer dans la vue
+					$array = [];
+					$array['id'] = $value->getId();
+					$array['title'] = $value->getTitle();
+					$array['content'] = $value->getContent();
+					$array['dateArticle'] = $value->getDateArticle();
+					$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
 
 
-				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-				$data[] = $array;
+					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
+					$data[] = $array;
+				}
+
+				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
+				return $this->response->setBody($html);
+			}catch(\Exception $e){
+				return $this->response->setBody($e->getMessage() . ' ' . $e->getTraceAsString());
 			}
-
-			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
-			return $this->response->setBody($html);
+			
 		}
 
 		// http://localhost?controller=backend&action=delete&id=3
