@@ -21,7 +21,8 @@
 			if (!$this->authAdmin->logged()) {
 				$this->app->addErrorMessage('Vous n\'êtes pas autorisé à accéder à cette page. Veuillez vous identifier');
 				$path = '?interface=admin&controller=authAdmin&action=auth';
-				$this->response->redirectUrl($this->app->getUrl($path));
+				$code = 401;
+				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
 		}
 	}

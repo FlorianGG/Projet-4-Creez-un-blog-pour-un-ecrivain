@@ -47,6 +47,7 @@
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
 				$this->app->addErrorMessage('Article introuvable');
+				$code = 404;
 			}else{
 				$article = (new Article)->read($id);
 
@@ -76,10 +77,11 @@
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
 					$this->app->addErrorMessage('Article introuvable');
+					$code = 404;
 				}
 			}
 			$path ='?controller=home&action=index';
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path),$code);
 		}
 
 		

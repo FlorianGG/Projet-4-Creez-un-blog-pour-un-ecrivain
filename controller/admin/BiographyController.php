@@ -27,12 +27,14 @@
 			$data = $this->request->getPost();
 			$biography = (new Biography)->setContent($data['content']);
 			if ($biography) {
+				$code = 200;
 				$this->app->addSuccessMessage('La biographie a bien été modifiée');
 			}else{
+				$code = 404;
 				$this->app->addErrorMessage('Une erreur est survenue');
 			}
 			$path ='?interface=admin&controller=biography&action=set';
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 	}
 

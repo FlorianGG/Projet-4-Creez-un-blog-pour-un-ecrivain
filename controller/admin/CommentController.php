@@ -62,15 +62,18 @@
 				$articleDelete = (new Comment)->delete($id);
 				if ($articleDelete) {
 					$this->app->addSuccessMessage('Le commentaire n°' . $id . ' a bien été supprimé');
+					$code = 200;
 				}elseif (is_null($article)) {
 					$this->app->addErrorMessage('Commentaire introuvable');
+					$code = 404;
 				}
 				else{
 					$this->app->addErrorMessage('Il y a eu une erreur d\'éxécution, veuillez vérifier vos paramètres.');
+					$code = 404;
 				}
 			}
 			$path ='?interface=admin&controller=article&action=show&id=' . $articleId;
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 		// http://localhost?controller=backend&action=addArticle
 		//ajouter un article
@@ -81,14 +84,17 @@
 			if ($newRecord) {
 				if (!empty($post['id'])) {
 					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+					$code = 200;
 				}else{
 					$this->app->addSuccessMessage('Le commentaire a bien été ajouté');
+					$code = 200;
 				}
 			}else{
 				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+				$code = 404;
 			}
 			$path ='?interface=admin&controller=article&action=show&id=' . $comment->getArticleId();
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 
 		// http://localhost?controller=article&action=show&id=3
@@ -97,6 +103,7 @@
 			$id = (int)$this->request->getParam('id');
 			if (is_null($id) OR !isset($id)) {
 				$this->app->addErrorMessage('Article introuvable');
+				$code = 404;
 			}else{
 				$article = (new Article)->read($id);
 				//si aucune erreur on affiche l'article selectionné
@@ -115,11 +122,12 @@
 				//dans tous les cas d'erreur on affiche que l'article est introuvable
 				}else{
 					$this->app->addErrorMessage('Article introuvable');
+					$code = 404;
 				}
 			}
 			
 			$path ='?interface=admin&controller=' . $this->controller . '&action=index';
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 	}
 

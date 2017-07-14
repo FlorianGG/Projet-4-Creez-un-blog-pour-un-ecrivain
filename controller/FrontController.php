@@ -20,7 +20,8 @@
 			if (!$this->authUser->logged()) {
 				$path = '?controller=home&action=index';
 				$url = $this->app->getUrl($path);
-				$this->response->redirectUrl($url);
+				$code = 401;
+				$this->response->redirectUrl($url, $code);
 			}
 		}
 	}

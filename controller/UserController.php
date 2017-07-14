@@ -24,15 +24,18 @@
 			if($post['pass2'] !== $post['pass']){
 				$this->app->addErrorMessage('Les deux mots de passe ne sont pas identiques');
 				$path ='?controller=user&action=registration';
-				$this->response->redirectUrl($this->app->getUrl($path));
+				$code = 401;
+				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
 			$user = new User($post);
 			$newRecord = $user->save($user);
 			if ($newRecord) {
 				if (!empty($post['id'])) {
 					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+					$code = 200;
 				}else{
 					$this->app->addSuccessMessage('L\'utilisateur a bien été ajouté');
+					$code = 200;
 					if (isset($post['remember'])) {
 						setcookie('pseudo', $post['pseudo'], time() + 7*24*3600, null, null, false, true);
 					}
@@ -40,8 +43,9 @@
 				}
 			}else{
 				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+				$code = 404;
 			}
 			$path ='?controller=home&action=index';
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 	}

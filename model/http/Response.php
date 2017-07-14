@@ -23,6 +23,22 @@
 
 		//fonction qui redirige vers une autre url
 		public function redirectUrl($url, $code){//revoir comme utiliser la variable $code
+			$message ='';
+			switch ($code) {
+				case '200':
+					$message = 'ok';
+					break;
+				case '401':
+					$message = 'Unauthorized';
+					break;
+				case '404':
+					$message = 'Not Found';
+					break;
+				default:
+					$message = 'Ok';
+					break;
+			}
+			header('HTTP/1.0 ' . $code . ' ' . $message);
 			header('Location:'. $url);
 
 			exit();

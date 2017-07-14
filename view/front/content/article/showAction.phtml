@@ -7,7 +7,7 @@ $this->title = 'Mon Blog : ' . $data['article']['title'];
 	        <h1 class="titreBillet"><?= $data['article']['title'] ?></h1>
 	        <time><em>Créé le : <?= $data['article']['dateArticle'] ?></em></time>
 	    </div>
-	    <p><?= $data['article']['content'] ?></p>
+	    <div class="vueArticle"><?= $data['article']['content'] ?></div>
 	    <div class="row boutonArticle">
 	    	<div class="col-xs-2 col-xs-offset-1 precedent">
 	    		<?php if (!is_null($data['article']['previousId'])) { ?>
@@ -31,7 +31,7 @@ $this->title = 'Mon Blog : ' . $data['article']['title'];
 <div class="row">
 	<fieldset class="col-xs-8 col-xs-offset-2">
 			<legend>Vos commentaires</legend>
-			<?php if (isset($_SESSION['userId'])) {?>
+			<?php if (!empty($_SESSION['userId'])) {?>
 			<div class="row">
 				<form class="col-xs-10 col-xs-offset-1" action="<?php echo $this->app->getUrl('?controller=comment&action=save');?>" method="post">
 					<textarea class="form-control" name="content" id="mytextarea" placeholder="Votre commentaire" rows="3" required="required"></textarea>
@@ -64,7 +64,7 @@ $this->title = 'Mon Blog : ' . $data['article']['title'];
 												<p><?= $data['comments'][$key]['content'] ?></p>
 											</div>
 										</div>
-										<?php if (isset($_SESSION['userId'])) {?>	
+										<?php if (!empty($_SESSION['userId'])) {?>	
 										<button class="btn btn-default btn-xs buttonComment">Répondre</button>
 										<!-- Interface de réponse à un commentaire activé par le button -->
 										<div class="row formComment">
@@ -109,7 +109,7 @@ $this->title = 'Mon Blog : ' . $data['article']['title'];
 												<p><?= $data['comments'][$key]['response'][$comment]['content'] ?></p>
 											</div>
 										</div>
-										<?php if (isset($_SESSION['userId']) && isset($data['comments'][$key]['id'])) {
+										<?php if (!empty($_SESSION['userId']) && isset($data['comments'][$key]['id'])) {
 											?>
 										<button class="btn btn-default btn-xs buttonComment">Répondre</button>
 										<!-- Interface de réponse à un commentaire activé par le button -->

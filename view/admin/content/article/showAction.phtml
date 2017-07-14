@@ -7,7 +7,7 @@ $this->title = 'Admin : ' . $data['article']['title'];
 	        <h1 class="titreBillet"><?= $data['article']['title'] ?></h1>
 	        <time><em>Créé le : <?= $data['article']['dateArticle'] ?></em></time>
 	    </div>
-	    <p><?= $data['article']['content'] ?></p>
+	    <div class="vueArticle"><?= $data['article']['content'] ?></div>
 	    <div class="row boutonArticle">
 	    	<div class="col-xs-2 col-xs-offset-1 precedent">
 	    		<?php if (!is_null($data['article']['previousId'])) { ?>
@@ -29,7 +29,7 @@ $this->title = 'Admin : ' . $data['article']['title'];
 <div class="row">
 	<fieldset class="col-xs-8 col-xs-offset-2">
 			<legend>Vos commentaires</legend>
-			<?php if (isset($_SESSION['userId'])) {?>
+			<?php if (!empty($_SESSION['userId'])) {?>
 			<div class="row">
 				<form class="col-xs-10 col-xs-offset-1" action="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=save');?>" method="post">
 					<textarea class="form-control" name="content" id="mytextarea" placeholder="Votre commentaire" rows="3" required="required"></textarea>
@@ -62,8 +62,8 @@ $this->title = 'Admin : ' . $data['article']['title'];
 												<p><?= $data['comments'][$key]['content'] ?></p>
 											</div>
 										</div>
-										<?php if (isset($_SESSION['userId'])) {?>
-											<button class="btn btn-danger btn-xs"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['id'] . '&article=' . $data['comments'][$key]['articleId']);?>">Supprimer</a></button>	
+										<?php if (!empty($_SESSION['userId'])) {?>
+											<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalComment1">Supprimer</button>
 											<button class="btn btn-default btn-xs buttonComment">Répondre</button>
 
 										<!-- Interface de réponse à un commentaire activé par le button -->
@@ -108,9 +108,8 @@ $this->title = 'Admin : ' . $data['article']['title'];
 												<p><?= $data['comments'][$key]['response'][$comment]['content'] ?></p>
 											</div>
 										</div>
-										<?php if (isset($_SESSION['userId']) && isset($data['comments'][$key]['id'])) {
-											?>
-											<button class="btn btn-danger btn-xs"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['response'][$comment]['id'] . '&article=' . $data['comments'][$key]['response'][$comment]['articleId']);?>">Supprimer</a></button>
+										<?php if (!empty($_SESSION['userId']) && isset($data['comments'][$key]['id'])) {?>
+											
 											<button class="btn btn-default btn-xs buttonComment">Répondre</button>
 										<!-- Interface de réponse à un commentaire activé par le button -->
 										<div class="row formComment">
@@ -125,6 +124,7 @@ $this->title = 'Admin : ' . $data['article']['title'];
 											</form>
 										</div>
 										<?php } ?>
+										<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalComment2">Supprimer</button>
 									</div>
 
 								</div>
@@ -133,5 +133,39 @@ $this->title = 'Admin : ' . $data['article']['title'];
 				<?php }?>
 			</div>
 	</fieldset>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalComment1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       <div class="alert alert-danger">       
+           <i class="icon icon-times-circle icon-lg"></i>
+           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+       </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['id'] . '&article=' . $data['comments'][$key]['articleId']);?>">Supprimer</a></button>	
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalComment2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       <div class="alert alert-danger">       
+           <i class="icon icon-times-circle icon-lg"></i>
+           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+       </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['response'][$comment]['id'] . '&article=' . $data['comments'][$key]['response'][$comment]['articleId']);?>">Supprimer</a></button>
+      </div>
+    </div>
+  </div>
 </div>
 

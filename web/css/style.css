@@ -34,6 +34,10 @@ table th{
 	background: #4C6b77 !important;
 }
 
+.btn-default:hover{
+	background: #4D5b77 !important;
+}
+
 a{
 	text-decoration: none;
 }
@@ -42,8 +46,8 @@ a:hover{
 }
 
 .alert{
-	width: 50%;
-	margin: 0 auto;
+	width: 100% !important;
+	margin-bottom: -5px !important;
 }
 
 /*Image principale sur page d'accueil*/
@@ -100,6 +104,10 @@ figcaption{
 	background-color: #fff;
 }
 
+.vueArticle{
+	text-align: initial;
+}
+
 .boutonArticle{
 	margin-top: 50px;
 }
@@ -130,7 +138,7 @@ figcaption{
 	padding-top: 40px;
 	padding-bottom: 55px;
 }
-.annulation{
+.annulation, .annulation:hover{
 	color: #fff;
 }
 

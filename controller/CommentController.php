@@ -54,14 +54,17 @@
 			if ($newRecord) {
 				if (!empty($post['id'])) {
 					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+					$code = 200;
 				}else{
 					$this->app->addSuccessMessage('Le commentaire a bien été ajouté');
+					$code = 200;
 				}
 			}else{
 				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+				$code = 404;
 			}
 			$path ='?controller=article&action=show&id=' . $comment->getArticleId();
-			$this->response->redirectUrl($this->app->getUrl($path));
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 
 

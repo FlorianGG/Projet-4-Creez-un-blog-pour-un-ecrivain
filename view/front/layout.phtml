@@ -29,7 +29,7 @@
                                     <li><a href="<?php echo $this->app->getUrl('?controller=article&action=index');?>"><i class="glyphicon glyphicon-book"></i> Chapitres</a></li>
                                     <li><a href="<?php echo $this->app->getUrl('?controller=home&action=index#biographie');?>"><i class="glyphicon glyphicon-info-sign"></i> Biographie</a></li> 
                                     <li>
-                                        <?php if (isset($_SESSION['pseudo'])) {?>
+                                        <?php if (!empty($_SESSION['pseudo'])) {?>
                                             <a href="<?php echo $this->app->getUrl('?controller=authUser&action=logout');?>"><span class="glyphicon glyphicon-off"></span> Déconnection</a>
                                         <?php }else{?>
                                             <a href="<?php echo $this->app->getUrl('?controller=authUser&action=auth');?>"><span class="glyphicon glyphicon-log-in"></span> Connection</a>
@@ -43,22 +43,22 @@
                 </header>
             </div>
             <div class="row">
-                <?php if (!empty($_SESSION['successMessage'])) { ?>
+                <?php if (!is_null($this->app->getSuccessMessage())) { ?>
                     <div class="alert alert-success alert-dismissable fade in">
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <i class="icon icon-check-circle icon-lg"></i>
-                        <strong>Succès !</strong> <?php echo $_SESSION['successMessage'] ?>
+                        <strong>Succès !</strong> <?php echo $this->app->getSuccessMessage(); ?>
                     </div>
-                   <?php $_SESSION['successMessage'] = "" ?>
+                    <?php $this->app->deleteMessage(); ?>
                 <?php } ?>
-               <?php if (!empty($_SESSION['errorMessage'])) { ?>
+                <?php if (!is_null($this->app->getErrorMessage())) { ?>
                     <div class="alert alert-danger alert-dismissable fade in">       
                         <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                         <i class="icon icon-times-circle icon-lg"></i>
-                        <strong>Erreur !</strong> <?php echo $_SESSION['errorMessage'] ?>.
-                    </div>       
-                   <?php $_SESSION['errorMessage'] = "" ?>
-               <?php } ?> 
+                        <strong>Erreur !</strong> <?php echo $this->app->getErrorMessage() ?>.
+                    </div> 
+                    <?php $this->app->deleteMessage(); ?>      
+                <?php } ?> 
             </div>
             <div class="row">
                  <?= $content ?>

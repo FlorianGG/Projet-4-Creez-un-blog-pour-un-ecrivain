@@ -14,12 +14,15 @@
 
 		public function login($pseudo, $pass){
 			$person = $this->person->readByPseudo($pseudo);
-			$passhash = password_verify($pass, $person->getPass());
-			if(!is_null($person) && $passhash === true){
-				$_SESSION[$this->personId] = $person->getId();
-				$_SESSION['pseudo'] = $person->getPseudo();
-				return true;
+			if(!is_null($person)){
+				$passhash = password_verify($pass, $person->getPass());
+				if ($passhash === true) {
+					$_SESSION[$this->personId] = $person->getId();
+					$_SESSION['pseudo'] = $person->getPseudo();
+					return true;
+				}	
 			}
+			return false;
 		} 
 
 		public function logged(){

@@ -31,21 +31,25 @@
 				}
 				$path = '?controller=home&action=index';
 				$url = $this->app->getUrl($path);
-				$this->response->redirectUrl($url);
+				$code = 200;
+				$this->response->redirectUrl($url, $code);
 			}else{
 				$this->app->addErrorMessage('Pseudo et/ou mot de passe non reconnu');
 				$path = '?controller=authUser&action=auth';
 				$url = $this->app->getUrl($path);
-				$this->response->redirectUrl($url);
+				$code = 401;
+				$this->response->redirectUrl($url, $code);
 			}
 		}
 
 		public function logoutAction(){
+			$_SESSION['userId'] = null;
+			$_SESSION['pseudo'] = null;
 			$this->app->addSuccessMessage('Vous avez bien été déconnecté');
-			session_destroy();
 			$path = '?controller=home&action=index';
 			$url = $this->app->getUrl($path);
-			$this->response->redirectUrl($url);
+			$code = 200;
+			$this->response->redirectUrl($url, $code);
 		}
 
 
