@@ -9,6 +9,7 @@
 		protected $content;
 		protected $adminId;
 		protected $dateArticle;
+		protected $isDraft;
 
 		public function __construct(array $data = null){
 			//la fonction constructeur lance la fct hydrate qui assigne les valeurs de datas à chaque attribut de l'objet
@@ -44,6 +45,10 @@
 			return $date->format('d-m-Y à H:i');
 		}
 
+		public function getIsDraft(){
+			return $this->isDraft;
+		}
+
 		//fonction setters
 		public function setTitle($title){
 			if (is_string($title) && strlen($title) <= 70) {
@@ -72,6 +77,11 @@
 
 		public function setDateArticle($dateArticle){
 			$this->dateArticle = $dateArticle;
+			return $this;
+		}
+
+		public function setIsDraft($isDraft){
+			$this->isDraft = $isDraft;
 			return $this;
 		}
 

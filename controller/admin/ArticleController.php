@@ -41,6 +41,7 @@
 					$array['content'] = $value->getContent();
 					$array['dateArticle'] = $value->getDateArticle();
 					$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+					$array['isDraft'] = $value->getIsDraft();
 
 
 					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
@@ -68,8 +69,13 @@
 						'content' => $article->getContent(),
 						'dateArticle' => $article->getDateArticle(),
 						'previousId'=>$this->checkIsArticleExist($article->previousId($article->getId())),
-						'nextId'=>$this->checkIsArticleExist($article->nextId($article->getId()))
+						'nextId'=>$this->checkIsArticleExist($article->nextId($article->getId())),
+						'isDraft'=> $article->getIsDraft(),
 						];
+						if (!is_null($article->getIsDraft())) {
+							$this->app->addSuccessMessage('Décoché la case \'Brouillon\' pour publier l\'article');
+							$code = 200;
+						}
 					//on définit l'action
 					$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 					return $this->response->setBody($html);

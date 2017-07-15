@@ -88,10 +88,11 @@ a:hover{
 
 figcaption{
 	max-width: 80%;
+	min-height: 100px;
 	margin: 10px auto;
 }
 .vignetteLivre{
-	margin: auto;
+	margin: 10px auto 20px auto;
 }
 
 /*Zone de la biographie*/

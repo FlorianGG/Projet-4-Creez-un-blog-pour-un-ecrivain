@@ -21,14 +21,17 @@
 
 			foreach ($articles as $key => $value) {
 				//on insère les données dans un tableau pour les envoyer dans la vue
-				$array = [];
-				$array['id'] = $value->getId();
-				$array['title'] = $value->getTitle();
-				$array['content'] = $value->getContent();
-				$array['dateArticle'] = $value->getDateArticle();
-				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+				if (is_null($value->getIsDraft())) {
+					$array = [];
+					$array['id'] = $value->getId();
+					$array['title'] = $value->getTitle();
+					$array['content'] = $value->getContent();
+					$array['dateArticle'] = $value->getDateArticle();
+					$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+					$array['isDraft'] = $value->getIsDraft();
 
-				$data[] = $array;
+					$data[] = $array;
+				}
 			}
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			return $this->response->setBody($html);
@@ -55,19 +58,27 @@
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){
 					//on insère les données dans un tableau pour les envoyer dans la vue
-					$data['article'] = [
-						'id' => $article->getId(),
-						'title' => $article->getTitle(),
-						'content' => $article->getContent(),
-						'dateArticle' => $article->getDateArticle(),
-						'previousId'=>$this->checkIsArticleExist($article->previousId($article->getId())),
-						'nextId'=>$this->checkIsArticleExist($article->nextId($article->getId()))
-						];
-					//on insère les commentaires de l'article dans le tableau
-					if (!is_null($comments)) {
-						$data['comments'] = $comments;
+					if (is_null($article->getIsDraft())) {
+						$data['article'] = [
+							'id' => $article->getId(),
+							'title' => $article->getTitle(),
+							'content' => $article->getContent(),
+							'dateArticle' => $article->getDateArticle(),
+							'previousId'=>$this->checkIsArticleExist($article->previousId($article->getId())),
+							'nextId'=>$this->checkIsArticleExist($article->nextId($article->getId())),
+							'isDraft' => $article->getIsDraft()
+							];
+						//on insère les commentaires de l'article dans le tableau
+						if (!is_null($comments)) {
+							$data['comments'] = $comments;
+						}else{
+							$data['comments'] = 'Pas de commentaire';
+						}
 					}else{
-						$data['comments'] = 'Pas de commentaire';
+						$this->app->addErrorMessage('Article introuvable');
+						$code = 404;
+						$path ='?controller=home&action=index';
+						$this->response->redirectUrl($this->app->getUrl($path),$code);
 					}
 					
 					//on définit l'action

@@ -28,6 +28,9 @@ if (!is_null($this->request->getParam('id'))) {
         <input type="hidden" name="adminId" value="<? echo $_SESSION['adminId'] ?>">
         <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('id'))) {echo $data['article']['id'];}?>">
         <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
+        <div class="checkbox">
+          <label><input <?php if(!is_null($data['article']['isDraft'])){echo 'checked';}?> type="checkbox" name="isDraft"> Brouillon ?</label>
+        </div>
         <button class="btn btn-default btn-sm" type="submit">Envoyer</button>
     </form>
     <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><button class="btn btn-danger btn-sm">Annuler</button></a>

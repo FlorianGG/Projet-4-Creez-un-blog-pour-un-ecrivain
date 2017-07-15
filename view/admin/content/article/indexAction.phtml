@@ -15,14 +15,14 @@ $this->title = 'Interface de gestion des articles';
       </tr>
       <?php foreach ($data as $key => $value){ ?>
       <tr>
-        <tbody class="table-striped">
-          <td><?= $data[$key]['title'] ?></td>
-          <td><?= $data[$key]['adminPseudo'] ?></td>
-          <td><?= $data[$key]['dateArticle'] ?></td>
-          <td> 
+        <tbody>
+          <td <?php if (!is_null($data[$key]['isDraft'])) {echo 'class="danger"';} ?>><?= $data[$key]['title'] ?></td>
+          <td <?php if (!is_null($data[$key]['isDraft'])) {echo 'class="danger"';} ?>><?= $data[$key]['adminPseudo'] ?></td>
+          <td <?php if (!is_null($data[$key]['isDraft'])) {echo 'class="danger"';} ?>><?= $data[$key]['dateArticle'] ?></td>
+          <td <?php if (!is_null($data[$key]['isDraft'])) {echo 'class="danger"';} ?>> 
               <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record');?>"><button class="btn btn-default btn-xs">Nouvel Article</button></a>
              <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalArticle">Supprimer</button>
-              <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs">Modifier</button></a>
+              <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs"><?php if (!is_null($data[$key]['isDraft'])) {echo 'Publier';}else{echo 'Modifier';} ?></button></a>
               <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs">Vue</button></a>     
           </td>
         </tbody>
