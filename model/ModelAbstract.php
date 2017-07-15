@@ -19,6 +19,11 @@
 			return $this->manager->delete($id);
 		}
 
+		//function count qui fait appel au manager et sa fonction count
+		public function count(){
+			return $this->manager->count();
+		}
+
 		//function read qui fait appel au manager et sa fonction read
 		public function read(int $id){
 			return $this->manager->read($id);

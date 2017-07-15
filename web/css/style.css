@@ -50,6 +50,11 @@ a:hover{
 	margin-bottom: -5px !important;
 }
 
+.help-block{
+	text-align: initial;
+}
+
+
 /*Image principale sur page d'accueil*/
 .mainImage{
 	position: relative;
@@ -111,6 +116,11 @@ figcaption{
 .boutonArticle{
 	margin-top: 50px;
 }
+
+.imgHead{
+	width: 100%;
+}
+
 /*Zone de commentaires*/
 .formComment{
 	display: none;

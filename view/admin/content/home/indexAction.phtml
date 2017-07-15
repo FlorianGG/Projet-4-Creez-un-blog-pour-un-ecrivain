@@ -1,11 +1,120 @@
 <?php 
 	$this->title = 'Administration : Home'; 
+	$nameAutor = 'autor';
+	$nameHome = 'home';
 ?>
-
-	<div>
-		<h3>Hello World!</h3>
-		<ul>
-			<li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>">Gestion des articles</a></li>
-			<li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=biography&action=set');?>">Modifier la biographie</a></li>
-		</ul>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <h2 class="title">Bienvenue sur votre interface d'administration</h2>
+  </div>
+</div>
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-2">
+		<div class="panel panel-default">
+		    <!-- Default panel contents -->
+		    <div class="panel-heading">Indicateurs</div>
+		    <div class="panel-body">
+    		    <div class="row">
+    		    	<div class="col-sm-6">
+    		    		<fieldset>
+    		    			<legend>Contenu de votre site</legend>
+    		    			<table class="table table-condensed table-responsive">
+	    		    			<tr>
+	    		    			    <td class="text-left">Nombre d'articles :</td>
+	    		    			    <td class="text-left"><?php echo $data['nbArticle'] ?></td>
+	    		    			</tr>
+	    		    			<tr>
+	    		    			    <td class="text-left">Nombre de commentaires :</td>
+	    		    			    <td class="text-left"><?php echo $data['nbComment'] ?></td>
+	    		    			</tr>
+    		    			</table>
+    		    		</fieldset>
+    		    	</div>
+    		    	<div class="col-sm-6">
+						<fieldset>
+							<legend>Navigation</legend>
+							<table class="table table-condensed table-responsive">
+								<tr>
+								    <td class="text-left">Nombre d'administrateur</td>
+								    <td class="text-left"><?php echo $data['nbAdmin'] ?></td>
+								</tr>
+								<tr>
+									<td class="text-left">Nombre d'utilisateurs</td>
+								    <td class="text-left"><?php echo $data['nbUser'] ?></td>
+								</tr>
+								<tr>
+								    <td class="text-left">Nombre de visites</td>
+								    <td class="text-left"><?php echo $data['nbVisitor'] ?></td>
+								</tr>
+							</table>
+						</fieldset>
+    		    	</div>
+    		    </div>
+		    </div>
+		</div>
 	</div>
+</div>
+<div class="row">
+	<div class="col-xs-8 col-xs-offset-2">
+		<div class="panel panel-default">
+		    <!-- Default panel contents -->
+		    <div class="panel-heading">Gestion des images du site</div>
+		    <div class="panel-body">
+    		    <div class="row">
+    		    	<div class="col-lg-6">
+    		    		<fieldset>
+    		    			<legend>Changer l'image de la page d'accueil</legend>
+    		    			<div class="row">
+    		    				<div class="col-xs-12">
+    		    					<?php if (file_exists('tmp/home/miniaturehome.jpg')) {?>
+    		    					<img class="imgMiniature" src="<?echo 'tmp/home/miniaturehome.jpg?' . time();?>" alt="Miniature photo page d'accueil">
+    		    					<?}else{}?>
+    		    				</div>
+    		    			</div>
+    		    			<br>
+    		    			<form class="form-horizontal" id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=validateImg&name=' . $nameHome);?>" method="post" enctype="multipart/form-data">
+								<div class="form-group">
+									<label class="col-lg-12 col-xs-4" for="home">Ajouter une image</label>
+									<div class="col-lg-12 col-xs-8">
+									    <input class="col-xs-12" type="file" id="home" name="home">
+									</div>
+									<p class="col-xs-12 help-block text-center">Pour une qualité optimale, choisir une image avec une taille minimale de 1500x750 px.</p>
+									<p class="col-xs-12 help-block text-center">Le poids de l'image ne doit pas dépasser 1 Mo</p>
+								</div>
+								<button class="btn btn-default btn-sm" type="submit">Envoyer</button>
+    		    			</form>
+    		    			    <a href="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=index');?>"><button class="btn btn-danger btn-sm">Annuler</button></a>
+    		    		</fieldset>
+    		    	</div>
+    		    	<div class="col-lg-6">
+						<fieldset>
+							<legend>Changer l'image de l'auteur</legend>
+							<div class="row">
+								<div class="col-xs-12">
+									<?php if (file_exists('tmp/autor/miniatureautor.jpg')) {?>
+									<img class="imgMiniature" src="<?echo 'tmp/autor/miniatureautor.jpg?' . time();?>" alt="Miniature photo auteur">
+									<?}else{}?>
+								</div>
+							</div>
+							<br>
+							<form class="form-horizontal" id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=validateImg&name=' . $nameAutor);?>" method="post" enctype="multipart/form-data">
+						        <div class="form-group">
+						          <label class="col-lg-12 col-xs-4" for="autor">Ajouter une image</label>
+		    			            <div class="col-lg-12 col-xs-8">
+		    			                <input class="col-xs-12" type="file" id="autor" name="autor">
+		    			            </div>
+		    			            <p class="col-xs-12 help-block text-center">Pour une qualité optimale, choisir une image avec une taille minimale de 600x800 px.</p>
+		    			            <p class="col-xs-12 help-block text-center">Le poids de l'image ne doit pas dépasser 1 Mo</p>
+						        </div>
+						        <button class="btn btn-default btn-sm" type="submit">Envoyer</button>
+							</form>
+							<a href="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=index');?>"><button class="btn btn-danger btn-sm">Annuler</button></a>
+						</fieldset>
+    		    	</div>
+    		    </div>
+		    </div>
+		</div>
+	</div>
+</div>
+
+

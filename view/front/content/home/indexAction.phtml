@@ -3,7 +3,11 @@ $this->title = 'Mon Blog : Liste des articles';
 ?>
 <div class="row">
     <div id="accueil" class="mainImage">
-        <img src="web/img/main.jpg" alt="Vue de l\'Alaska" class="img-responsive">
+    	<?php if (file_exists('tmp/home/home.jpg')) {?>
+    	<img class="img-responsive" src="<?echo 'tmp/home/home.jpg?' . time();?>" alt="Photo d'accueil du site">
+    	<?}else{ ?>
+    		<img src="web/img/main.jpg" alt="Vue de l\'Alaska" class="img-responsive">
+    	<? } ?>
         <div class="textMainImage">
             <h1>Billet simple pour l'Alaska</h1>
             <h4>Par Jean Forteroche</h4>
@@ -24,7 +28,7 @@ $this->title = 'Mon Blog : Liste des articles';
 			  	<figure class="lastArticles">
 				  	<img src="
 				  	<?php if (file_exists('tmp/article/' . $data['articles'][$key]['id'] . '/miniature' . $data['articles'][$key]['id'] .'.jpg')) {
-				  		echo 'tmp/article/' . $data['articles'][$key]['id'] . '//miniature' . $data['articles'][$key]['id'] .'.jpg';
+				  		echo 'tmp/article/' . $data['articles'][$key]['id'] . '//miniature' . $data['articles'][$key]['id'] .'.jpg?' . time();
 				  	}else{
 				  		echo 'web/img/book.jpg';
 				  	}?>" alt="Livre ouvert" class="img-responsive vignetteLivre">
@@ -45,7 +49,11 @@ $this->title = 'Mon Blog : Liste des articles';
 		<div class="title"><h1>Biographie de l'auteur</h1></div>
 			<div class="bio">
 				<div class="col-sm-4">
-					<img src="web/img/auteur.jpg" alt="" class="img-responsive auteur">
+					<?php if (file_exists('tmp/autor/autor.jpg')) {?>
+					<img class="imgHead img-responsive" src="<?echo 'tmp/autor/autor.jpg?' . time();?>" alt="Photo d'accueil du site">
+					<?}else{ ?>
+						<img src="web/img/auteur.jpg" alt="" class="img-responsive auteur">
+					<? } ?>
 				</div>
 				<div class="col-sm-8">
 					<div class="panel panel-default">

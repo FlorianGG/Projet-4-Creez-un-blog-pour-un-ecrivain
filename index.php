@@ -1,12 +1,12 @@
 <?php
     session_start();
-
     
     use vendor\Autoloader;
     use model\http\Request;
     use model\http\Response;
     use model\Router;
     use app\App;
+    use helper\VisitCount;
 
     //Test
     // use model\Article;
@@ -23,6 +23,10 @@
 
     require_once('vendor/Autoloader.php');
     Autoloader::register();
+
+    (new VisitCount)->countVisitor();
+    // var_dump((new VisitCount)->getNb());
+
 
     // $test = '<h1>qgsdhbfjnsdfhegisohdgfoeuisjgk,hl;g</h1>';
 

@@ -2,6 +2,11 @@
 $this->title = 'Mon Blog : ' . $data['article']['title']; 
 ?>
 <div class="row">
+	<div class="imgHead">
+		<?php if (file_exists('tmp/article/' . $data['article']['id'] . '/main' . $data['article']['id'] .'.jpg')) {?>
+		<img class="imgHead img-responsive" src="<?echo 'tmp/article/' . $data['article']['id'] . '//main' . $data['article']['id'] .'.jpg?' . time();?>" alt="Image de couverture">
+		<?}else{}?>
+	</div>
 	<section class="col-sm-8 col-sm-offset-2 article">
 	    <div class="title">
 	        <h1 class="titreBillet"><?= $data['article']['title'] ?></h1>

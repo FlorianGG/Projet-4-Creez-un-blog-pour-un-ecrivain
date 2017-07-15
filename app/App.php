@@ -17,7 +17,7 @@
 		}
 
 		public function getSuccessMessage(){
-			if (!is_null($_SESSION['successMessage'])) {
+			if (isset($_SESSION['successMessage']) && !is_null($_SESSION['successMessage'])) {
 				return $_SESSION['successMessage'];
 			}else{
 				return null;
@@ -25,7 +25,7 @@
 		}
 
 		public function getErrorMessage(){
-			if (!is_null($_SESSION['errorMessage'])) {
+			if (isset($_SESSION['errorMessage']) && !is_null($_SESSION['errorMessage'])) {
 				return $_SESSION['errorMessage'];
 			}else{
 				return null;

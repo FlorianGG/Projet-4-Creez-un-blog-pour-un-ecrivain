@@ -19,6 +19,8 @@ if (!is_null($this->request->getParam('id'))) {
           <label class="control-label col-sm-3" for="imageArticle">Ajouter une image</label>
           <div class="col-sm-9">
               <input type="file" id="imageArticle" name="imageArticle">
+              <p class="help-block">Pour une qualité optimale, choisir une image avec une taille minimale de 1600x1200 px.</p>
+              <p class="help-block">Le poids de l'image ne doit pas dépasser 1 Mo</p>
           </div>
         </div>
         <p><label class="control-label" for="content">Contenu de votre article : </label></p>

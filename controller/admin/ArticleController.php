@@ -110,7 +110,7 @@
 			$post = $this->request->getPost();
 			$article = new Article($post);
 			$newRecord = $article->save($article);
-			$img = (new Image)->validateImg('imageArticle', $article->getId());
+			$img = (new Image)->validateImgArticle('imageArticle', $article->getId());
 			if ($newRecord) {
 				if (!empty($post['id'])) {
 					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');

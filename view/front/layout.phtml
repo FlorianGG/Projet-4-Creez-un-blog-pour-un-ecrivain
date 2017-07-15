@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?= $title ?></title>
         <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Lora:400,400i,700" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="web/css/style.css">
@@ -29,7 +30,7 @@
                                     <li><a href="<?php echo $this->app->getUrl('?controller=article&action=index');?>"><i class="glyphicon glyphicon-book"></i> Chapitres</a></li>
                                     <li><a href="<?php echo $this->app->getUrl('?controller=home&action=index#biographie');?>"><i class="glyphicon glyphicon-info-sign"></i> Biographie</a></li> 
                                     <li>
-                                        <?php if (!empty($_SESSION['pseudo'])) {?>
+                                        <?php if (!empty($_SESSION['userId'])) {?>
                                             <a href="<?php echo $this->app->getUrl('?controller=authUser&action=logout');?>"><span class="glyphicon glyphicon-off"></span> Déconnection</a>
                                         <?php }else{?>
                                             <a href="<?php echo $this->app->getUrl('?controller=authUser&action=auth');?>"><span class="glyphicon glyphicon-log-in"></span> Connection</a>
