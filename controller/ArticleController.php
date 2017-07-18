@@ -13,28 +13,34 @@
 
 		//list all articles
 		public function indexAction(){
-			$articles = (new Article)->readAll();
-			$data = [];
-			if (empty($articles)) {
-				$html = 'Rien à afficher';
-			}
-
-			foreach ($articles as $key => $value) {
-				//on insère les données dans un tableau pour les envoyer dans la vue
-				if (is_null($value->getIsDraft())) {
-					$array = [];
-					$array['id'] = $value->getId();
-					$array['title'] = $value->getTitle();
-					$array['content'] = $value->getContent();
-					$array['dateArticle'] = $value->getDateArticle();
-					$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
-					$array['isDraft'] = $value->getIsDraft();
-
-					$data[] = $array;
+			try {
+				$articles = (new Article)->readAll();
+				$data = [];
+				if (empty($articles)) {
+					$html = 'Rien à afficher';
 				}
+
+				foreach ($articles as $key => $value) {
+					//on insère les données dans un tableau pour les envoyer dans la vue
+					if (is_null($value->getIsDraft())) {
+						$array = [];
+						$array['id'] = $value->getId();
+						$array['title'] = $value->getTitle();
+						$array['content'] = $value->getContent();
+						$array['dateArticle'] = $value->getDateArticle();
+						$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+						$array['isDraft'] = $value->getIsDraft();
+
+						$data[] = $array;
+					}
+				}
+				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
+				return $this->response->setBody($html);
+			} catch (\Exception $e) {
+				throw new \Exception("Error Processing Request");
+				
 			}
-			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
-			return $this->response->setBody($html);
+			
 		}
 
 		// http://localhost?controller=article&action=show&id=3

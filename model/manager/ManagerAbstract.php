@@ -9,7 +9,13 @@
 
 		//function constructeur
 		protected function __construct(){
-			$this->bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
+			try {
+				$this->bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
+			} catch (\Exception $e) {
+				throw new \Exception('Erreur de connection à la base de donnée');
+				
+			}
+			
 		}
 
 		//function loadByQuery($req) s'occupe d'exécuter la requête read et de retourner un objet User

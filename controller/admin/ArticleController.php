@@ -29,31 +29,26 @@
 
 		//list all articles
 		public function indexAction(){
-			try{
-				$articles = (new Article)->readAll();
-				$data = [];
+			$articles = (new Article)->readAll();
+			$data = [];
 
-				foreach ($articles as $key => $value) {
-					//on insère les données dans un tableau pour les envoyer dans la vue
-					$array = [];
-					$array['id'] = $value->getId();
-					$array['title'] = $value->getTitle();
-					$array['content'] = $value->getContent();
-					$array['dateArticle'] = $value->getDateArticle();
-					$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
-					$array['isDraft'] = $value->getIsDraft();
+			foreach ($articles as $key => $value) {
+				//on insère les données dans un tableau pour les envoyer dans la vue
+				$array = [];
+				$array['id'] = $value->getId();
+				$array['title'] = $value->getTitle();
+				$array['content'] = $value->getContent();
+				$array['dateArticle'] = $value->getDateArticle();
+				$array['adminPseudo'] = (new Admin)->read($value->getAdminId())->getPseudo();
+				$array['isDraft'] = $value->getIsDraft();
 
 
-					//On ajoute le tout dans un tableau qu'on renvoie dans la vue
-					$data[] = $array;
-				}
-
-				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
-				return $this->response->setBody($html);
-			}catch(\Exception $e){
-				return $this->response->setBody($e->getMessage() . ' ' . $e->getTraceAsString());
+				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
+				$data[] = $array;
 			}
-			
+
+			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
+			return $this->response->setBody($html);
 		}
 
 		//Page permettant la creation ou la modification d'un article si $key existe
