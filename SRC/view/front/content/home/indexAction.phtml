@@ -1,0 +1,68 @@
+<?php 
+$this->title = 'Mon Blog : Liste des articles'; 
+?>
+<div class="row">
+    <div id="accueil" class="mainImage">
+    	<?php if (file_exists('SRC/tmp/home/home.jpg')) {?>
+    	<img class="img-responsive" src="<?echo 'SRC/tmp/home/home.jpg?' . time();?>" alt="Photo d'accueil du site">
+    	<?}else{ ?>
+    		<img src="web/img/main.jpg" alt="Vue de l\'Alaska" class="img-responsive">
+    	<? } ?>
+        <div class="textMainImage">
+            <h1>Billet simple pour l'Alaska</h1>
+            <h4>Par Jean Forteroche</h4>
+            <button class="btn btn-default"><a href="<?php echo $this->app->getUrl('?controller=home&action=index#news');?>">Découvre les derniers chapitres</a></button>
+        </div>
+    </div>
+</div>
+<div class="row">
+	<section class="container-fluid news" id="news">
+		<div class="title"><h1>Derniers chapitres</h1></div>
+		<?php foreach ($data['articles'] as $key => $value){ 
+			$overview = substr(strip_tags($data['articles'][$key]['content']),0, 80) . '...';
+		?>
+		<div class="col-sm-4">
+			<div class="panel panel-default">
+			  <div class="panel-heading"><h3><a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data['articles'][$key]['id']);?>"><?= $data['articles'][$key]['title'] ?></a></h3></div>
+			  <div class="panel-body">
+			  	<figure class="lastArticles">
+				  	<img src="
+				  	<?php if (file_exists('SRC/tmp/article/' . $data['articles'][$key]['id'] . '/miniature' . $data['articles'][$key]['id'] .'.jpg')) {
+				  		echo 'SRC/tmp/article/' . $data['articles'][$key]['id'] . '//miniature' . $data['articles'][$key]['id'] .'.jpg?' . time();
+				  	}else{
+				  		echo 'web/img/book.jpg';
+				  	}?>" alt="Livre ouvert" class="img-responsive vignetteLivre">
+				  	<figcaption>
+				  		<p><?= $overview ?></p>
+				  		<a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data['articles'][$key]['id']);?>"><button class="btn btn-default">Lire l'article</button></a>
+				  	</figcaption>	
+			  	</figure>
+			  </div>
+			  <div class="panel-footer"><em>Créer le : <?= $data['articles'][$key]['dateArticle'] ?></em></div>
+			</div>
+		</div>
+		<?php } ?>
+	</section>
+</div>
+<div class="row">
+	<section id="biographie" class="container-fluid biographie">
+		<div class="title"><h1>Biographie de l'auteur</h1></div>
+			<div class="bio">
+				<div class="col-sm-4">
+					<?php if (file_exists('SRC/tmp/autor/autor.jpg')) {?>
+					<img class="imgHead img-responsive" src="<?echo 'SRC/tmp/autor/autor.jpg?' . time();?>" alt="Photo d'accueil du site">
+					<?}else{ ?>
+						<img src="web/img/auteur.jpg" alt="" class="img-responsive auteur">
+					<? } ?>
+				</div>
+				<div class="col-sm-8">
+					<div class="panel panel-default">
+					  <div class="panel-heading"><h4>Jean Forteroche</h4></div>
+					  <div class="panel-body">
+						<?= $data['biography']?>
+					  </div>
+					</div>
+				</div>
+			</div>
+	</section>
+</div>
