@@ -138,44 +138,43 @@ $this->title = 'Admin : ' . $data['article']['title'];
 										</div>
 									</div>
 								</div>
+								<!-- Modal -->
+								<div class="modal fade" id="modalComment2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+								  <div class="modal-dialog" role="document">
+								    <div class="modal-content">
+								      <div class="modal-body">
+								       <div class="alert alert-danger">       
+								           <i class="icon icon-times-circle icon-lg"></i>
+								           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+								       </div> 
+								      </div>
+								      <div class="modal-footer">
+								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+								        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['response'][$comment]['id'] . '&article=' . $data['comments'][$key]['response'][$comment]['articleId']);?>">Supprimer</a></button>
+								      </div>
+								    </div>
+								  </div>
+								</div>
 							<?php }}  ?>	
+						</div>
+						<!-- Modal -->
+						<div class="modal fade" id="modalComment1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+						  <div class="modal-dialog" role="document">
+						    <div class="modal-content">
+						      <div class="modal-body">
+						       <div class="alert alert-danger">       
+						           <i class="icon icon-times-circle icon-lg"></i>
+						           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+						       </div> 
+						      </div>
+						      <div class="modal-footer">
+						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+						        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['id'] . '&article=' . $data['comments'][$key]['articleId']);?>">Supprimer</a></button>	
+						      </div>
+						    </div>
+						  </div>
 						</div>
 				<?php }?>
 			</div>
 	</fieldset>
 </div>
-<!-- Modal -->
-<div class="modal fade" id="modalComment1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-       <div class="alert alert-danger">       
-           <i class="icon icon-times-circle icon-lg"></i>
-           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-       </div> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['id'] . '&article=' . $data['comments'][$key]['articleId']);?>">Supprimer</a></button>	
-      </div>
-    </div>
-  </div>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="modalComment2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-body">
-       <div class="alert alert-danger">       
-           <i class="icon icon-times-circle icon-lg"></i>
-           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-       </div> 
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['response'][$comment]['id'] . '&article=' . $data['comments'][$key]['response'][$comment]['articleId']);?>">Supprimer</a></button>
-      </div>
-    </div>
-  </div>
-</div>
-

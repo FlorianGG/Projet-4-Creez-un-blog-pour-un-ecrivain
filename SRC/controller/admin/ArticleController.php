@@ -170,6 +170,28 @@
 			$path ='?interface=admin&controller=article&action=index';
 			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
+
+		//fonction qui permet de changer le statut brouillon d'un article
+		public function draftAction(){
+			$id = (int) $this->request->getPost()['id'];
+			$article = (new Article)->read($id);
+			if (!is_null($article)) {
+				if (is_null($article->getIsDraft())) {
+					$article->setIsDraft('on');
+				}else{
+					$article->setIsDraft(NULL);
+				}
+				(new Article)->save($article);
+				$this->app->addSuccessMessage('Statut brouillon changé');
+				$code = 200;
+			}else{
+				$code = 404;
+				$this->app->addErrorMessage('Article introuvable');
+			}
+
+			$path ='?interface=admin&controller=article&action=index';
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
+		}
 	}
 
 

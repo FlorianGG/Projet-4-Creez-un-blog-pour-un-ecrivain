@@ -25,7 +25,12 @@
 				$articles [] = $article[$tour];
 			}
 			//on boucle sur le résultat nettoyée
-			for ($i=sizeof($articles)-1; $i >= sizeof($articles)-3; $i--) { 
+			if (sizeof($articles)>=3) {
+				$size = sizeof($articles)-3;
+			}else{
+				$size = 0;
+			}
+			for ($i=sizeof($articles)-1; $i >= $size; $i--) { 
 				
 				$array = [];
 				$array['id'] = $articles[$i]->getId();
