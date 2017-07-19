@@ -5,11 +5,11 @@
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <title><?= $title ?></title>
         <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Lora:400,400i,700" rel="stylesheet">
-        <link rel="stylesheet" type="text/css" href="web/css/style.css">
+        <link rel="stylesheet" type="text/css" href="<?php echo 'web/css/style.css?' . time(); ?>">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script type="text/javascript" src="web/js/script.js"></script> 
+        <script type="text/javascript" src="<?php echo 'web/js/script.js?' . time(); ?>"></script> 
     </head>
     <body data-spy="scroll" data-target=".navbar" data-offset="50">
         <div id="content" class="container-fluid">

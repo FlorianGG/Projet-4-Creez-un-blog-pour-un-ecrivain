@@ -143,6 +143,10 @@ figcaption{
 	background-color: #f4f4f4 !important;
 }
 
+.children{
+	display: none;
+}
+
 /*Zone inscription et connection*/
 .auth{
 	background-color: #F8F8F8;
