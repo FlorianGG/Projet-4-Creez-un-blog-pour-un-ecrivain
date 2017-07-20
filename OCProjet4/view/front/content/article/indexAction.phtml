@@ -1,0 +1,66 @@
+<?php 
+$this->title = 'Mon Blog : Liste des articles'; 
+?>
+<div class="row">
+	<section class="container-fluid news" id="news">
+		<div class="title"><h1>Tous les chapitres publiés</h1></div>
+		<?php 
+		
+		// utilisation d'un boucle for afin de pouvoir centrer correctement les derniers articles selon le modulo par 3
+		$sizeModulo = sizeof($data)%3;
+		for ($i=0; $i <= sizeof($data)-1 ; $i++) { 
+			$overview = substr(strip_tags($data[$i]['content']),0, 80) . '...';
+			// Tous les éléments sauf les 2 derniers ont toujours la même class bootstrap
+			if ($i < sizeof($data)-2) {
+				$class = 'col-sm-4';
+			}else{
+				//on change les classes des 2 derniers en fonction du résultat du modulo
+				switch ($sizeModulo) {
+						case '1':
+							if ($i === sizeof($data)-2) {
+								$class = 'col-sm-4';
+							}else{
+								$class = 'col-sm-4 col-sm-offset-4';
+							}
+							break;
+						case '2':
+							if ($i === sizeof($data)-2) {
+								$class = 'col-sm-4 col-sm-offset-1';
+							}else{
+								$class = 'col-sm-4 col-sm-offset-2';
+							}
+							break;
+						default:
+							$class = 'col-sm-4';
+							break;
+					}
+			}
+			?>
+			<div class="<?php echo $class; ?>">
+				<div class="panel panel-default">
+				  <div class="panel-heading"><h3><a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data[$i]['id']);?>"><?= $data[$i]['title'] ?></a></h3></div>
+				  <div class="panel-body">
+				  	<figure class="lastArticles">
+					  	<img src="
+	  					  	<?php if (file_exists('web/img/article/' . $data[$i]['id'] . '/miniature' . $data[$i]['id'] .'.jpg')) {
+	  					  		echo 'web/img/article/' . $data[$i]['id'] . '//miniature' . $data[$i]['id'] .'.jpg?' . time();
+	  					  	}else{
+	  					  		echo 'web/img/book.jpg';
+	  					  	}?>" alt="Livre ouvert" class="img-responsive vignetteLivre">
+					  	<figcaption>
+					  		<p><?= $overview ?></p>
+					  		<a href="<?php echo $this->app->getUrl('?controller=article&action=show&id=' . $data[$i]['id']);?>"><button class="btn btn-default">Lire l'article</button></a>
+					  	</figcaption>	
+				  	</figure>
+				  </div>
+				  <div class="panel-footer"><em>Créer le : <?= $data[$i]['dateArticle'] ?></em></div>
+				</div>
+			</div>
+			
+		<?php } ?>
+
+	</section>
+</div>
+
+
+
