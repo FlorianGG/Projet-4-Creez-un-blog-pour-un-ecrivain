@@ -157,6 +157,10 @@ figcaption{
 	color: #fff;
 }
 
+#glyph{
+	display: none;
+}
+
 /*Footer*/
 footer{
 	display: flex !important;
