@@ -1,5 +1,0 @@
-dbConnect:
-    host: localhost
-    loginDB: root
-    passDB: root
-url: localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/
