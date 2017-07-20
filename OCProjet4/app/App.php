@@ -7,7 +7,7 @@
 		public function getUrl($path){
 			$array = Yaml::parse(file_get_contents('config.yml'));
 			$domain = Yaml::dump($array['url'], 1);
-			$url = 'http://' . $domain . $path;
+			$url = str_replace('\'','', $domain) . $path;
 			return $url;
 		}
 
