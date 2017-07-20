@@ -1,0 +1,181 @@
+body{
+	padding-top: 50px;
+	margin: 0;
+	font-family: 'Lora', serif !important;
+	background: #E0E6F1 !important;
+	text-align: center;
+}
+
+h1, h2, h3,h4, header span, header a, header i{
+	color:#4C6b77 !important;
+}
+section{
+	margin: auto;
+	padding: 40px 0;
+}
+table{
+	background-color: #F8F8F8 !important;
+}
+
+.table-hover tbody tr:hover td {
+    background: #E0E6F1;
+}
+
+table th{
+	text-align: center;
+}
+
+.btn{
+	margin: 0px auto 15px auto !important;
+	color: white !important;
+}
+
+.btn-default{
+	background: #4C6b77 !important;
+}
+
+.btn-default:hover{
+	background: #4D5b77 !important;
+}
+
+a{
+	text-decoration: none;
+}
+a:hover{
+	text-decoration: none !important;
+}
+
+.alert{
+	width: 100% !important;
+	margin-bottom: -5px !important;
+}
+
+.help-block{
+	text-align: initial;
+}
+
+
+/*Image principale sur page d'accueil*/
+.mainImage{
+	position: relative;
+	margin-bottom: 0 auto 10px auto;
+}
+.mainImage h1{
+	font-size: 4vw;
+}
+.textMainImage{
+	position: absolute;
+	bottom: 20%;
+	left:5%;
+	padding: 5px;
+	background-color: rgba(255, 255, 255, 0.6);
+	font-weight: bold;
+
+}
+.textMainImage h4{
+	text-align: right;
+	font-size: 2.5vw;
+}
+.textMainImage a {
+	color: white;
+
+}
+
+/*Zone panel avec les vignettes*/
+.title{
+	margin: 30px auto;
+}
+
+figcaption{
+	max-width: 80%;
+	min-height: 100px;
+	margin: 10px auto;
+}
+.vignetteLivre{
+	margin: 10px auto 20px auto;
+}
+
+/*Zone de la biographie*/
+.biographie{
+	background-color: #F8F8F8;
+}
+.bio{
+	display: flex;
+	align-items: center;
+}
+
+/*Page article dans le front*/
+.article{
+	margin: 20px auto;
+	background-color: #fff;
+}
+
+.vueArticle{
+	text-align: initial;
+}
+
+.boutonArticle{
+	margin-top: 50px;
+}
+
+.imgHead{
+	width: 100%;
+}
+
+/*Zone de commentaires*/
+.formComment{
+	display: none;
+}
+
+.badge{
+	background-color: #4C6b77 !important;
+	padding: 5px 10px !important;
+}
+
+.well{
+	text-align: left;
+	padding-left: 30px !important;
+	background-color: #fff !important;
+	padding-bottom: 0 !important;
+}
+
+.sousCommentaire{
+	background-color: #f4f4f4 !important;
+}
+
+.children{
+	display: none;
+}
+
+/*Zone inscription et connection*/
+.auth{
+	background-color: #F8F8F8;
+	padding-top: 40px;
+	padding-bottom: 55px;
+}
+.annulation, .annulation:hover{
+	color: #fff;
+}
+
+/*Footer*/
+footer{
+	display: flex !important;
+	justify-content: center;
+	align-items: center;
+	background: #4C6b77;
+	color: white;
+	height: 150px;
+
+}
+
+@media only screen and (max-width: 768px) {
+    /* For mobile phones: */
+    .bio{
+        display: block;
+    }
+    .auteur{
+    	max-width: 300px !important;
+    	margin: 10px auto 30px auto;
+    }
+}
+

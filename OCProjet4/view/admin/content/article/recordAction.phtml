@@ -1,0 +1,50 @@
+<?php 
+if (!is_null($this->request->getParam('id'))) {
+	$this->title = 'Modification d\'un article';
+}else{
+	$this->title = 'Création d\'un article';
+}
+?>
+<div class="row">
+  <div class="col-xs-8 col-xs-offset-2">
+    <form class="form-horizontal" id="formArticle" action="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=save');?>" method="post" enctype="multipart/form-data">
+        <h2 class="title"><?php  if (!is_null($this->request->getParam('id'))) {echo 'Modifier un article';}else{echo 'Créer un article';}?></h2>
+        <div class="form-group">
+          <label class="control-label col-sm-3" for="title">Titre de l'article : </label>
+          <div class="col-sm-9">
+            <input class="form-control" type="text" name="title" id="title" placeholder="Titre de l'article" value="<?php  if (!is_null($this->request->getParam('id'))) {echo $data['article']['title'];}?>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="control-label col-sm-3" for="imageArticle">Ajouter une image</label>
+          <div class="col-sm-9">
+              <input type="file" id="imageArticle" name="imageArticle">
+              <p class="help-block">Pour une qualité optimale, choisir une image avec une taille minimale de 1600x1200 px.</p>
+              <p class="help-block">Le poids de l'image ne doit pas dépasser 1 Mo</p>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-sm-2 col-sm-offset-4">
+            <label class="control-label">Brouillon :</label>
+          </div>
+          <div class="col-sm-2">
+            <div class="onoffswitch">
+                <input type="checkbox" name="isDraft" class="onoffswitch-checkbox" id="isDraft" <?php if(!is_null($data['article']['isDraft'])){echo 'checked';}?>>
+                <label class="onoffswitch-label" for="isDraft">
+                    <span class="onoffswitch-inner"></span>
+                    <span class="onoffswitch-switch"></span>
+                </label>
+            </div>
+          </div>
+        </div>
+        <p><label class="control-label" for="content">Contenu de votre article : </label></p>
+        <p><textarea class="form-control" name="content" id="tinyMCE1" placeholder="Contenu de votre article" rows="20" cols="100"><?php  if (!is_null($this->request->getParam('id'))) {echo $data['article']['content'];}?></textarea></p>
+        <input type="hidden" name="adminId" value="<? echo $_SESSION['adminId'] ?>">
+        <input type="hidden" name="id" value="<?php  if (!is_null($this->request->getParam('id'))) {echo $data['article']['id'];}?>">
+        <input type="hidden" name="dateArticle" value="<?echo date("Y-m-d H:i:s");?>">
+
+        <button class="btn btn-default btn-sm" type="submit">Envoyer</button>
+    </form>
+    <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><button class="btn btn-danger btn-sm">Annuler</button></a>
+  </div>
+</div>

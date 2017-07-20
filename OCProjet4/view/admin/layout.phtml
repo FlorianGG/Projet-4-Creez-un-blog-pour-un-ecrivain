@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title><?= $title ?></title>
+        <link href="https://fonts.googleapis.com/css?family=Lato:400,400i,700|Lora:400,400i,700" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="<?php echo 'web/css/style.css?' . time(); ?>">
+        <link rel="stylesheet" type="text/css" href="web/css/switch.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
+        <script type="text/javascript" src="web/js/tinymce.js"></script> 
+    </head>
+    <body>
+    <div id="content" class="container-fluid">
+        <div class="row">
+            <header>
+                <nav class="navbar navbar-default navbar-fixed-top">
+                    <div class="container-fluid">
+                        <div class="navbar-header">
+                            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span> 
+                            </button>
+                            <a class="navbar-brand" href="<?php echo $this->app->getUrl('?controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i> Jean Forteroche</a>
+                        </div>
+                        <?php if (!empty($_SESSION['adminId'])) { ?>
+                            <div class="collapse navbar-collapse" id="myNavbar">
+                                <ul class="nav navbar-nav navbar-right">
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i> Accueil</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record');?>"><i class="glyphicon glyphicon-file"></i> Nouvel Article</button></a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><i class="glyphicon glyphicon-book"></i> Gestion des articles</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=biography&action=set');?>"><i class="glyphicon glyphicon-info-sign"></i> Biographie</a></li> 
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=authAdmin&action=logout');?>"><span class="glyphicon glyphicon-off"></span> Déconnection</a></li>
+                                </ul>
+                            </div>
+                        <?php } ?>
+                    </div>
+                    <div id="message"></div>
+                </nav>
+            </header>
+        </div>
+        <div class="row">
+            <?php if (!is_null($this->app->getSuccessMessage())) { ?>
+                <div class="alert alert-success alert-dismissable fade in">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <i class="icon icon-check-circle icon-lg"></i>
+                    <strong>Succès !</strong> <?php echo $this->app->getSuccessMessage(); ?>
+                </div>
+                <?php $this->app->deleteMessage(); ?>
+            <?php } ?>
+            <?php if (!is_null($this->app->getErrorMessage())) { ?>
+                <div class="alert alert-danger alert-dismissable fade in">       
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <i class="icon icon-times-circle icon-lg"></i>
+                    <strong>Erreur !</strong> <?php echo $this->app->getErrorMessage() ?>.
+                </div> 
+                <?php $this->app->deleteMessage(); ?>      
+            <?php } ?> 
+        </div>
+        <div class="row">
+            <?= $content ?>
+        </div>
+        <div class="row">
+           <footer>
+               <p>Site réalisé par Florian Garcia</p>
+           </footer>  
+        </div>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+        <script type="text/javascript" src="<?php echo 'web/js/script.js?' . time(); ?>"></script> 
+    </body>
+</html>
+
