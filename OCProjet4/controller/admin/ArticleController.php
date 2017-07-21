@@ -171,7 +171,7 @@
 			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 
-		//fonction qui permet de changer le statut brouillon d'un article
+		//fonction qui permet de changer le statut brouillon d'un article avec requête ajax
 		public function draftAction(){
 			$id = (int) $this->request->getPost()['id'];
 			$article = (new Article)->read($id);
@@ -182,15 +182,7 @@
 					$article->setIsDraft(NULL);
 				}
 				(new Article)->save($article);
-				$this->app->addSuccessMessage('Statut brouillon changé');
-				$code = 200;
-			}else{
-				$code = 404;
-				$this->app->addErrorMessage('Article introuvable');
 			}
-
-			$path ='?interface=admin&controller=article&action=index';
-			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 	}
 

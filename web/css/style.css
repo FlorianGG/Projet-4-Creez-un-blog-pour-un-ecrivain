@@ -123,10 +123,6 @@ figcaption{
 }
 
 /*Zone de commentaires*/
-.formComment{
-	display: none;
-}
-
 .badge{
 	background-color: #4C6b77 !important;
 	padding: 5px 10px !important;
@@ -143,10 +139,6 @@ figcaption{
 	background-color: #f4f4f4 !important;
 }
 
-.children{
-	display: none;
-}
-
 /*Zone inscription et connection*/
 .auth{
 	background-color: #F8F8F8;
@@ -161,6 +153,10 @@ figcaption{
 	display: none;
 }
 
+#divMessage{
+	display: none;
+}
+
 /*Footer*/
 footer{
 	display: flex !important;
@@ -170,6 +166,12 @@ footer{
 	color: white;
 	height: 150px;
 
+}
+
+#noJavascript{
+	min-height: 200px !important;
+	text-align: center;
+	font-size: 40px;
 }
 
 @media only screen and (max-width: 768px) {

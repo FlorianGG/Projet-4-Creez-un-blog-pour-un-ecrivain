@@ -1,5 +1,6 @@
 <?php 
 $this->title = 'Admin : ' . $data['article']['title']; 
+var_dump($data['article']['id']);
 ?>
 <div class="row">
 	<div class="imgHead">
@@ -68,7 +69,7 @@ $this->title = 'Admin : ' . $data['article']['title'];
 											</div>
 										</div>
 										<?php if (!empty($_SESSION['userId'])) {?>
-											<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalComment1">Supprimer</button>
+											<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalComment1" data-whatever="<?php echo $data['comments'][$key]['id'] . '/' . $data['article']['id'] ?>">Supprimer</button>
 											<button class="btn btn-default btn-xs buttonComment">Répondre</button>
 
 										<!-- Interface de réponse à un commentaire activé par le button -->
@@ -134,47 +135,47 @@ $this->title = 'Admin : ' . $data['article']['title'];
 												</form>
 											</div>
 											<?php } ?>
-											<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalComment2">Supprimer</button>
+											<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalComment2" data-whatever="<?php echo $data['comments'][$key]['response'][$comment]['id'] . '/' . $data['article']['id'] ?>">Supprimer</button>
 										</div>
 									</div>
 								</div>
-								<!-- Modal -->
-								<div class="modal fade" id="modalComment2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-								  <div class="modal-dialog" role="document">
-								    <div class="modal-content">
-								      <div class="modal-body">
-								       <div class="alert alert-danger">       
-								           <i class="icon icon-times-circle icon-lg"></i>
-								           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-								       </div> 
-								      </div>
-								      <div class="modal-footer">
-								        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-								        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['response'][$comment]['id'] . '&article=' . $data['comments'][$key]['response'][$comment]['articleId']);?>">Supprimer</a></button>
-								      </div>
-								    </div>
-								  </div>
-								</div>
 							<?php }}  ?>	
-						</div>
-						<!-- Modal -->
-						<div class="modal fade" id="modalComment1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-						  <div class="modal-dialog" role="document">
-						    <div class="modal-content">
-						      <div class="modal-body">
-						       <div class="alert alert-danger">       
-						           <i class="icon icon-times-circle icon-lg"></i>
-						           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
-						       </div> 
-						      </div>
-						      <div class="modal-footer">
-						        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-						        <button class="btn btn-danger"><a class="annulation" href="<?php echo $this->app->getUrl('?interface=admin&controller=comment&action=delete&id=' . $data['comments'][$key]['id'] . '&article=' . $data['comments'][$key]['articleId']);?>">Supprimer</a></button>	
-						      </div>
-						    </div>
-						  </div>
 						</div>
 				<?php }?>
 			</div>
 	</fieldset>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalComment1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       <div class="alert alert-danger">       
+           <i class="icon icon-times-circle icon-lg"></i>
+           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+       </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-danger"><a class="annulation" href="">Supprimer</a></button>	
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="modalComment2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       <div class="alert alert-danger">       
+           <i class="icon icon-times-circle icon-lg"></i>
+           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer ce commentaire ?</p>
+       </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <button class="btn btn-danger"><a class="annulation" href="">Supprimer</a></button>
+      </div>
+    </div>
+  </div>
 </div>

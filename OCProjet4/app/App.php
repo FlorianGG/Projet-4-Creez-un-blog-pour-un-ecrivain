@@ -4,11 +4,22 @@
 	use Symfony\Component\Yaml\Yaml;
 
 	class App{
+		protected $config;
+
 		public function getUrl($path){
-			$array = Yaml::parse(file_get_contents('config.yml'));
-			$domain = Yaml::dump($array['url'], 1);
+			$domain = $this->getConfig()['domain'];
 			$url = str_replace('\'','', $domain) . $path;
 			return $url;
+		}
+
+		//function qui permet de ne parser qu'une fois le fichier config
+		private function getConfig(){
+			if (is_null($this->config)) {
+				$array = Yaml::parse(file_get_contents('config.yml'));
+				$this->config = [];
+				$this->config['domain'] = Yaml::dump($array['url'], 1);
+			}
+			return $this->config;
 		}
 
 		// Gestion des messages de succès ou d'erreur

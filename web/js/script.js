@@ -1,4 +1,8 @@
 $(document).ready(function(){
+    //Cache les éléments qui seront affichés avec jquery afin d'éviter des bug si utilisateur a désactivé javascript
+    $('.formComment').hide();
+    $('.children').hide();
+
     // Animation sur le bouton qui fait apparaitre un formulaire pour saisir un commentaire
     $(".buttonComment").click(function(){
     	$('.formComment').hide();
@@ -20,31 +24,30 @@ $(document).ready(function(){
    		var idArticle = '#isDraft' + $(this).val();
    		var id = $(this).val();
    		$.ajax({
-   			url : 'http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/?interface=admin&controller=article&action=draft&id='+id,
+   			url : url+id,
    			type : 'POST',
    			data : 'id=' + id,
    			dataType : 'html',
-   			success : function(statut){ // code_html contient le HTML renvoyé
+   			success : function(statut){
+          $('#divMessage').show();
    				if ($('#tr'+ id).attr('class') === 'danger') {
    					$('#tr'+ id).removeClass('danger');
    				}else{
    					$('#tr'+ id).addClass('danger');
    				}
-   				var message = '<div class="alert alert-success alert-dismissable fade in">' +
-                      			'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                     			'<i class="icon icon-check-circle icon-lg"></i>' +
-                  				'<strong>Succès !</strong> Statut de l\'article modifié' +
-               				'</div>';
+          $('#divMessage').addClass('alert alert-success fade in');
+   				var message = 'Statut de l\'article modifié';
    				$('#message').html(message);
+          $('#divMessage').delay(900).fadeOut('slow');
    			    
    			},
    			error : function(statut, erreur){
-     				var message = '<div class="alert alert-danger alert-dismissable fade in">' +
-                        			'<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-                       			'<i class="icon icon-check-circle icon-lg"></i>' +
-                    				'<strong>Succès !</strong> Une erreur est survenue' +
-                 				'</div>';
-                 	$('#message').html(message);
+          $('#divMessage').show();
+          $('#divMessage').addClass('alert alert-success fade in');
+          var message = 'Une erreur est survenue';
+          $('#message').html(message);
+          $('#divMessage').delay(900).fadeOut('slow');
+
    			}
    		});
    	});
@@ -92,7 +95,34 @@ $(document).ready(function(){
           $('#validation').attr('disabled', null);
         }
     });
+
+    //Gestion de l'id sur les boutons supprimer comment qui appel une modal pour les comments de niveau 1
+    $('#modalComment1').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);// Button that triggered the modal
+      var recipient = button.data('whatever'); // Extract info from data-* attributes
+      var array = recipient.split('/');
+      console.log(urlToDeleteComment);
+      $('#modalComment1 div div div a').attr('href',urlToDeleteComment+array[0]+'&article='+array[1]);
+    });
+
+    //Gestion de l'id sur les boutons supprimer article qui appel une modal
+    $('#modalArticle').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);// Button that triggered the modal
+      var recipient = button.data('whatever'); // Extract info from data-* attributes
+      $('#modalArticle div div div a').attr('href',urlToDeleteArticle+recipient);
+    });
+
+    //Gestion de l'id sur les boutons supprimer comment qui appel une modal pour les comments de niveau 2
+    $('#modalComment2').on('show.bs.modal', function (event) {
+      var button = $(event.relatedTarget);// Button that triggered the modal
+      var recipient = button.data('whatever'); // Extract info from data-* attributes
+      var array = recipient.split('/');
+      console.log(urlToDeleteComment);
+      $('#modalComment2 div div div a').attr('href',urlToDeleteComment+array[0]+'&article='+array[1]);
+    });
+
 });
+
 
 
 

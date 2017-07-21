@@ -17,13 +17,14 @@ $this->title = 'Interface de gestion des articles';
         </thead>
         <tbody>
           <?php foreach ($data as $key => $value){ ?>
+
           <tr id="<?php echo 'tr' . $data[$key]['id'] ?>" <?php if (!is_null($data[$key]['isDraft'])) {echo 'class="danger"';}?>>
               <td><? echo $data[$key]['title'];?></td>
               <td><? echo $data[$key]['adminPseudo'];?></td>
               <td><? echo $data[$key]['dateArticle'];?></td>
               <td> 
-                 <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalArticle">Supprimer</button>
-                  <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs"><?php if (!is_null($data[$key]['isDraft'])) {echo 'Publier';}else{echo 'Modifier';} ?></button></a>
+                 <button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#modalArticle" data-whatever="<?php echo $data[$key]['id'] ?>">Supprimer</button>
+                  <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs">Modifier</button></a>
                   <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data[$key]['id']);?>"><button class="btn btn-default btn-xs">Vue</button></a>     
               </td>
               <td>
@@ -36,22 +37,6 @@ $this->title = 'Interface de gestion des articles';
                 </div>
               </td>
           </tr>
-          <!-- Modal -->
-          <div class="modal fade" id="modalArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
-            <div class="modal-dialog" role="document">
-              <div class="modal-content">
-                <div class="modal-body">
-                 <div class="alert alert-danger">       
-                     <i class="icon icon-times-circle icon-lg"></i>
-                     <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer cet article ?</p>
-                 </div> 
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                  <a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=delete&id=' . $data[$key]['id']);?>"><button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Supprimer</button></a>
-                </div>
-              </div>
-            </div>
           </div>
           <?php } ?>
         </tbody>
@@ -59,3 +44,19 @@ $this->title = 'Interface de gestion des articles';
     </div>
   </div>
 </div>
+<!-- Modal -->
+<div class="modal fade" id="modalArticle" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+       <div class="alert alert-danger">       
+           <i class="icon icon-times-circle icon-lg"></i>
+           <strong>Attention !</strong><p>Êtes-vous sûr de vouloir supprimer cet article ?</p>
+       </div> 
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        <a href=""><button class="btn btn-danger" data-toggle="modal" data-target="#myModal">Supprimer</button></a>
+      </div>
+    </div>
+  </div>
