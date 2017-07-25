@@ -1,6 +1,6 @@
 dbConnect:
-    host: floriangjlblog.mysql.db
-    loginDB: floriangjlblog
-    dbname: floriangjlblog
-    passDB: Fg164191
-url: http://projet4.floriangg.ovh/
+    host: localhost
+    dbname: Blog
+    loginDB: root
+    passDB: root
+url: http://localhost/Projet4/Projet-4-Creez-un-blog-pour-un-ecrivain/
