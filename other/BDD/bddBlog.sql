@@ -1,9 +1,8 @@
-DROP DATABASE IF  EXISTS Blog;
-CREATE DATABASE IF NOT EXISTS Blog DEFAULT CHARACTER SET 'utf8' ;
-USE Blog;
+CREATE DATABASE IF NOT EXISTS floriangarcia_blog DEFAULT CHARACTER SET 'utf8' ;
+USE floriangarcia_blog;
 
 -- -----------------------------------------------------
--- Table `Blog`.`user`
+-- Table `floriangarcia_blog`.`user`
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS user (
@@ -17,13 +16,13 @@ INSERT INTO user (pseudo, email, pass) VALUES
 ('admin', 'admin@gmail.com', '$2y$10$l65.5FkhEkkTXPurgUTOauF4kq0lphGg23Q2hn2Get/w/sJZYTedm'),
 ('john', 'john@gmail.com', '$2y$10$U.MLILmoiRBz31dRbdRPGuetO9wFByc7dbc9qtragduWj39kiO2zC');
 
-CREATE UNIQUE INDEX `UX_user_email` ON `user` (`email`);
-CREATE UNIQUE INDEX `UX_user_pseudo` ON `user` (`pseudo`);
+CREATE UNIQUE INDEX `U_E` ON `user` (`email`);
+CREATE UNIQUE INDEX `U_P` ON `user` (`pseudo`);
 
 
 
 -- -----------------------------------------------------
--- Table `Blog`.`admin`
+-- Table `floriangarcia_blog`.`admin`
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS admin (
@@ -36,12 +35,12 @@ ENGINE=INNODB;
 INSERT INTO admin (pseudo, email, pass) VALUES
 ('admin', 'admin@gmail.com', '$2y$10$l65.5FkhEkkTXPurgUTOauF4kq0lphGg23Q2hn2Get/w/sJZYTedm');
 
-CREATE UNIQUE INDEX `UX_admin_email` ON `admin` (`email`);
-CREATE UNIQUE INDEX `UX_admin_pseudo` ON `admin` (`pseudo`);
+CREATE UNIQUE INDEX `A_E` ON `admin` (`email`);
+CREATE UNIQUE INDEX `A_P` ON `admin` (`pseudo`);
 
 
 -- -----------------------------------------------------
--- Table `Blog`.`article`
+-- Table `floriangarcia_blog`.`article`
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS article (
@@ -57,7 +56,7 @@ CREATE TABLE IF NOT EXISTS article (
 		ON DELETE SET NULL)
 ENGINE=INNODB;
 
-CREATE UNIQUE INDEX `UX_article_title` ON `article` (`title`);
+CREATE UNIQUE INDEX `A_T` ON `article` (`title`);
 
 
 INSERT INTO article (title, content, dateArticle, adminId, isDraft) VALUES
@@ -232,7 +231,7 @@ INSERT INTO article (title, content, dateArticle, adminId, isDraft) VALUES
 	, '2017-06-05 14:02:00', 1, NULL);
 
 -- -----------------------------------------------------
--- Table `Blog`.`commentaire`
+-- Table `floriangarcia_blog`.`commentaire`
 -- -----------------------------------------------------
 
 CREATE TABLE IF NOT EXISTS  comment (
