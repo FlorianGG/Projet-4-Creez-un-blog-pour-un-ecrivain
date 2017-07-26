@@ -45,9 +45,69 @@
 			return $request;
 		}
 
+		//fonction qui vérifie la conformité des champs de formulaire type utilisateur ou admin
+		public function checkForm(array $post){
+			$options = array(
+				'title' => array(
+					'filter' => FILTER_CALLBACK,
+					'options' => array($this,'checkLenghtTitle')
+					),
+				'content' => array(
+					'filter' => FILTER_CALLBACK,
+					'options' => array($this,'checkLenghtContent')
+					),
+				'pseudo' => array(
+					'filter' => FILTER_CALLBACK,
+					'options' => array($this,'checkLenghtPerson')
+					),
+				'email' => FILTER_VALIDATE_EMAIL,
+				'pass' => array(
+					'filter' => FILTER_CALLBACK,
+					'options' => array($this,'checkLenghtPerson')
+					)
+				);
 
+			$result = filter_var_array($post, $options, false);
+			foreach ($result as $key => $value) {
+				if (!$value) {
+					return false;
+				}
+			}
+			return true;
+		}
 
+		//fonction callback qui vérifie la longueur d'un champ
+		private function checkLenghtPerson($string) {
+		    //Retourne la string si elle est valide, sinon false.
+		    $reg = '/^[a-zA-Z0-9_.-]{3,16}$/';
+		    if (preg_match($reg,$string)) {
+		    	return $string;
+		    }else{
+		    	return false;
+		    }
+		}
 
+		//fonction callback qui vérifie la longueur d'un champ
+		private function checkLenghtTitle($string) {
+			//Retourne la string si elle est valide, sinon false.
+			$reg = '/[a-zA-Z0-9_.-]{2,}/';
+			if (preg_match($reg,$string)) {
+				return $string;
+			}else{
+				return false;
+			}
+		}
+
+		//fonction callback qui vérifie la longueur d'un champ
+		private function checkLenghtContent($string) {
+			//Retourne la string si elle est valide, sinon false.
+			$reg = '/^[^\s].{5,}/';
+			if (preg_match($reg,$string)) {
+				return $string;
+			}else{
+				return false;
+			}
+		}
 
 	}
 

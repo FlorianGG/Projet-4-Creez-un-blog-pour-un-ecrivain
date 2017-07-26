@@ -47,31 +47,38 @@
 				$code = 200;
 				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
-			$admin = new Admin($post);
-			if (!empty($post['id'])) {
-				$userAdmin = (new User)->readByPseudo($post['pseudo']);
-			}else{
-				$userAdmin = new User($post);
-			}
-			if(!empty($post['id']) OR ($admin->checkIfExist($admin) && $userAdmin->checkIfExist($userAdmin))){
-				$newRecord = $admin->save($admin);
-				$newRecordUser = $userAdmin->save($userAdmin);
-				if ($newRecord) {
-					if (!empty($post['id'])) {
-						$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
-						$code = 200;
-					}else{
-						$this->app->addSuccessMessage('L\'administrateur et l\'utilisateur ont bien été ajoutés');
-						$code = 200;
-					}
+			if($this->request->checkForm($post)){
+				$admin = new Admin($post);
+				if (!empty($post['id'])) {
+					$userAdmin = (new User)->readByPseudo($post['pseudo']);
 				}else{
-					$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
-					$code = 404;
+					$userAdmin = new User($post);
 				}
-				$path ='?interface=admin&controller=home&action=index';
-				$this->response->redirectUrl($this->app->getUrl($path), $code);
+				if(!empty($post['id']) OR ($admin->checkIfExist($admin) && $userAdmin->checkIfExist($userAdmin))){
+					$newRecord = $admin->save($admin);
+					$newRecordUser = $userAdmin->save($userAdmin);
+					if ($newRecord) {
+						if (!empty($post['id'])) {
+							$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+							$code = 200;
+						}else{
+							$this->app->addSuccessMessage('L\'administrateur et l\'utilisateur ont bien été ajoutés');
+							$code = 200;
+						}
+					}else{
+						$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+						$code = 404;
+					}
+					$path ='?interface=admin&controller=home&action=index';
+					$this->response->redirectUrl($this->app->getUrl($path), $code);
+				}else{
+					$this->app->addErrorMessage('Le pseudo ou le mail sont déjà utilisés');
+					$code = 200;
+					$path ='?interface=admin&controller=admin&action=record';
+					$this->response->redirectUrl($this->app->getUrl($path), $code);
+				}
 			}else{
-				$this->app->addErrorMessage('Le pseudo ou le mail sont déjà utilisés');
+				$this->app->addErrorMessage('Un des champs ne respecte pas la mise en forme demandée : Entre 3 et 16 caractères sans espace ou email non valide');
 				$code = 200;
 				$path ='?interface=admin&controller=admin&action=record';
 				$this->response->redirectUrl($this->app->getUrl($path), $code);

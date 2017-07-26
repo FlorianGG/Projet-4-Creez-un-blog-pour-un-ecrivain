@@ -59,8 +59,9 @@ a:hover{
 /*Image principale sur page d'accueil*/
 .mainImage{
 	position: relative;
-	margin-bottom: 0 auto 10px auto;
+	margin: 0 auto 10px auto;
 }
+
 .mainImage h1{
 	font-size: 4vw;
 }
@@ -80,6 +81,9 @@ a:hover{
 .textMainImage a {
 	color: white;
 
+}
+.imgHome{
+	width: 100%;
 }
 
 /*Zone panel avec les vignettes*/
@@ -120,6 +124,12 @@ figcaption{
 }
 
 .imgHead{
+	max-height: 300px;
+	overflow-y: hidden;
+	padding: 0 !important;
+}
+
+.mgBiography{
 	width: 100%;
 }
 
@@ -177,6 +187,9 @@ footer{
 
 @media only screen and (max-width: 768px) {
     /* For mobile phones: */
+    .imgHead{
+		display: none;
+    }
     .bio{
         display: block;
     }

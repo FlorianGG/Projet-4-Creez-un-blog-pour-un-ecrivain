@@ -4,9 +4,9 @@ $this->title = 'Mon Blog : Liste des articles';
 <div class="row">
     <div id="accueil" class="mainImage">
     	<?php if (file_exists('web/img/home/home.jpg')) {?>
-    	<img class="img-responsive" src="<?echo 'web/img/home/home.jpg?' . time();?>" alt="Photo d'accueil du site">
+    	<img class="img-responsive imgHome" src="<?echo 'web/img/home/home.jpg?' . time();?>" alt="Photo d'accueil du site">
     	<?}else{ ?>
-    		<img src="web/img/main.jpg" alt="Vue de l\'Alaska" class="img-responsive">
+    		<img src="web/img/main.jpg" alt="Vue de l\'Alaska" class="img-responsive imgHome">
     	<? } ?>
         <div class="textMainImage">
             <h1>Billet simple pour l'Alaska</h1>
@@ -63,7 +63,7 @@ $this->title = 'Mon Blog : Liste des articles';
 			<div class="bio">
 				<div class="col-sm-4">
 					<?php if (file_exists('web/img/autor/autor.jpg')) {?>
-					<img class="imgHead img-responsive" src="<?echo 'web/img/autor/autor.jpg?' . time();?>" alt="Photo d'accueil du site">
+					<img class="imgBiography img-responsive" src="<?echo 'web/img/autor/autor.jpg?' . time();?>" alt="Photo d'accueil du site">
 					<?}else{ ?>
 						<img src="web/img/auteur.jpg" alt="" class="img-responsive auteur">
 					<? } ?>

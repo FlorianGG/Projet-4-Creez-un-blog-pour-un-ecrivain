@@ -109,23 +109,30 @@
 		//ajouter un article
 		public function saveAction(){
 			$post = $this->request->getPost();
-			$article = new Article($post);
-			$newRecord = $article->save($article);
-			$img = (new Image)->validateImgArticle('imageArticle', $article->getId());
-			if ($newRecord) {
-				if (!empty($post['id'])) {
-					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
-					$code = 200;
+			if($this->request->checkForm($post)){
+				$article = new Article($post);
+				$newRecord = $article->save($article);
+				$img = (new Image)->validateImgArticle('imageArticle', $article->getId());
+				if ($newRecord) {
+					if (!empty($post['id'])) {
+						$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+						$code = 200;
+					}else{
+						$this->app->addSuccessMessage('L\'article a bien été ajouté');
+						$code = 200;
+					}
 				}else{
-					$this->app->addSuccessMessage('L\'article a bien été ajouté');
-					$code = 200;
+					$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+					$code = 404;
 				}
+				$path ='?interface=admin&controller=article&action=index';
+				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}else{
-				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
-				$code = 404;
+				$this->app->addErrorMessage('Un des champs ne respecte pas la longueur minimale');
+				$code = 200;
+				$path ='?interface=admin&controller=article&action=index';
+				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
-			$path ='?interface=admin&controller=article&action=index';
-			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 
 		// http://localhost?controller=article&action=show&id=3

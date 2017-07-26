@@ -79,13 +79,8 @@
 		//ajouter un article
 		public function saveAction(){
 			$post = $this->request->getPost();
-			$reg = '/^[^\s]\w*/';
-			if (!preg_match($reg,$post['content'])) {
-				$this->app->addErrorMessage('Le text de votre commentaire n\'est pas conforme');
-				$code = 200;
-				$comment = new Comment($post);
-			}else{
-				$comment = new Comment($post);
+			$comment = new Comment($post);
+			if($this->request->checkForm($post)){
 				$newRecord = $comment->save($comment);
 				if ($newRecord) {
 					if (!empty($post['id'])) {
@@ -99,6 +94,9 @@
 					$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
 					$code = 404;
 				}
+			}else{
+				$this->app->addErrorMessage('Votre commentaire ne respecte pas la longueur minimale');
+				$code = 200;
 			}
 			$path ='?interface=admin&controller=article&action=show&id=' . $comment->getArticleId();
 			$this->response->redirectUrl($this->app->getUrl($path), $code);

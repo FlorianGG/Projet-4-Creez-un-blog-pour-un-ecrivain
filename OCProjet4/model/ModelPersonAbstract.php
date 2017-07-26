@@ -1,6 +1,7 @@
 <?php
 	namespace OCProjet4\model;
 
+
 	class ModelPersonAbstract extends ModelAbstract{
 
 		//fonction qui instancie un managerUser et retourn un objet User correspondant à l'email recherché

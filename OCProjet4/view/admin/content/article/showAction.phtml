@@ -1,11 +1,10 @@
 <?php 
 $this->title = 'Admin : ' . $data['article']['title']; 
-var_dump($data['article']['id']);
 ?>
 <div class="row">
-	<div class="imgHead">
+	<div class="col-xs-10 col-xs-offset-1 imgHead">
 		<?php if (file_exists('web/img/article/' . $data['article']['id'] . '/main' . $data['article']['id'] .'.jpg')) {?>
-		<img class="imgHead img-responsive" src="<?echo 'web/img/article/' . $data['article']['id'] . '//main' . $data['article']['id'] .'.jpg?' . time();?>" alt="Image de couverture">
+		<img src="<?echo 'web/img/article/' . $data['article']['id'] . '//main' . $data['article']['id'] .'.jpg?' . time();?>" alt="Image de couverture">
 		<?}else{}?>
 	</div>
 	<section class="col-sm-8 col-sm-offset-2 article">
@@ -17,16 +16,16 @@ var_dump($data['article']['id']);
 	    <div class="row boutonArticle">
 	    	<div class="col-xs-2 col-xs-offset-1 precedent">
 	    		<?php if (!is_null($data['article']['previousId'])) { ?>
-	    			<a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data['article']['previousId']);?>"><button class="btn btn-default">Chapitre précédent</button></a>
+	    			<a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data['article']['previousId']);?>"><button class="btn btn-default"><i class="glyphicon glyphicon-arrow-left"></i> <i class="glyphicon glyphicon-align-justify"></i></button></a>
 	    		<?php  } ?>
 	 
 	    	</div>
 	    	<div class="col-xs-2 col-xs-offset-2">
-	    		<a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><button class="btn btn-default">Retour à l'accueil</button></a>
+	    		<a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><button class="btn btn-default"><i class="glyphicon glyphicon-home"></i></button></a>
 	    	</div>
 	    	<div class="col-xs-2 col-xs-offset-2 precedent">
     			<?php if (!is_null($data['article']['nextId'])) { ?>
-    				<a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data['article']['nextId']);?>"><button class="btn btn-default">Chapitre suivant</button></a>
+    				<a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=show&id=' . $data['article']['nextId']);?>"><button class="btn btn-default"><i class="glyphicon glyphicon-align-justify"></i> <i class="glyphicon glyphicon-arrow-right"></i></button></a>
     			<?php  } ?>
 	    	</div>
 	    </div>
