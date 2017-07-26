@@ -84,23 +84,23 @@
 				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
 		}
+		//on utilise pas car pas de gestion des articles si l'admin qui l'a écrit est effacé
+		// public function deleteAction(){
+		// 	$adminId = $this->request->getParam('id');
+		// 	$adminPseudo = (new Admin)->read($adminId)->getPseudo();
+		// 	$userId= (int)(new User)->readByPseudo($adminPseudo)->getId();
 
-		public function deleteAction(){
-			$adminId = $this->request->getParam('id');
-			$adminPseudo = (new Admin)->read($adminId)->getPseudo();
-			$userId= (int)(new User)->readByPseudo($adminPseudo)->getId();
-
-			if (!is_null($adminId)) {
-				(new Admin)->delete($adminId);
-				(new user)->delete($userId);
-				$this->app->addSuccessMessage('L\'administrateur et son utilisateur ont bien été supprimés');
-				$code = 200;
-				$path ='?interface=admin&controller=home&action=index';
-			}else{
-				$this->app->addErrorMessage('Aucun administrateur ou utilisateurt trouvé pour cet id');
-				$code = 404;
-				$path ='?interface=admin&controller=home&action=index';
-			}
-			$this->response->redirectUrl($this->app->getUrl($path), $code);
-		}
+		// 	if (!is_null($adminId)) {
+		// 		(new Admin)->delete($adminId);
+		// 		(new user)->delete($userId);
+		// 		$this->app->addSuccessMessage('L\'administrateur et son utilisateur ont bien été supprimés');
+		// 		$code = 200;
+		// 		$path ='?interface=admin&controller=home&action=index';
+		// 	}else{
+		// 		$this->app->addErrorMessage('Aucun administrateur ou utilisateurt trouvé pour cet id');
+		// 		$code = 404;
+		// 		$path ='?interface=admin&controller=home&action=index';
+		// 	}
+		// 	$this->response->redirectUrl($this->app->getUrl($path), $code);
+		// }
 	}

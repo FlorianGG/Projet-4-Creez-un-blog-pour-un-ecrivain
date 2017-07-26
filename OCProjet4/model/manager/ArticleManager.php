@@ -6,7 +6,7 @@
 
 		//on execute le constructeur en récupérant celui du parent
 		public function __construct(){
-			$this->tableName = 'Article';
+			$this->tableName = 'article';
 			parent::__construct();
 			
 		}

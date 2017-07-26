@@ -1,6 +1,8 @@
 <?php
 	namespace OCProjet4\model;
 
+	use Symfony\Component\Yaml\Yaml;
+
 	abstract class AuthAbstract
 	{
 		protected $bdd;
