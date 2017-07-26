@@ -9,7 +9,17 @@
 
 		//function constructeur
 		public function __construct(){
-			$this->bdd = new \PDO('mysql:host=localhost;dbname=Blog;charset=utf8;', 'root', 'root', array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
+			$array = Yaml::parse(file_get_contents('config.yml'));
+			$host = Yaml::dump($array['dbConnect']['host'], 1);
+			$login = Yaml::dump($array['dbConnect']['loginDB'], 1);
+			$pass = Yaml::dump($array['dbConnect']['passDB'], 1);
+			$dbName = Yaml::dump($array['dbConnect']['dbname'], 1);
+			try {
+				$this->bdd = new \PDO('mysql:host=' . $host .';dbname=' . $dbName . ';charset=utf8;', $login, $pass, array(\PDO::ATTR_ERRMODE=>\PDO::ERRMODE_EXCEPTION));
+			} catch (\Exception $e) {
+				throw new \Exception('Erreur de connection à la base de donnée');
+				
+			}
 		}
 
 		public function login($pseudo, $pass){
