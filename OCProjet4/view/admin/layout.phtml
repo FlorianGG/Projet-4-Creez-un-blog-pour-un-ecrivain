@@ -18,8 +18,8 @@
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-        <script src='https://cloud.tinymce.com/stable/tinymce.min.js'></script>
-        <script type="text/javascript" src="web/js/tinymce.js"></script>
+        <script src='https://cloud.tinymce.com/stable/tinymce.min.js?apiKey=3zohivpn7j2yuaakkwy455lkyiq2qtkv3b2ge0ht98sscg9s'></script>
+        <script type="text/javascript" src="<?php echo 'web/js/tinymce.js?' . time(); ?>"></script>
         <script>
             var url = '<? echo $url ?>';
             var urlToDeleteArticle = '<? echo $urlToDeleteArticle ?>';
@@ -50,16 +50,17 @@
                                 <span class="icon-bar"></span>
                                 <span class="icon-bar"></span> 
                             </button>
-                            <a class="navbar-brand" href="<?php echo $this->app->getUrl('?controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i> Jean Forteroche</a>
+                            <a class="navbar-brand" href="<?php echo $this->app->getUrl('?controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i></a>
                         </div>
                         <?php if (!empty($_SESSION['adminId'])) { ?>
                             <div class="collapse navbar-collapse" id="myNavbar">
                                 <ul class="nav navbar-nav navbar-right">
                                     <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=index');?>"><i class="glyphicon glyphicon-home"></i> Accueil</a></li>
                                     <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=record');?>"><i class="glyphicon glyphicon-file"></i> Nouvel Article</button></a></li>
-                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><i class="glyphicon glyphicon-book"></i> Gestion des articles</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=article&action=index');?>"><i class="glyphicon glyphicon-book"></i> Articles</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=index#userManagement');?>"><i class="glyphicon glyphicon-user"></i> Administrateurs</a></li>
                                     <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=biography&action=set');?>"><i class="glyphicon glyphicon-info-sign"></i> Biographie</a></li> 
-                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=authAdmin&action=logout');?>"><span class="glyphicon glyphicon-off"></span> Déconnection</a></li>
+                                    <li><a href="<?php echo $this->app->getUrl('?interface=admin&controller=authAdmin&action=logout');?>"><span class="glyphicon glyphicon-off"></span> LogOut</a></li>
                                 </ul>
                             </div>
                         <?php } ?>

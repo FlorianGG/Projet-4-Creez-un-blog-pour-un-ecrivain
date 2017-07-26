@@ -14,6 +14,15 @@
 				return $this->manager->modify($model); 
 			}
 		}
+		//fonction va checker si ligne nouvelle personne existe en bdd
+		public function checkIfExist(ModelPersonAbstract $person){
+			$email = $person->getEmail();
+			$pseudo = $person->getPseudo();
+			if (!is_null($this->manager->readByPseudo($pseudo)) OR !is_null($this->manager->readByEmail($email))) {
+				return false;
+			}
+			return true;
+		}
 		//function delete qui fait appel au manager et sa fonction delete
 		public function delete(int $id){
 			return $this->manager->delete($id);

@@ -27,7 +27,8 @@
 				'nbArticle' => (new Article)->count(),
 				'nbUser' => (new User)->count(),
 				'nbComment' => (new Comment)->count(),
-				'nbAdmin'	=> (new Admin)->count()
+				'nbAdmin'	=> (new Admin)->count(),
+				'admin' => $this->bringBackAdmin()
 			);
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			return $this->response->setBody($html);
@@ -36,5 +37,40 @@
 		public function validateImgAction(){
 			$name = $this->request->getParam('name');
 			(new Image)->validateImg($name);
+		}
+
+		private function bringBackAdmin(){
+			$admins = (new Admin)->readAll();
+			$array = [];
+
+			foreach ($admins as $key => $value) {
+				$admin = array(
+					'id' => $admins[$key]->getId(),
+					'pseudo' => $admins[$key]->getPseudo(),
+					'email' => $admins[$key]->getEmail(),
+					'pass' => $admins[$key]->getPass()
+					);
+				$array[] = $admin;
+			}
+			return $array;
+		}
+
+		public function deleteUserAction(){
+			$userId= (int)(new User)->readByPseudo($this->request->getPost()['pseudo'])->getId();
+
+			if (!is_null($userId)) {
+				if ($userId === $_SESSION['userId']) {
+					$_SESSION['userId'] = null;
+				}
+				(new user)->delete($userId);
+				$this->app->addSuccessMessage('L\'utilisateur a bien été supprimé');
+				$code = 200;
+				$path ='?interface=admin&controller=home&action=index';
+			}else{
+				$this->app->addErrorMessage('Aucun utilisateur trouvé pour cet id');
+				$code = 404;
+				$path ='?interface=admin&controller=home&action=index';
+			}
+			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 	}

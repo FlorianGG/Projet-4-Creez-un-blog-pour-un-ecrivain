@@ -28,24 +28,32 @@
 				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
 			$user = new User($post);
-			$newRecord = $user->save($user);
-			if ($newRecord) {
-				if (!empty($post['id'])) {
-					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
-					$code = 200;
-				}else{
-					$this->app->addSuccessMessage('L\'utilisateur a bien été ajouté');
-					$code = 200;
-					if (isset($post['remember'])) {
-						setcookie('pseudo', $post['pseudo'], time() + 7*24*3600, null, null, false, true);
+			if($user->checkIfExist($user)){
+				$newRecord = $user->save($user);
+				if ($newRecord) {
+					if (!empty($post['id'])) {
+						$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+						$code = 200;
+					}else{
+						$this->app->addSuccessMessage('L\'utilisateur a bien été ajouté');
+						$code = 200;
+						if (isset($post['remember'])) {
+							setcookie('pseudo', $post['pseudo'], time() + 7*24*3600, null, null, false, true);
+						}
+						(new AuthUserController($this->request, $this->response, $this->app))->loginAction();
 					}
-					(new AuthUserController($this->request, $this->response, $this->app))->loginAction();
+				}else{
+					$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+					$code = 404;
 				}
+				$path ='?controller=home&action=index';
+				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}else{
-				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
-				$code = 404;
+				$this->app->addErrorMessage('Le pseudo ou le mail sont déjà utilisés');
+				$code = 200;
+				$path ='?controller=user&action=registration';
+				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
-			$path ='?controller=home&action=index';
-			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
+
 	}

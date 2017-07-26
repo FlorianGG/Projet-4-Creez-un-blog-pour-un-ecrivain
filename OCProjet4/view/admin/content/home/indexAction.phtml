@@ -116,5 +116,56 @@
 		</div>
 	</div>
 </div>
-
-
+<div id="userManagement" class="row">
+	<div class="col-xs-8 col-xs-offset-2">
+		<div class="panel panel-default">
+		    <!-- Default panel contents -->
+		    <div class="panel-heading">Gestion des utilisateur & administrateurs</div>
+		    <div class="panel-body">
+    		    <div class="row">
+    		  		<div class="col-xs-12">
+			    		<h4 class="title">Gestion des administrateurs</h4>
+			    		<p><em><small>La suppression d'un administrateur entraine automatique la suppression de l'utilisateur associé</small></em></p>
+						<div class="col-xs-12">
+							<table class="table table-hover table-condensed">
+								<thead>
+									<tr>
+										<th>Pseudo</th>
+										<th>Adresse mail</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody>
+								  	<?php foreach ($data['admin'] as $key => $value){ ?>
+								  	<tr id="<?php echo 'tr' . $data['admin'][$key]['id'] ?>">
+										<td><? echo $data['admin'][$key]['pseudo'];?></td>
+								      	<td><? echo $data['admin'][$key]['email'];?></td>
+								      	<td> 
+									      	<a href="<?php echo $this->app->getUrl('?interface=admin&controller=admin&action=record');?>"><button class="btn btn-success btn-xs">Ajouter</button></a>
+									        <a href="<?php echo $this->app->getUrl('?interface=admin&controller=admin&action=record&id=' . $data['admin'][$key]['id']);?>"><button class="btn btn-default btn-xs">Modifier</button></a>
+									        <a href="<?php echo $this->app->getUrl('?interface=admin&controller=admin&action=delete&id=' . $data['admin'][$key]['id']);?>"><button class="btn btn-danger btn-xs " <?php if ($_SESSION['adminId'] === $data['admin'][$key]['id']) { echo 'disabled=""';}?>>Supprimer</button></a>     
+								      	</td>
+								  	</tr>
+								  	<?php } ?>
+								</tbody>
+							</table>
+						</div>
+    		    	</div>
+    		    	<div class="col-xs-12">
+    		    		<h4 class="title">Suppression d'un utilisateur</h4>
+    		    		<form class="form-horizontal" action="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=deleteUser')?>" method="post">
+						        <div class="form-group">
+						          <label class="control-label col-md-4" for="pseudo">Nom de l'utilisateur à supprimer</label>
+		    			            <div class="col-md-8">
+		    			                <input class="col-xs-12" type="text" id="pseudo" name="pseudo">
+		    			            </div>
+						        </div>
+						        <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
+						</form>
+    		    	</div>
+    		    	<hr>
+    		    </div>
+		    </div>
+		</div>
+	</div>
+</div>
