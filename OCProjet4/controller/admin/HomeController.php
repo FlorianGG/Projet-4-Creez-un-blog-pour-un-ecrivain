@@ -56,9 +56,9 @@
 		}
 
 		public function deleteUserAction(){
-			$userId= (int)(new User)->readByPseudo($this->request->getPost()['pseudo'])->getId();
 
-			if (!is_null($userId)) {
+			if (!is_null((new User)->readByPseudo($this->request->getPost()['pseudo']))) {
+				$userId= (int)(new User)->readByPseudo($this->request->getPost()['pseudo'])->getId();
 				if ($userId === $_SESSION['userId']) {
 					$_SESSION['userId'] = null;
 				}
@@ -67,7 +67,7 @@
 				$code = 200;
 				$path ='?interface=admin&controller=home&action=index';
 			}else{
-				$this->app->addErrorMessage('Aucun utilisateur trouvé pour cet id');
+				$this->app->addErrorMessage('Aucun utilisateur trouvé avec ce pseudo');
 				$code = 404;
 				$path ='?interface=admin&controller=home&action=index';
 			}

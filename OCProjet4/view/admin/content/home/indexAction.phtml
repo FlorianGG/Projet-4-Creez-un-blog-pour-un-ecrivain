@@ -153,6 +153,7 @@
     		    	<div class="col-xs-12">
     		    		<h4 class="title">Suppression d'un utilisateur</h4>
     		    		<form class="form-horizontal" action="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=deleteUser')?>" method="post">
+    		    				<p class="text-danger"><em><small>La suppression d'un utilisateur est irréversible. Cela effacera tous ses commentaires.</small></em></p>
 						        <div class="form-group">
 						          <label class="control-label col-md-4" for="pseudo">Nom de l'utilisateur à supprimer</label>
 		    			            <div class="col-md-8">

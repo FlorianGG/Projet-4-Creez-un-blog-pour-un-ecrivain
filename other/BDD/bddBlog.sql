@@ -245,7 +245,7 @@ CREATE TABLE IF NOT EXISTS  comment (
 	CONSTRAINT fk_userId_id
 		FOREIGN KEY (userId)
 		REFERENCES user(id)
-		ON DELETE SET NULL,
+		ON DELETE CASCADE,
 	CONSTRAINT fk_articleId_id
 		FOREIGN KEY (articleId)
 		REFERENCES article(id)
