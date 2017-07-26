@@ -49,19 +49,26 @@
 		//ajouter un article
 		public function saveAction(){
 			$post = $this->request->getPost();
-			$comment = new Comment($post);
-			$newRecord = $comment->save($comment);
-			if ($newRecord) {
-				if (!empty($post['id'])) {
-					$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
-					$code = 200;
-				}else{
-					$this->app->addSuccessMessage('Le commentaire a bien été ajouté');
-					$code = 200;
-				}
+			$reg = '/^[^\s]\w*/';
+			if (!preg_match($reg,$post['content'])) {
+				$this->app->addErrorMessage('Le text de votre commentaire n\'est pas conforme');
+				$code = 200;
+				$comment = new Comment($post);
 			}else{
-				$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
-				$code = 404;
+				$comment = new Comment($post);
+				$newRecord = $comment->save($comment);
+				if ($newRecord) {
+					if (!empty($post['id'])) {
+						$this->app->addSuccessMessage('Les modifications ont bien été effectuées');
+						$code = 200;
+					}else{
+						$this->app->addSuccessMessage('Le commentaire a bien été ajouté');
+						$code = 200;
+					}
+				}else{
+					$this->app->addErrorMessage('Une erreur est survenue durant l\'enregistrement');
+					$code = 404;
+				}
 			}
 			$path ='?controller=article&action=show&id=' . $comment->getArticleId();
 			$this->response->redirectUrl($this->app->getUrl($path), $code);

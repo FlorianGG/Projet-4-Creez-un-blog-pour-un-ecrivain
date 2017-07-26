@@ -16,7 +16,9 @@
 			$userAdmin = $user->readByPseudo($pseudo);
 			if(!is_null($person)){
 				$passAdmin = password_verify($pass, $person->getPass());
-				$passUser = password_verify($pass, $userAdmin->getPass());
+				if (!is_null($userAdmin)) {
+					$passUser = password_verify($pass, $userAdmin->getPass());
+				}
 				if ($passAdmin === true) {
 					$_SESSION[$this->personId] = $person->getId();
 					if (!is_null($userAdmin) && $passUser === true) {

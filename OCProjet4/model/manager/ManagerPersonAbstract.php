@@ -29,13 +29,6 @@
 			//on execute loadByQuery($req) pour exécuter la requête read et de retourner un objet User
 			return $this->loadByQuery($req);
 		}
-
-		//fonction va checker si ligne nouvelle personne existe en bdd
-		public function checkIfExist(ModelPersonAbstract $person){
-			$email = $person->getEmail();
-			$pseudo = $person->getPseudo();
-			var_dump($this->readByPseudo($pseudo));
-		}
 	}
 
 

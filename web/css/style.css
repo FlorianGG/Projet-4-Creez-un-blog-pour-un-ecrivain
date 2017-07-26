@@ -4,6 +4,7 @@ body{
 	font-family: 'Lora', serif !important;
 	background: #E0E6F1 !important;
 	text-align: center;
+	overflow-wrap: break-word
 }
 
 h1, h2, h3,h4, header span, header a, header i{
