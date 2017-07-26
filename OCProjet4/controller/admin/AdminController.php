@@ -49,11 +49,8 @@
 			}
 			if($this->request->checkForm($post)){
 				$admin = new Admin($post);
-				if (!empty($post['id'])) {
-					$userAdmin = (new User)->readByPseudo($post['pseudo']);
-				}else{
-					$userAdmin = new User($post);
-				}
+
+				$userAdmin = new User($post);
 				if(!empty($post['id']) OR ($admin->checkIfExist($admin) && $userAdmin->checkIfExist($userAdmin))){
 					$newRecord = $admin->save($admin);
 					$newRecordUser = $userAdmin->save($userAdmin);
