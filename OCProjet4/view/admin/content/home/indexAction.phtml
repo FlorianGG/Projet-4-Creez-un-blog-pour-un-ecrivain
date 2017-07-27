@@ -67,7 +67,7 @@
     		    			<div class="row">
     		    				<div class="col-xs-12">
     		    					<?php if (file_exists('web/img/home/miniaturehome.jpg')) {?>
-    		    					<img class="imgMiniature" src="<?echo 'web/img/home/miniaturehome.jpg?' . time();?>" alt="Miniature photo page d'accueil">
+    		    					<img class="imgMiniature responsive" src="<?echo 'web/img/home/miniaturehome.jpg?' . time();?>" alt="Miniature photo page d'accueil">
     		    					<?}else{}?>
     		    				</div>
     		    			</div>
@@ -92,7 +92,7 @@
 							<div class="row">
 								<div class="col-xs-12">
 									<?php if (file_exists('web/img/autor/miniatureautor.jpg')) {?>
-									<img class="imgMiniature" src="<?echo 'web/img/autor/miniatureautor.jpg?' . time();?>" alt="Miniature photo auteur">
+									<img class="imgMiniature responsive" src="<?echo 'web/img/autor/miniatureautor.jpg?' . time();?>" alt="Miniature photo auteur">
 									<?}else{}?>
 								</div>
 							</div>
@@ -122,24 +122,22 @@
 		    <!-- Default panel contents -->
 		    <div class="panel-heading">Gestion des utilisateur & administrateurs</div>
 		    <div class="panel-body">
-    		    <div class="row">
-    		  		<div class="col-xs-12">
-			    		<h4 class="title">Gestion des administrateurs</h4>
-			    		<p><em><small>L'ajout' d'un administrateur entraine automatique la création de l'utilisateur associé</small></em></p>
-						<div class="col-xs-12">
-							<table class="table table-hover table-condensed">
+    		  		<div class="row">
+	  					<h4 class="title">Gestion des administrateurs</h4>
+	  					<p><em><small>L'ajout' d'un administrateur entraine automatique la création de l'utilisateur associé</small></em></p>
+							<table class="table table-condensed table-responsive">
 								<thead>
 									<tr>
-										<th>Pseudo</th>
-										<th>Adresse mail</th>
-										<th>Action</th>
+										<th><small>Pseudo</small></th>
+										<th><small>Email</small></th>
+										<th><small>Action</small></th>
 									</tr>
 								</thead>
 								<tbody>
 								  	<?php foreach ($data['admin'] as $key => $value){ ?>
 								  	<tr id="<?php echo 'tr' . $data['admin'][$key]['id'] ?>">
-										<td><? echo $data['admin'][$key]['pseudo'];?></td>
-								      	<td><? echo $data['admin'][$key]['email'];?></td>
+										<td><small><? echo $data['admin'][$key]['pseudo'];?></small></td>
+								      	<td><small><? echo $data['admin'][$key]['email'];?></small></td>
 								      	<td> 
 									      	<a href="<?php echo $this->app->getUrl('?interface=admin&controller=admin&action=record');?>"><button class="btn btn-success btn-xs">Ajouter</button></a>
 									        <a href="<?php echo $this->app->getUrl('?interface=admin&controller=admin&action=record&id=' . $data['admin'][$key]['id']);?>"><button class="btn btn-default btn-xs">Modifier</button></a>   
@@ -148,8 +146,7 @@
 								  	<?php } ?>
 								</tbody>
 							</table>
-						</div>
-    		    	</div>
+
     		    	<div class="col-xs-12">
     		    		<h4 class="title">Suppression d'un utilisateur</h4>
     		    		<form class="form-horizontal" action="<?php echo $this->app->getUrl('?interface=admin&controller=home&action=deleteUser')?>" method="post">
@@ -163,7 +160,6 @@
 						        <button class="btn btn-danger btn-sm" type="submit">Supprimer</button>
 						</form>
     		    	</div>
-    		    	<hr>
     		    </div>
 		    </div>
 		</div>

@@ -129,8 +129,12 @@ figcaption{
 	padding: 0 !important;
 }
 
-.mgBiography{
+.imgBiography{
 	width: 100%;
+}
+
+.imgMiniature{
+	width: 100% !important;
 }
 
 /*Zone de commentaires*/

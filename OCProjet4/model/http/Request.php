@@ -100,8 +100,12 @@
 
 		//fonction callback qui vérifie la longueur d'un champ
 		private function checkLenghtContent($string) {
+			//nettoie les balises script
+			$regScript = '/[&#38;lt;script&#38;]/';
+			$string = preg_replace($regScript, '', $string);
 			//Retourne la string si elle est valide, sinon false.
 			$reg = '/^[^\s].{5,}/';
+
 			if (preg_match($reg,$string)) {
 				return $string;
 			}else{
