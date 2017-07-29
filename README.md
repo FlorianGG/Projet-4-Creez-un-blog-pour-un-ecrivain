@@ -18,6 +18,7 @@ En claire il s'agit de la création d'un blog pour un écrivain avec les consign
 Les étapes de ce projet sont définies durant les sessions hebdomadaires de mentorat. Chacune des sessions est ponctuée par une TODO list. Ces dernières seront ajoutées dans le dossier *session* du projet
 
 ## Mode d'emploi
+* Cloner ou télécharger le fichier sur la branche master
 * Lancer composer install pour télécharger le fichier vendor
 * Modifier le nom du fichier config copie.yml en supprimant le copie.yml
 * Dans ce même fichier inscrire ses paramètres de connection et son url
