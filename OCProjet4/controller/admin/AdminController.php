@@ -11,12 +11,17 @@
 	use OCProjet4\app\App;
 
 
-	class AdminController extends BackEndController{
-
+	class AdminController extends BackEndController{ //on extend du backEndController
+		//Le controller récuère celui du parent
+		//avec en paramètre les objets request, repsonse et app
+		//dés qu'on instancie le controller on verifie que l'admin est bien loggé
 		public function __construct(Request $request, Response $response, App $app){
 			parent::__construct($request, $response, $app);
 			parent::checkLogged();
 		}
+
+		//fonction qui renvoi un admin avec l'id dans l'url pour le modifier
+		//si aucun id c'est qu'on va créer un admin donc on ne renvoie aucun contenu
 		public function recordAction(){
 			if (!is_null($this->request->getParam('id'))) {
 				$id = $this->request->getParam('id');
@@ -28,18 +33,22 @@
 					'email' => $admin->getEmail(),
 					'pass' => $admin->getPass()
 				);
-
+				// vue si on va modifier un admin -> avec du contenu
 				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
 			}else{
+				// vue si on crée un admin -> sans contenu
 				$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate();
 			}
 
-
+			// on retourne la vue via la class response
 			return $this->response->setBody($html);
 		}
 
-
+		// fonction qui sauvegarde un nouvel et crée également un user en parallèle
+		// si $post n'a pas d'id on crée un admin 
+		// sinon la fonction save va modifier l'admin
 		public function saveAction(){
+			// on vérifie d'abord que le mot de pass et sa confirmation sont identiques
 			$post = $this->request->getPost();
 			if($post['pass2'] !== $post['pass']){
 				$this->app->addErrorMessage('Les deux mots de passe ne sont pas identiques');
@@ -47,10 +56,11 @@
 				$code = 200;
 				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
+			// si oui, on vérifier le contenu de $post : longueur des contenus et format email
 			if($this->request->checkForm($post)){
 				$admin = new Admin($post);
-
 				$userAdmin = new User($post);
+				//on vérifie que l'admin/user crées/modifiés n'existe pas déjà en bdd 
 				if(!empty($post['id']) OR ($admin->checkIfExist($admin) && $userAdmin->checkIfExist($userAdmin))){
 					$newRecord = $admin->save($admin);
 					$newRecordUser = $userAdmin->save($userAdmin);
@@ -69,6 +79,7 @@
 					$path ='?interface=admin&controller=home&action=index';
 					$this->response->redirectUrl($this->app->getUrl($path), $code);
 				}else{
+					//on renvoie un message d'erreur si pseudo ou email deja utilisé
 					$this->app->addErrorMessage('Le pseudo ou le mail sont déjà utilisés');
 					$code = 200;
 					$path ='?interface=admin&controller=admin&action=record';

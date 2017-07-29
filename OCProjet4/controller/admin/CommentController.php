@@ -18,14 +18,17 @@
 			parent::checkLogged();
 		}
 
-		//list all articles
+		//liste tous les commentaires
 		public function indexAction(){
 			$id = (int) $this->request->getParam('id');
 			$data = [];
+			// On récupère tous les commentaires associés à un article via son $id
 			$comments = (new Comment)->readAllWithArticle($id);
 			if (empty($comments)) {
+				// si on a rien on renvoi le contenu de comments soit null
 				return $comments;
 			}else{
+				// on crée une boucle pour récupérer tous les comments
 				foreach ($comments as $key => $value) {
 					//on insère les données dans un tableau pour les envoyer dans la vue
 					$array = [];
@@ -40,6 +43,9 @@
 					$data[$array['id']] = $array;
 				}
 				$array = [];
+				// on class les comments selon si l'idParent
+				// Si null on met dans tableau principale
+				// si non on crée un tableau réponse au tableau id parent et on les class par id
 				foreach ($data as $comment => $com) {
 					if ($data[$comment]['idParent'] === 0) {
 						$array[$data[$comment]['id']]= $data[$comment];
@@ -48,6 +54,7 @@
 						$array[$data[$comment]['idParent']]['response'][$comment] = $data[$comment];
 					}
 				}
+				// on retourne un tableau
 				return $array;
 			}
 		}
@@ -75,8 +82,9 @@
 			$path ='?interface=admin&controller=article&action=show&id=' . $articleId;
 			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
-		// http://localhost?controller=backend&action=addArticle
-		//ajouter un article
+
+
+		//ajouter un commentaire ou le modifier
 		public function saveAction(){
 			$post = $this->request->getPost();
 			$comment = new Comment($post);
@@ -99,39 +107,6 @@
 				$code = 200;
 			}
 			$path ='?interface=admin&controller=article&action=show&id=' . $comment->getArticleId();
-			$this->response->redirectUrl($this->app->getUrl($path), $code);
-		}
-
-		// http://localhost?controller=article&action=show&id=3
-		//display one article 
-		public function showAction(){
-			$id = (int)$this->request->getParam('id');
-			if (is_null($id) OR !isset($id)) {
-				$this->app->addErrorMessage('Article introuvable');
-				$code = 404;
-			}else{
-				$article = (new Article)->read($id);
-				//si aucune erreur on affiche l'article selectionné
-				if (!is_null($article)){
-					//on insère les données dans un tableau pour les envoyer dans la vue
-					$data = [
-						'id' => $article->getId(),
-						'title' => $article->getTitle(),
-						'content' => $article->getContent(),
-						'dateArticle' => $article->getDateArticle()
-						];
-					//on définit l'action
-					$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
-					return $this->response->setBody($html);
-
-				//dans tous les cas d'erreur on affiche que l'article est introuvable
-				}else{
-					$this->app->addErrorMessage('Article introuvable');
-					$code = 404;
-				}
-			}
-			
-			$path ='?interface=admin&controller=' . $this->controller . '&action=index';
 			$this->response->redirectUrl($this->app->getUrl($path), $code);
 		}
 	}

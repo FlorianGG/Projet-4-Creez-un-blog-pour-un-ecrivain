@@ -14,11 +14,14 @@
 			parent::__construct($request, $response, $app);
 		}
 
+		//function qui retourne la vue du formulaire de connection pour un admin
 		public function authAction(){
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate();
 			return $this->response->setBody($html);
 		}
 
+		//function qui va renvoyer un message et une vue spécifique
+		//selon la réponse de la fonction login de l'objet AuthAdmin
 		public function loginAction(){
 			$pseudo = $this->request->getPost()['pseudo'];
 			$pass = $this->request->getPost()['pass'];
@@ -37,6 +40,8 @@
 			}
 		}
 
+		// function décoonect un admin en réinitiallisant les varibles SESSION
+		// On renvoie sur la page d'authentification admin
 		public function logoutAction(){
 			$_SESSION['userId'] = null;
 			$_SESSION['pseudo'] = null;

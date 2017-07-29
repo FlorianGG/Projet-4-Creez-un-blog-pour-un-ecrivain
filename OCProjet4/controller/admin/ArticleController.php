@@ -12,13 +12,17 @@
 	use OCProjet4\app\App;
 	use OCProjet4\helper\Image;
 
-	class ArticleController extends BackEndController{
-
+	class ArticleController extends BackEndController{ //on extend du backEndController
+		//Le controller récuère celui du parent
+		//avec en paramètre les objets request, repsonse et app
+		//dés qu'on instancie le controller on verifie que l'admin est bien loggé
 		public function __construct(Request $request, Response $response, App $app){
 			parent::__construct($request, $response, $app);
 			parent::checkLogged();
 		}
 
+		// function private qui check si un article existe 
+		// pour les boutons article suivant ou précédent
 		private function checkIsArticleExist($function){
 			if (is_null($function)) {
 				return null;
@@ -27,7 +31,7 @@
 			}
 		}
 
-		//list all articles
+		//Renvoi tous les article et leur contenu
 		public function indexAction(){
 			$articles = (new Article)->readAll();
 			$data = [];
@@ -46,8 +50,9 @@
 				//On ajoute le tout dans un tableau qu'on renvoie dans la vue
 				$data[] = $array;
 			}
-
+			// on renvoi dans la vue un tableau avec tous les articles
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);
+			// on retourne la vue dans la réponse
 			return $this->response->setBody($html);
 		}
 
@@ -89,6 +94,7 @@
 				$code = 404;
 			}else{
 				$articleDelete = (new Article)->delete($id);
+				//on efface l'image associée stockée sur le serveur
 				$fileDelete = (new Image)->deleteImg($id);
 				if ($articleDelete) {
 					$this->app->addSuccessMessage('L\'article n°' . $id . ' a bien été supprimé');

@@ -10,12 +10,15 @@
 		protected $interface;
 		protected $authUser;
 
+		// constructeur de la partie backend
+		// on initialise la variable interface sur front
 		public function __construct(Request $request, Response $response, App $app){
 			parent::__construct($request, $response, $app);
 			$this->interface = 'front';
 			$this->authUser = new AuthUser;		
 		}
 
+		// fonction qui vérifie si le user est loggé pour accéder aux fonctionnalités 
 		public function checkLogged(){
 			if (!$this->authUser->logged()) {
 				$path = '?controller=home&action=index';

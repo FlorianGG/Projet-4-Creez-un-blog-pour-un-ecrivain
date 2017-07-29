@@ -10,6 +10,8 @@
 			$this->personId = 'adminId';
 		}
 
+		// fonction login spécifique pour l'admin
+		// car on crée également une connection user
 		public function login($pseudo, $pass){
 			$user = new User;
 			$person = $this->person->readByPseudo($pseudo);

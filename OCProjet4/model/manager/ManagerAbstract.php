@@ -10,6 +10,7 @@
 
 		//function constructeur
 		protected function __construct(){
+			// on récupère les paramètres de connection à la bdd
 			$array = Yaml::parse(file_get_contents('config.yml'));
 			$host = Yaml::dump($array['dbConnect']['host'], 1);
 			$login = Yaml::dump($array['dbConnect']['loginDB'], 1);
@@ -59,7 +60,7 @@
 
 		//fonction qui compte le nombre d'élément dans la bdd
 		public function count(){
-			//on execute une requête pour afficher tous les articles
+			//on execute une requête pour afficher tous les elements
 			$req = $this->bdd->query('SELECT COUNT(*) AS numberElement FROM ' . $this->tableName);
 
 			//on affiche la requête
@@ -73,9 +74,6 @@
 
 		//Ensembles des fonctions du format CRUD
 		
-		/**
-		 * FONCTION CREATE
-		 */
 		
 		//fonction qui permet d'ajouter une ligne dans la bdd
 		public function create(ModelAbstract $data){
@@ -120,11 +118,6 @@
 			}
 		}
 
-		/**
-		 * FONCTION READS
-		 */
-		
-
 		//fonction read qui permet de lire une ligne de la bdd en fonction de son id
 		public function read($id){
 			$id = (int)$id;
@@ -153,11 +146,8 @@
 			return $array;
 		}
 
-		/**
-		 * FONCTION MODIFY
-		 */
 
-		//fonction qui permet de modifier un article dans la bdd
+		//fonction qui permet de modifier un élement dans la bdd
 		public function modify(ModelAbstract $data){
 			//on récupère les data nettoyées
 			$array = $this->convertData($data);
@@ -177,7 +167,7 @@
 			//on réempile l'id dans le tableau
 			$array['_id'] = $arrayId;
 
-			//on prepare la requête qui va modifier l'article en fonction de l'id en paramètre
+			//on prepare la requête qui va modifier l'element en fonction de l'id en paramètre
 			$req = $this->bdd->prepare('UPDATE ' . $this->tableName .' SET ' . $param . ' WHERE id=:id');
 
 			//on bind les valeurs avec le contenu du tableau retourné par la fonction returnData de l'objet en paramètre
@@ -196,15 +186,12 @@
 			}
 		}
 
-		/**
-		 * FONCTION DELETE
-		 */
 
-		//fonction delete qui permet de surprimer un article de la bdd
+		//fonction delete qui permet de surprimer un élément de la bdd
 		public function delete($id){
 			$id = (int)$id;
 			
-			//on prepare la requete qui va supprimer un article en fonction de l'id
+			//on prepare la requete qui va supprimer un element en fonction de l'id
 			$req = $this->bdd->prepare('DELETE FROM ' . $this->tableName . ' WHERE id=:id LIMIT 1');
 
 			//on bind la variable avec l'id en paramètre

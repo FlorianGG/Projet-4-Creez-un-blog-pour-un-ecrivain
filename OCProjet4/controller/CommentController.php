@@ -12,13 +12,17 @@
 	
 	class CommentController extends FrontController{
 
+		// liste les commentaires
 		public function indexAction(){
 			$id = (int) $this->request->getParam('id');
 			$data = [];
+			// On récupère tous les commentaires associés à un article via son $id
 			$comments = (new Comment)->readAllWithArticle($id);
 			if (empty($comments)) {
+				// si on a rien on renvoi le contenu de comments soit null
 				return $comments;
 			}else{
+				// on crée une boucle pour récupérer tous les comments
 				foreach ($comments as $key => $value) {
 					//on insère les données dans un tableau pour les envoyer dans la vue
 					$array = [];
@@ -33,6 +37,9 @@
 					$data[$array['id']] = $array;
 				}
 				$array = [];
+				// on class les comments selon si l'idParent
+				// Si null on met dans tableau principale
+				// si non on crée un tableau réponse au tableau id parent et on les class par id
 				foreach ($data as $comment => $com) {
 					if ($data[$comment]['idParent'] === 0) {
 						$array[$data[$comment]['id']]= $data[$comment];
@@ -45,8 +52,7 @@
 			}
 		}
 
-		// http://localhost?controller=backend&action=addArticle
-		//ajouter un article
+		//ajouter un commentaore
 		public function saveAction(){
 			$post = $this->request->getPost();
 			$comment = new Comment($post);

@@ -11,6 +11,7 @@
 
 		//function constructeur
 		public function __construct(){
+			// on récupère les paramètres de connection à la bdd
 			$array = Yaml::parse(file_get_contents('config.yml'));
 			$host = Yaml::dump($array['dbConnect']['host'], 1);
 			$login = Yaml::dump($array['dbConnect']['loginDB'], 1);
@@ -24,6 +25,10 @@
 			}
 		}
 
+		// fonction qui vérifie qu'il existe une personne avec ce pseudo
+		// si il existe on verifie le mdp
+		// on utilise password_verify pour vérifier la conformité du mot de pass
+		// on set les SESSION pseudo et id
 		public function login($pseudo, $pass){
 			$person = $this->person->readByPseudo($pseudo);
 			if(!is_null($person)){
@@ -37,6 +42,7 @@
 			return false;
 		} 
 
+		// fonction qui vérie si la personne est loggé
 		public function logged(){
 			return isset($_SESSION[$this->personId]) && !is_null($_SESSION[$this->personId]);
 		}

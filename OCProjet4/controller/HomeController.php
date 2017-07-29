@@ -9,7 +9,7 @@
 	use OCProjet4\view\View;	
 	
 	class HomeController extends FrontController{
-		//list the 3 last articles
+		//Récupère les 3 derniers articles publiables
 		public function indexAction(){
 			$html = "";
 			$article = (new Article)->readAll();
@@ -43,6 +43,7 @@
 				$data['articles'][] = $array;
 				
 			}
+			// on récupère le contenu de la biographie
 			$data['biography'] = (new Biography)->getContent();
 
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate($data);

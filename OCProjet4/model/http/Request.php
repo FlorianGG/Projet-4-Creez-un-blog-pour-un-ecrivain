@@ -6,6 +6,8 @@
 		private $get;
 		private $post;
 
+		// class qui récupère les variables  SESSION get et post pour les nettoyer
+		// on initialise les var get et post avec les variables SESSIONS
 		public function __construct(){
 			$this->get = $_GET;
 			$this->post = $_POST;
@@ -14,6 +16,7 @@
 		//fonction qui vérifie si la variable GET existe et la retourne nettoyée
 		public function getParam($param){
 			if (isset($this->get[$param]) && !is_null($this->get[$param])) {
+				// on applique un filtre SPECIAL CHARS
 				$param = filter_var($param, FILTER_SANITIZE_SPECIAL_CHARS);
 				return $this->get[$param];
 			}else{
@@ -46,6 +49,8 @@
 		}
 
 		//fonction qui vérifie la conformité des champs de formulaire type utilisateur ou admin
+		//on applique nos fonctions filtre crée avec des expressions régulières
+		//pour imposer une taille minimum des données saisies
 		public function checkForm(array $post){
 			$options = array(
 				'title' => array(
@@ -99,6 +104,7 @@
 		}
 
 		//fonction callback qui vérifie la longueur d'un champ
+		//Principalement pour le content saisie vi tinyMCE
 		private function checkLenghtContent($string) {
 			//nettoie les balises script
 			$regScript = '/[&#38;lt;script&#38;]/';

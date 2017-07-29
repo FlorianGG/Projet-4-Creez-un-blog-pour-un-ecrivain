@@ -11,12 +11,15 @@
 		protected $interface;
 		protected $authAdmin;
 
+		// constructeur de la partie backend
+		// on initialise la variable interface sur Admin
 		public function __construct(Request $request, Response $response, App $app){
 			parent::__construct($request, $response, $app);
 			$this->interface = $this->request->getParam('interface');
 			$this->authAdmin = new AuthAdmin;		
 		}
 
+		// fonction qui vérifie si l'admin est loggé pour accéder aux fonctionnalités 
 		public function checkLogged(){
 			if (!$this->authAdmin->logged()) {
 				$this->app->addErrorMessage('Vous n\'êtes pas autorisé à accéder à cette page. Veuillez vous identifier');

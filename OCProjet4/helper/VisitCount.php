@@ -2,6 +2,8 @@
 	namespace OCProjet4\helper;
 
 	class VisitCount{
+		// fonction qui gère le compte de visiteur
+		// l'inscrit dans un fichier txt
 		public function countVisitor(){
 			if (!isset($_SESSION['visit'])) {
 				$_SESSION['visit'] = 'oui';
@@ -15,6 +17,8 @@
 			}
 		}
 
+		// fonction qui récupère le nombre d'utilisateur
+		// en lisant dans le fichier txt
 		public function getNb(){
 			$file = fopen('web/txt/counter.txt','r+');
 			$nb = fgets($file, 4096);

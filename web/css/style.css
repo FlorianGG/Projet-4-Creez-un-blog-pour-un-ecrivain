@@ -1,3 +1,4 @@
+/* Mise en page générique*/
 body{
 	padding-top: 50px;
 	margin: 0;
@@ -18,12 +19,12 @@ table{
 	background-color: #F8F8F8 !important;
 }
 
-.table-hover tbody tr:hover td {
-    background: #E0E6F1;
-}
-
 table th{
 	text-align: center;
+}
+
+.table-hover tbody tr:hover td {
+    background: #E0E6F1;
 }
 
 .btn{
@@ -54,14 +55,15 @@ a:hover{
 .help-block{
 	text-align: initial;
 }
-
+.title{
+	margin: 30px auto;
+}
 
 /*Image principale sur page d'accueil*/
 .mainImage{
 	position: relative;
 	margin: 0 auto 10px auto;
 }
-
 .mainImage h1{
 	font-size: 4vw;
 }
@@ -72,7 +74,6 @@ a:hover{
 	padding: 5px;
 	background-color: rgba(255, 255, 255, 0.6);
 	font-weight: bold;
-
 }
 .textMainImage h4{
 	text-align: right;
@@ -85,12 +86,7 @@ a:hover{
 .imgHome{
 	width: 100%;
 }
-
 /*Zone panel avec les vignettes*/
-.title{
-	margin: 30px auto;
-}
-
 figcaption{
 	max-width: 80%;
 	min-height: 100px;
@@ -109,7 +105,7 @@ figcaption{
 	align-items: center;
 }
 
-/*Page article dans le front*/
+/*Page article*/
 .article{
 	margin: 20px auto;
 	background-color: #fff;
@@ -123,16 +119,18 @@ figcaption{
 	margin-top: 50px;
 }
 
+/* Gestion des images*/
+/*Img d'un article*/
 .imgHead{
 	max-height: 300px;
 	overflow-y: hidden;
 	padding: 0 !important;
 }
-
+/*Image de la biographie*/
 .imgBiography{
 	width: 100%;
 }
-
+/*Image de la vue miniature d'une image article*/
 .imgMiniature{
 	width: 100% !important;
 }
@@ -149,7 +147,6 @@ figcaption{
 	background-color: #fff !important;
 	padding-bottom: 0 !important;
 }
-
 .sousCommentaire{
 	background-color: #f4f4f4 !important;
 }
@@ -164,10 +161,11 @@ figcaption{
 	color: #fff;
 }
 
+/*On masque par défaut le glyphicon de la confirmation du mot de pass. JS l'affiche et le masque*/
 #glyph{
 	display: none;
 }
-
+/*DivMessage contenant le message renvoyé par JS pour le changement du statut brouillon*/
 #divMessage{
 	display: none;
 }
@@ -183,6 +181,7 @@ footer{
 
 }
 
+/*Bandeau d'affiche si JS pas activé*/
 #noJavascript{
 	min-height: 200px !important;
 	text-align: center;

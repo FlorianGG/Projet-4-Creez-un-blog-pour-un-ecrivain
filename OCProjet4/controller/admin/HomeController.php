@@ -20,6 +20,8 @@
 			parent::checkLogged();
 		}
 
+		// fonction qui renvoie plusieurs indicateurs
+		// et la liste des admins avec leur contenu
 		public function indexAction(){
 			$data = [];
 			$data = array(
@@ -34,11 +36,15 @@
 			return $this->response->setBody($html);
 		}
 
+		// fonction qui ajoute une image
+		// le paramètre name permet de choisir le type d'image qui va être enregistré
 		public function validateImgAction(){
 			$name = $this->request->getParam('name');
 			(new Image)->validateImg($name);
 		}
 
+		// fonction private qui récupère tous les admins
+		// pour les renvoyer dans la fonction index
 		private function bringBackAdmin(){
 			$admins = (new Admin)->readAll();
 			$array = [];
@@ -55,8 +61,8 @@
 			return $array;
 		}
 
+		// fonction qui permet de supprimer un user avec son nom
 		public function deleteUserAction(){
-
 			if (!is_null((new User)->readByPseudo($this->request->getPost()['pseudo']))) {
 				$userId= (int)(new User)->readByPseudo($this->request->getPost()['pseudo'])->getId();
 				if ($userId === $_SESSION['userId']) {

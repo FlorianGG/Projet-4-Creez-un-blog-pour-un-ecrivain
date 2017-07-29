@@ -15,7 +15,7 @@
 			parent::checkLogged();
 		}
 
-		//list all articles
+		//function qui va récupérer le contenu de la Biography et la renvoyer dans la vue
 		public function setAction(){
 			$data = [];
 			$data[] = (new Biography)->getContent();
@@ -23,6 +23,8 @@
 			return $this->response->setBody($html);
 		}
 
+		// fonction qui enregistre une nouvelle biography
+		// et renvoie un message selon le résultat de l'action sur la même page
 		public function postAction(){
 			$data = $this->request->getPost();
 			$biography = (new Biography)->setContent($data['content']);

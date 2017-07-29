@@ -1,4 +1,5 @@
 <?php
+    // on initialise une session
     session_start();
     
     use OCProjet4\model\http\Request;
@@ -22,8 +23,10 @@
 
     $router = new Router($request, $response, $app);
 
+    //le routeur analyse l'ur et et renvoi le bon controller avec la bonne action
     $router->dispatch();
     
+    //on affiche la réponse
     echo $response;
 ?>
 

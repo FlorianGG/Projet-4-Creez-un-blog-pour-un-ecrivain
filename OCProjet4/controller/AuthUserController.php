@@ -14,11 +14,16 @@
 			parent::__construct($request, $response, $app);
 		}
 
+		// fonction qui renvoie la vue pour logger un user
 		public function authAction(){
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate();
 			return $this->response->setBody($html);
 		}
 
+		// fonction login qui execute la fonction login du model
+		// crée un cookie si nécessaire
+		// renvoie un message sur le statut de la confirmation
+		// redirige sur la page
 		public function loginAction(){
 			$pseudo = $this->request->getPost()['pseudo'];
 			$pass = $this->request->getPost()['pass'];
@@ -42,6 +47,9 @@
 			}
 		}
 
+		// fonction pour se délogger
+		// renvoie un message
+		// réinitialise les var SESSIONS
 		public function logoutAction(){
 			$_SESSION['userId'] = null;
 			$_SESSION['pseudo'] = null;

@@ -60,6 +60,7 @@
 			}else{
 				$article = (new Article)->read($id);
 
+				// récupère également les commentaires 
 				$comments = (new CommentController($this->request,$this->response, $this->app))->indexAction();
 				//si aucune erreur on affiche l'article selectionné
 				if (!is_null($article)){

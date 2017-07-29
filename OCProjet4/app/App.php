@@ -6,11 +6,13 @@
 	class App{
 		protected $config;
 
+		// fonction qui récupère le chemin et rajoute l'url configuré dans config.yml
 		public function getUrl($path){
 			$domain = $this->getConfig()['domain'];
 			$url = str_replace('\'','', $domain) . $path;
 			return $url;
 		}
+
 
 		//function qui permet de ne parser qu'une fois le fichier config
 		private function getConfig(){
@@ -22,15 +24,20 @@
 			return $this->config;
 		}
 
-		// Gestion des messages de succès ou d'erreur
+		// fonction ajoute le message en paramètre à la variable SESSION 'successMessage'
+		// on utilise cette fonction dans le controller
 		public function addSuccessMessage($message){
 			$_SESSION['successMessage']= $message;
 		}
 
+		// fonction ajoute le message en paramètre à la variable SESSION 'errorMessage'
+		// on utilise cette fonction dans le controller
 		public function addErrorMessage($message){
 			$_SESSION['errorMessage']= $message;
 		}
 
+		//fonction qui renvoi un null si aucun message success n'a été ajouté
+		//fonction qu'on utilise dans la vue
 		public function getSuccessMessage(){
 			if (isset($_SESSION['successMessage']) && !is_null($_SESSION['successMessage'])) {
 				return $_SESSION['successMessage'];
@@ -39,6 +46,8 @@
 			}
 		}
 
+		//fonction qui renvoi un null si aucun message success n'a été ajouté
+		//fonction qu'on utilise dans la vue
 		public function getErrorMessage(){
 			if (isset($_SESSION['errorMessage']) && !is_null($_SESSION['errorMessage'])) {
 				return $_SESSION['errorMessage'];
@@ -47,6 +56,7 @@
 			}
 		}
 
+		// fonction qui delete un message en réinitiallisant les variables SESSIONS
 		function deleteMessage(){
 			$_SESSION['errorMessage'] = null;
 			$_SESSION['successMessage'] = null;

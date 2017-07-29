@@ -17,7 +17,8 @@
 		protected $pseudo;
 		protected $app;
 		
-		// http://localhost?controller=article&action=index
+		// constructeur qui set les variabes action et controller
+		// ces variables permettent de définir quelle vue utiliser
 		public function __construct(Request $request, Response $response, App $app){
 			$this->request = $request;
 			$this->response = $response;

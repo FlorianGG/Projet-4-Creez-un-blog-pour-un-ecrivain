@@ -14,11 +14,14 @@
 			parent::__construct($request, $response, $app);
 		}
 
+		// fonction qui lance la vue pour l'inscription d'un user
 		public function registrationAction(){
 			$html = (new View($this->action, $this->controller, $this->interface, $this->app))->generate();
 			return $this->response->setBody($html);
 		}
 
+		// fonction qui crée ou modifie un user
+		// on verifie d'abbord que les mdp envoyés sont bien identiques
 		public function saveAction(){
 			$post = $this->request->getPost();
 			if($post['pass2'] !== $post['pass']){
@@ -27,6 +30,7 @@
 				$code = 401;
 				$this->response->redirectUrl($this->app->getUrl($path), $code);
 			}
+			// on vérifie le contenu de $post : longueur des contenus et format email
 			if($this->request->checkForm($post)){
 				$user = new User($post);
 				if($user->checkIfExist($user)){
@@ -50,6 +54,7 @@
 					$path ='?controller=home&action=index';
 					$this->response->redirectUrl($this->app->getUrl($path), $code);
 				}else{
+					//on renvoie un message d'erreur si pseudo ou email deja utilisé
 					$this->app->addErrorMessage('Le pseudo ou le mail sont déjà utilisés');
 					$code = 200;
 					$path ='?controller=user&action=registration';
