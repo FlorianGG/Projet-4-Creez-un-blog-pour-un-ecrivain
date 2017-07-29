@@ -22,4 +22,4 @@ Les étapes de ce projet sont définies durant les sessions hebdomadaires de men
 * Modifier le nom du fichier config copie.yml en supprimant le copie.yml
 * Dans ce même fichier inscrire ses paramètres de connection et son url
 * Charger le fichier other/BDD/bddBlog.sql pour importer la base de données
-* une PNG de la bdd est disponible dans other/BDD/
+* un PNG de la bdd est disponible dans other/BDD/
